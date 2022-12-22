@@ -11,7 +11,7 @@ export const enum PageIds {
 }
 
 class App {
-    private static container: HTMLElement = document.body;
+    private static container: HTMLElement | null = document.getElementById('content');
     private static defaultPageId: string = 'current-page'
     private initialPage: MainPage;
     private header: Header;
@@ -34,7 +34,7 @@ class App {
         if (page) {
             const pageHTML = page.render();
             pageHTML.id = App.defaultPageId;
-            App.container.append(pageHTML);
+            App.container?.append(pageHTML);
         }
     }
 
@@ -51,7 +51,7 @@ class App {
     }
 
     run () {
-        App.container.append(this.header.render());
+        App.container?.append(this.header.render());
         App.renderNewPage('bucket-page');
         this.enableRouteChange();
     }
