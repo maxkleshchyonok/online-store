@@ -28,7 +28,8 @@ module.exports = ({develop}) => ({
         // Static files that get copied to build folder
         public: path.resolve(__dirname, '../public'),
         //resources
-        images: path.resolve(__dirname, './assets/img')
+        images: path.resolve(__dirname, './assets/img'),
+        types: path.resolve(__dirname, './core/types')
         },
         extensions: ['.ts', '.js']
     },
