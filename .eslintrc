@@ -4,6 +4,7 @@
     "es2021": true
   },
   "extends": [
+    "plugin:import/recommended",
     "airbnb-typescript/base",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended"
@@ -16,6 +17,8 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "no-useless-constructor": "off",
+    "@typescript-eslint/no-useless-constructor": "warn",
     "no-plusplus": "off",
     "no-console": "warn",
     "max-len": ["warn", { "code": 120 }],

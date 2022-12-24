@@ -20,10 +20,22 @@ const esLintPlugin = (isDev) => isDev ? [] : [ new ESLintPlugin({ extensions: ['
 
 
 module.exports = ({develop}) => ({
+    resolve: {
+        alias: {
+        src: path.resolve(__dirname, './src'),
+        // Production build files
+        build: path.resolve(__dirname, './dist'),
+        // Static files that get copied to build folder
+        public: path.resolve(__dirname, '../public'),
+        //resources
+        images: path.resolve(__dirname, './assets/img')
+        },
+        extensions: ['.ts', '.js']
+    },
     mode: develop ? 'development' : 'production',
     devtool: develop ? 'inline-source-map' : false,
     entry: {
-        app: './src/index.ts',
+        app: 'src/index.ts',
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -58,9 +70,6 @@ module.exports = ({develop}) => ({
                 use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
             }
         ]
-    },
-    resolve: {
-        extensions: ['.ts', '.js']
     },
     plugins: [
         new HtmlWebpackPlugin({

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 0,
+    "email": "foteev@gmail.com",
+    "passwordMAYBEHASHLATER?": "12345qwe",
+    "avatar": "",
+    "role": "admin",
+    "name": "Andrey",
+    "surname": "Foteyev",
+    "phone": "123456789",
+    "delivery_address": "Zabraniecka 82/312, 03-787 Warszawa, Polska",
+    "payment_address": "Konstantego Ildefonsa Gałczyńskiego 9, 00-363 Warszawa, Polska",
+    "payment_method": "creditcard",
+    "tax": true,
+    "company": {
+      "name": "Paletport",
+      "NIP": 1234567890,
+      "address": "Długa 2a, 05-860 Płochocin, Polska",
+      "delivery_time": "8-16"
+    }
+  }
+]
