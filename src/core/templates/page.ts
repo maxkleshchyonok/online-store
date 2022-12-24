@@ -1,21 +1,22 @@
 abstract class Page {
-    protected container: HTMLElement;
-    static TextObject = {};
+  protected container: HTMLElement;
 
-    protected constructor(id: string) {
-        this.container = document.createElement('div');
-        this.container.id = id;
-    }
+  static TextObject = {};
 
-    protected createHeaderTitle(text: string) {
-        const headerTitle = document.createElement('h1');
-        headerTitle.innerText = text;
-        return headerTitle;
-    }
+  protected constructor(id: string) {
+    this.container = document.createElement('div');
+    this.container.id = id;
+  }
 
-    render(){
-        return this.container;
-    }
+  protected createHeaderTitle(text: string) {
+    const headerTitle = document.createElement('h1');
+    headerTitle.innerText = text;
+    return headerTitle;
+  }
+
+  render() {
+    return this.container;
+  }
 }
 
 export default Page;
