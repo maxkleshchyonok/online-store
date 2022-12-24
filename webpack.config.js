@@ -81,6 +81,14 @@ module.exports = ({develop}) => ({
         new CleanWebpackPlugin({
             cleanStaleWebpackAssets: false
         }),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, 'src', 'assets'),
+                    to: 'assets'
+                }
+            ]
+        }),
         ...esLintPlugin(develop),
     ],
     ...devServer(develop),
