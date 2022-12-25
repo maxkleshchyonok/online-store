@@ -10,8 +10,8 @@
     "width": 800,
     "height": 144,
     "load": 1500,
-    "image1": "images/products/palety_euro/euro_nowe_1.jpg",
-    "image2": "images/products/palety_euro/euro_nowe_2.jpg",
+    "image1": "assets/images/products/palety_euro/euro_nowe_1.jpg",
+    "image2": "/images/products/palety_euro/euro_nowe_2.jpg",
     "info": "Paleta euro EPAL to najpopularniejsza paleta w Europie. Europaleta o wymiarach 1200x800x144 mm wykonana w pełni z wysokiej jakości drewna świerkowego.",
     "price": 100,
     "quantity": 1000

@@ -55,7 +55,7 @@ class App {
 
   run() {
     App.container?.append(this.header.render());
-    App.renderNewPage('bucket-page');
+    App.renderNewPage('catalog-page');
     this.enableRouteChange();
   }
 }

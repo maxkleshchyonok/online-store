@@ -1,6 +1,20 @@
+$font-stack: Lato, sans-serif;
+$primary-color: #474A51;
+
+%text-base {
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .header-container{
   div{
     display: flex;
     justify-content: space-evenly;
   }
+}
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
 }
