@@ -11,6 +11,7 @@
   width: 260px;
   height: 200px;
   background: $primary-color;
+  // background-image: url('');
 }
 .product__name {
   @extend %text-base;

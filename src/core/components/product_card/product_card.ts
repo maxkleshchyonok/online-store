@@ -1,4 +1,4 @@
-import Product from '../product';
+import Product from '../product/product';
 import productsJSON from '../../../assets/json/products.json';
 import './product_card.scss';
 
@@ -12,6 +12,7 @@ const createProductCard: (product: Product, container: HTMLElement, i: number) =
   }
 
   createElement('div', 'product__image');
+  // createElement('image', 'product__image');
   createElement('div', 'product__name');
   createElement('div', 'product__length');
   createElement('div', 'product__width');
@@ -20,6 +21,7 @@ const createProductCard: (product: Product, container: HTMLElement, i: number) =
   createElement('button', 'product__button');
 
   const image = container.querySelector('.product__image') as HTMLDivElement;
+  // const image = container.querySelector('.product__image') as HTMLImageElement;
   const name = container.querySelector('.product__name') as HTMLSpanElement;
   const length = container.querySelector('.product__length') as HTMLSpanElement;
   const width = container.querySelector('.product__width') as HTMLSpanElement;

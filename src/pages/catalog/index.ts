@@ -1,6 +1,6 @@
 import Page from '../../core/templates/page';
 import createProductCard from '../../core/components/product_card/product_card';
-import Product from '../../core/components/product';
+import Product from '../../core/components/product/product';
 import productsJSON from '../../assets/json/products.json';
 import './index.scss';
 
