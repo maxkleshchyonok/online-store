@@ -1,8 +1,8 @@
 import Page from '../../core/templates/page';
 
-class BucketPage extends Page {
+class CartPage extends Page {
   static TextObject = {
-    MainTitle: 'Bucket page',
+    MainTitle: 'Cart page',
   };
 
   constructor(id: string) {
@@ -10,10 +10,10 @@ class BucketPage extends Page {
   }
 
   render(): HTMLElement {
-    const title = this.createHeaderTitle(BucketPage.TextObject.MainTitle);
+    const title = this.createHeaderTitle(CartPage.TextObject.MainTitle);
     this.container.append(title);
     return this.container;
   }
 }
 
-export default BucketPage;
+export default CartPage;

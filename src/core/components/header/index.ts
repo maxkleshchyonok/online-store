@@ -13,7 +13,7 @@ const Buttons = [
     text: 'Catalog',
   },
   {
-    id: PageIds.BucketPageId,
+    id: PageIds.CartPageId,
     text: 'Bucket',
   },
 ];
@@ -35,6 +35,7 @@ class Header extends Component {
   }
 
   render(): HTMLElement {
+
     this.renderPageButtons();
     return this.container;
   }

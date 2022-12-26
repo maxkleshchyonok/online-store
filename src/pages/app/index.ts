@@ -1,13 +1,13 @@
 import MainPage from '../main';
 import CatalogPage from '../catalog';
 import Page from '../../core/templates/page';
-import BucketPage from '../bucket';
+import CartPage from '../cart';
 import Header from '../../core/components/header';
 
 export const enum PageIds {
   MainPageId = 'main-page',
   CatalogPageId = 'catalog-page',
-  BucketPageId = 'bucket-page',
+  CartPageId = 'cart-page',
 }
 
 class App {
@@ -30,8 +30,8 @@ class App {
       page = new MainPage(idPage);
     } else if (idPage === PageIds.CatalogPageId) {
       page = new CatalogPage(idPage);
-    } else if (idPage === PageIds.BucketPageId) {
-      page = new BucketPage(idPage);
+    } else if (idPage === PageIds.CartPageId) {
+      page = new CartPage(idPage);
     }
 
     if (page) {
@@ -55,7 +55,8 @@ class App {
 
   run() {
     App.container?.append(this.header.render());
-    App.renderNewPage('bucket-page');
+    App.renderNewPage('main-page');
+    window.location.hash = PageIds.MainPageId;
     this.enableRouteChange();
   }
 }
