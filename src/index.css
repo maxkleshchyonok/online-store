@@ -1,6 +1,78 @@
-.header-container div {
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.content {
+  width: 100%;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+}
+.content .header-container .header-info {
+  height: 37px;
+  background: rgb(51, 51, 51);
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: row;
+  padding-left: 5%;
+}
+.content .header-container .header-info .info-item {
+  margin-top: 0.5%;
+}
+.content .header-container .header-info .info-item a {
+  font-weight: 400;
+  font-size: 14px;
+  text-decoration: none;
+  color: rgb(250, 250, 250);
+}
+.content .header-container .header-info .email {
+  margin-left: 5%;
+}
+.content .header-container .header-info .phone {
+  margin-left: 5%;
+}
+.content .header-container .header-info .cart {
+  margin-left: 45%;
+}
+.content .header-container .header-main {
+  height: 93px;
+  border: 1px solid gray;
+}
+.content .footer-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 200px;
+  background: rgb(71, 74, 81);
+  display: flex;
+  flex-direction: row;
+}
+.content .footer-container .footer-bar {
+  margin-left: 35.7%;
+  margin-top: 2%;
+  width: 21%;
+  height: 58%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.content .footer-container .footer-bar .footer-bar-item {
+  margin-bottom: 3%;
+  text-decoration: none;
+  font-size: 14px;
+  color: rgb(229, 229, 229);
+}
+.content .footer-container .footer-info {
+  margin-top: 2%;
+  margin-left: 18%;
+  width: 12%;
+  height: 64%;
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+}
+.content .footer-container .footer-info .footer-info-item {
+  width: 115%;
+  font-size: 14px;
+  color: rgb(229, 229, 229);
 }
 
 /*# sourceMappingURL=index.css.map */

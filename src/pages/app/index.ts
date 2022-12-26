@@ -3,6 +3,7 @@ import CatalogPage from '../catalog';
 import Page from '../../core/templates/page';
 import CartPage from '../cart';
 import Header from '../../core/components/header';
+import Footer from "../../core/components/footer";
 
 export const enum PageIds {
   MainPageId = 'main-page',
@@ -18,6 +19,8 @@ class App {
   private initialPage: MainPage;
 
   private header: Header;
+
+  private footer: Footer;
 
   static renderNewPage(idPage: string) {
     const currentPageHTML = document.getElementById(App.defaultPageId);
@@ -51,11 +54,13 @@ class App {
   constructor() {
     this.header = new Header('header', 'header-container');
     this.initialPage = new MainPage('main-page');
+    this.footer = new Footer('footer', 'footer-container');
   }
 
   run() {
     App.container?.append(this.header.render());
     App.renderNewPage('main-page');
+    App.container?.append(this.footer.render());
     window.location.hash = PageIds.MainPageId;
     this.enableRouteChange();
   }
