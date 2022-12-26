@@ -1,6 +1,8 @@
 import Component from '../../templates/components';
 import { PageIds } from '../../../pages/app';
 
+export const headerModule = document.querySelector('#body')
+
 const Buttons = [
   {
     id: PageIds.MainPageId,
@@ -31,9 +33,6 @@ class Header extends Component {
     });
     this.container.append(pageButtons);
   }
-
-
-
 
   render(): HTMLElement {
     this.renderPageButtons();
