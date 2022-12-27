@@ -20,24 +20,24 @@ const HeaderInfo = [
   {
     id: 'location',
     text: 'MAZOWIECKIE',
-    img: '../../../img/elements/location.svg'
+    img: '../../../img/elements/location.svg',
   },
   {
     id: 'email',
     text: 'info@palletport.pl',
-    img: '../../../img/elements/location.svg'
+    img: '../../../img/elements/location.svg',
   },
   {
     id: 'phone',
     text: '+48666666666',
-    img: '../../../img/elements/location.svg'
+    img: '../../../img/elements/location.svg',
   },
   {
     id: 'cart',
     text: 'Twoje konto',
-    img: '../../../img/elements/location.svg'
-  }
-]
+    img: '../../../img/elements/location.svg',
+  },
+];
 
 class Header extends Component {
   constructor(tagName: string, className: string) {
@@ -47,7 +47,7 @@ class Header extends Component {
 
   private renderHeaderInfo(): void {
     const containerInfo = document.createElement('div');
-    containerInfo.className = 'header-info'
+    containerInfo.className = 'header-info';
     HeaderInfo.forEach(item => {
       const infoItem = document.createElement('div');
       const infoItemImg = document.createElement('img');

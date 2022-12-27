@@ -32,31 +32,31 @@ const FooterBar = [
     {
         id: 'lokalizacja',
         text: 'Lokalizacja',
-    }
+    },
 ];
 
 const FooterInfo = [
     {
         id: 'footer-location',
         text: 'Warszawa, ul Dzika 36',
-        img: '../../../img/elements/location.svg'
+        img: '../../../img/elements/location.svg',
     },
     {
         id: 'working-hours',
         text: 'Codziennie 10:00 - 19:30',
-        img: '../../../img/elements/location.svg'
+        img: '../../../img/elements/location.svg',
     },
     {
         id: 'footer-email',
         text: 'info@palletport.pl',
-        img: '../../../img/elements/location.svg'
+        img: '../../../img/elements/location.svg',
     },
     {
         id: 'footer-phone',
         text: '666666666',
-        img: '../../../img/elements/location.svg'
-    }
-]
+        img: '../../../img/elements/location.svg',
+    },
+];
 
 class Footer extends Component {
     constructor(tagName: string, className: string) {
@@ -87,7 +87,7 @@ class Footer extends Component {
             infoItem.className = 'footer-info-item';
             infoItem.innerText = item.text;
             footerInfo.append(infoItemImg, infoItem);
-        })
+        });
         this.container.append(footerInfo);
     }
 

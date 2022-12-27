@@ -3,7 +3,7 @@ import CatalogPage from '../catalog';
 import Page from '../../core/templates/page';
 import CartPage from '../cart';
 import Header from '../../core/components/header';
-import Footer from "../../core/components/footer";
+import Footer from '../../core/components/footer';
 
 export const enum PageIds {
   MainPageId = 'main-page',
