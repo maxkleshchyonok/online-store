@@ -1,4 +1,4 @@
-import './index.css';
+import './index.scss';
 import App from './pages/app';
 
 const app = new App();

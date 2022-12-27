@@ -26,9 +26,10 @@ module.exports = ({develop}) => ({
         // Production build files
         build: path.resolve(__dirname, './dist'),
         // Static files that get copied to build folder
-        public: path.resolve(__dirname, '../public'),
+        public: path.resolve(__dirname, './public'),
         //resources
-        images: path.resolve(__dirname, './assets/img')
+        images: path.resolve(__dirname, './assets/img'),
+        types: path.resolve(__dirname, './core/types')
         },
         extensions: ['.ts', '.js']
     },
@@ -80,6 +81,18 @@ module.exports = ({develop}) => ({
         }),
         new CleanWebpackPlugin({
             cleanStaleWebpackAssets: false
+        }),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, 'src', 'assets'),
+                    to: 'assets'
+                },
+                {
+                    from: './static',
+                    to: './static'
+                }
+            ]
         }),
         ...esLintPlugin(develop),
     ],
