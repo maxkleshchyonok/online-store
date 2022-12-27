@@ -54,7 +54,7 @@ class Header extends Component {
       const infoItemA = document.createElement('a');
       infoItem.className = `info-item ${item.id}`;
       infoItem.id = item.id;
-      infoItemImg.src = './location.svg';
+      infoItemImg.src = '../../assets/img/elements/location.svg';
       infoItemA.href = '#';
       infoItemA.innerText = item.text;
       infoItem.append(infoItemImg, infoItemA);

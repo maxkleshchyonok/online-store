@@ -41,9 +41,9 @@ class CatalogPage extends Page {
                               </li>
                             </ul>`;
 
-                            // const categoryChechboxes = this.container.querySelector('.filters__form') as HTMLElement;
+    // const categoryChechboxes = this.container.querySelector('.filters__form') as HTMLElement;
                             
-                            // console.log(categoryChechboxes);
+    // console.log(categoryChechboxes);
     filtersSection.append(filtersForm);
     filtersForm.innerHTML = '';
 
@@ -53,20 +53,20 @@ class CatalogPage extends Page {
     for (let i = 0; i < 20; i++) {
       const productData = productsJSON[i];
       const product = new Product(productData.id,
-                                  productData.short,
-                                  productData.name,
-                                  productData.category,
-                                  productData.condition,
-                                  productData.material,
-                                  productData.length,
-                                  productData.width,
-                                  productData.height,
-                                  productData.load,
-                                  productData.image1,
-                                  productData.image2,
-                                  productData.info,
-                                  productData.price,
-                                  productData.quantity);
+        productData.short,
+        productData.name,
+        productData.category,
+        productData.condition,
+        productData.material,
+        productData.length,
+        productData.width,
+        productData.height,
+        productData.load,
+        productData.image1,
+        productData.image2,
+        productData.info,
+        productData.price,
+        productData.quantity);
 
       const card = document.createElement('div');
       card.classList.add('product__card');

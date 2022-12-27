@@ -1,4 +1,4 @@
-import { SortEnum, IFilters, INITIAL_STATE } from '../../types/types';
+import { IFilters, INITIAL_STATE } from '../../types/types';
 
 export default class Filters implements IFilters {
   // public price: [number, number] | [];
@@ -11,7 +11,7 @@ export default class Filters implements IFilters {
   // public load: [number, number] | [];
   // public sort: SortEnum;
 
-  constructor(category: string) {
+  constructor() {
     this.category = INITIAL_STATE.category;
   }
 

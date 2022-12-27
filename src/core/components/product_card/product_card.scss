@@ -10,24 +10,24 @@
 .product__image {
   width: 260px;
   height: 200px;
-  background: $primary-color;
+  // background: $primary-color;
   // background-image: url('');
 }
-.product__name {
-  @extend %text-base;
-}
-.product__length {
-  @extend %text-base;
-}
-.product__width {
-  @extend %text-base;
-}
-.product__load {
-  @extend %text-base;
-}
-.product__quantity {
-  @extend %text-base;
-}
-.product__button {
-  @extend %text-base;
-}
+// .product__name {
+//   @extend %text-base;
+// }
+// .product__length {
+//   @extend %text-base;
+// }
+// .product__width {
+//   @extend %text-base;
+// }
+// .product__load {
+//   @extend %text-base;
+// }
+// .product__quantity {
+//   @extend %text-base;
+// }
+// .product__button {
+//   @extend %text-base;
+// }

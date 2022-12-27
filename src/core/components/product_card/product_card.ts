@@ -1,8 +1,7 @@
 import Product from '../product/product';
-import productsJSON from '../../../assets/json/products.json';
 import './product_card.scss';
 
-const createProductCard: (product: Product, container: HTMLElement, i: number) => void = (product, container, i) => {
+const createProductCard: (product: Product, container: HTMLElement, i?: number) => void = (product, container) => {
 
   function createElement(tag: string, tagClass: string): void {
     const el = document.createElement(tag);
@@ -19,7 +18,7 @@ const createProductCard: (product: Product, container: HTMLElement, i: number) =
   createElement('div', 'product__quantity');
   createElement('button', 'product__button');
 
-  const image = container.querySelector('.product__image') as HTMLDivElement;
+  // const image = container.querySelector('.product__image') as HTMLDivElement;
   // const image = container.querySelector('.product__image') as HTMLImageElement;
   const name = container.querySelector('.product__name') as HTMLSpanElement;
   const length = container.querySelector('.product__length') as HTMLSpanElement;
