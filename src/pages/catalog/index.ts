@@ -27,6 +27,28 @@ class CatalogPage extends Page {
     const catalogSection = this.container.querySelector('.catalog__section') as HTMLElement;
 
     filtersSection.textContent = 'FILTERS FILTERS FILTERS FILTERS';
+    const filtersForm = document.createElement('form') as HTMLFormElement;
+    filtersForm.classList.add('filters__form');
+
+    filtersForm.innerHTML = `<ul>
+                              <li class="category__item">
+                                <input id="chk" type="checkbox" class="category__checkbox" value="Palety Euro" checked>
+                                <label class="category__label">Palety Euro</label>
+                              </li>
+                              <li class="category__item">
+                                <input type="checkbox" class="category__checkbox" value="Palety jednorazowe" checked>
+                                <label class="category__label">Palety jednorazowe</label>
+                              </li>
+                            </ul>`;
+
+                            // const categoryChechboxes = this.container.querySelector('.filters__form') as HTMLElement;
+                            
+                            // console.log(categoryChechboxes);
+    filtersSection.append(filtersForm);
+    filtersForm.innerHTML = '';
+
+
+
 
     for (let i = 0; i < 20; i++) {
       const productData = productsJSON[i];

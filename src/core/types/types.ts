@@ -25,25 +25,25 @@ export enum SortEnum {
 }
 
 export interface IFilters {
-  price: [number, number] | [];
-  stock: boolean;
-  category: string[];
-  material: string[];
-  length: [number, number] | [];
-  width: [number, number] | [];
-  height: [number, number] | [];
-  load: [number, number] | [];
-  sort: SortEnum;
+  // price: [number, number] | [];
+  // stock: boolean;
+  category: string;
+  // material: string[];
+  // length: [number, number] | [];
+  // width: [number, number] | [];
+  // height: [number, number] | [];
+  // load: [number, number] | [];
+  // sort: SortEnum;
 }
 
 export const INITIAL_STATE: IFilters = {
-  price: [],
-  stock: false,
-  category: [],
-  material: [],
-  length: [],
-  width: [],
-  height: [],
-  load: [],
-  sort: SortEnum.DEFAULT,
+  // price: [],
+  // stock: false,
+  category: '',
+  // material: [],
+  // length: [],
+  // width: [],
+  // height: [],
+  // load: [],
+  // sort: SortEnum.DEFAULT,
 };

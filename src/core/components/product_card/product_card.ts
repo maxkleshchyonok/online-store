@@ -8,7 +8,6 @@ const createProductCard: (product: Product, container: HTMLElement, i: number) =
     const el = document.createElement(tag);
     el.classList.add(tagClass);
     container.append(el);
-    console.log(container);
   }
 
   createElement('div', 'product__image');
