@@ -1,0 +1,14 @@
+@import '../../index.scss';
+
+.catalog__wrapper {
+  display: flex;
+  width: 1440px;
+}
+.filters__section {
+  width: 0.2;
+}
+.catalog__section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
