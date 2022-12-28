@@ -18,9 +18,9 @@
   ],
   "rules": {
     "no-useless-constructor": "off",
-    "@typescript-eslint/no-useless-constructor": "warn",
+    "@typescript-eslint/no-useless-constructor": "off",
     "no-plusplus": "off",
-    "no-console": "warn",
+    "no-console": "off",
     "max-len": ["warn", { "code": 120 }],
     "indent": ["warn", 2, {
       "SwitchCase": 1

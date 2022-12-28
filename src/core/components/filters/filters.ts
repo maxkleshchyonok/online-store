@@ -1,6 +1,7 @@
+import Component from '../../templates/components';
 import { IFilters, INITIAL_STATE } from '../../types/types';
 
-export default class Filters implements IFilters {
+export default class Filters implements IFilters extends Component {
   // public price: [number, number] | [];
   // public stock: boolean;
   public category: string;
@@ -19,11 +20,10 @@ export default class Filters implements IFilters {
     this.category = INITIAL_STATE.category;
   }
   
-  public initFilters(category: string): void {
-    if (localStorage.getItem('category')) {
-      const categoryQuery = localStorage.getItem('category');
-      this.category = categoryQuery as string;
-    } else this.category = category;
+  public initFilters(): void {
+    const categoryCheck = document.querySelector('.category__checkbox') as HTMLElement;
+    // this.category = categoryCheck.innerHTML as string;
+    console.log(categoryCheck);
   }
 
   public recordFilters(): void {
