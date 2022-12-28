@@ -19,6 +19,7 @@
   "rules": {
     "no-useless-constructor": "off",
     "@typescript-eslint/no-useless-constructor": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
     "no-plusplus": "off",
     "no-console": "off",
     "max-len": ["warn", { "code": 120 }],

@@ -15,8 +15,10 @@
       flex-direction: row;
       padding-left: 5%;
       .info-item{
+        width: 10%;
         margin-top: 0.5%;
         a{
+          margin-left: 9%;
           font-weight: 400;
           font-size: 14px;
           text-decoration: none;
@@ -29,18 +31,37 @@
       .phone{
         margin-left: 5%;
       }
-      .cart{
+      .konto{
         margin-left: 45%;
       }
     }
     .header-main{
       height: 93px;
       border: 1px solid gray;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .catalog-block{
+        width: 7%;
+        text-decoration: none;
+        display: flex;
+        flex-direction: row;
+        .catalog-block-text{
+          margin-left: 10%;
+          text-decoration: none;
+          color: rgba(51, 51, 51, 1);
+          font-size: 16px;
+          font-weight: 600;
+        }
+      }
+      .cart-block{
+        text-decoration: none;
+        color: rgba(51, 51, 51, 1);
+        font-size: 16px;
+        font-weight: 600;
+      }
     }
-    //div{
-    //  display: flex;
-    //  justify-content: space-evenly;
-    //}
   }
   .footer-container{
     position: absolute;
