@@ -1,0 +1,115 @@
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.content {
+  width: 100%;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+}
+.content .header-container .header-info {
+  height: 37px;
+  background: rgb(51, 51, 51);
+  display: flex;
+  flex-direction: row;
+  padding-left: 5%;
+}
+.content .header-container .header-info .info-item {
+  width: 10%;
+  margin-top: 0.5%;
+}
+.content .header-container .header-info .info-item a {
+  margin-left: 9%;
+  font-weight: 400;
+  font-size: 14px;
+  text-decoration: none;
+  color: rgb(250, 250, 250);
+}
+.content .header-container .header-info .email {
+  margin-left: 5%;
+}
+.content .header-container .header-info .phone {
+  margin-left: 5%;
+}
+.content .header-container .header-info .konto {
+  margin-left: 45%;
+}
+.content .header-container .header-main {
+  height: 93px;
+  border: 1px solid gray;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.content .header-container .header-main .catalog-block {
+  width: 7%;
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+}
+.content .header-container .header-main .catalog-block .catalog-block-text {
+  margin-left: 10%;
+  text-decoration: none;
+  color: rgb(51, 51, 51);
+  font-size: 16px;
+  font-weight: 600;
+}
+.content .header-container .header-main .cart-block {
+  text-decoration: none;
+  color: rgb(51, 51, 51);
+  font-size: 16px;
+  font-weight: 600;
+}
+.content .footer-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 200px;
+  background: rgb(71, 74, 81);
+  display: flex;
+  flex-direction: row;
+}
+.content .footer-container .footer-bar {
+  margin-left: 35.7%;
+  margin-top: 2%;
+  width: 21%;
+  height: 58%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.content .footer-container .footer-bar .footer-bar-item {
+  margin-bottom: 3%;
+  text-decoration: none;
+  font-size: 14px;
+  color: rgb(229, 229, 229);
+}
+.content .footer-container .footer-info {
+  margin-top: 2%;
+  margin-left: 18%;
+  width: 12%;
+  height: 64%;
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+}
+.content .footer-container .footer-info .footer-info-item {
+  width: 115%;
+  font-size: 14px;
+  color: rgb(229, 229, 229);
+}
+
+.product__card {
+  width: 260px;
+  height: 410px;
+  box-sizing: border-box;
+  border: 1px solid;
+}
+
+.product__image {
+  width: 260px;
+  height: 200px;
+}
+
+/*# sourceMappingURL=product_card.css.map */

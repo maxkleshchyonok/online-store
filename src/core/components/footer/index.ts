@@ -39,22 +39,22 @@ const FooterInfo = [
   {
     id: 'footer-location',
     text: 'Warszawa, ul Dzika 36',
-    img: '../../../img/elements/location.svg',
+    img: '../../assets/img/elements/footer-loc.svg',
   },
   {
     id: 'working-hours',
     text: 'Codziennie 10:00 - 19:30',
-    img: '../../../img/elements/location.svg',
+    img: '../../assets/img/elements/clock.svg',
   },
   {
     id: 'footer-email',
     text: 'info@palletport.pl',
-    img: '../../../img/elements/location.svg',
+    img: '../../assets/img/elements/footer-mail.svg',
   },
   {
     id: 'footer-phone',
     text: '666666666',
-    img: '../../../img/elements/location.svg',
+    img: '../../assets/img/elements/footer-phone.svg',
   },
 ];
 
