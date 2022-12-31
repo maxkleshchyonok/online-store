@@ -2,10 +2,17 @@
 
 .catalog__wrapper {
   display: flex;
-  width: 1440px;
 }
 .filters__section {
-  width: 0.2;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.categories__block {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 .catalog__section {
   display: flex;
