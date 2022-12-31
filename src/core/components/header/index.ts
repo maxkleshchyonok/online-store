@@ -63,33 +63,33 @@ class Header extends Component {
     this.container.append(containerInfo);
   }
 
-  // private renderHeaderMain(): void {
-  //   const containerMain = document.createElement('div');
-  //   containerMain.className = 'header-main';
-  //   Buttons.forEach( button => {
-  //     const buttonHTML = document.createElement('a');
-  //     buttonHTML.href = `#${button.id}`;
-  //     buttonHTML.id = button.id;
-  //     // if (buttonHTML.id === 'main-page') {
-  //     //   buttonHTML.append(logo);
-  //     // }
-  //     buttonHTML.innerText = button.text;
-  //     containerMain.append(buttonHTML);
-  //   });
-  //   this.container.append(containerMain);
-  // }
 
   private renderHeaderMain(): void {
     const containerMain = document.createElement('div');
+
     const logoBlock = document.createElement('a');
     const logo = document.createElement('img');
+
     const catalogBlock = document.createElement('a');
     const catalogImg = document.createElement('img');
     const catalogText = document.createElement('p');
+
     const cartBlock = document.createElement('a');
+    const cartImg = document.createElement('img');
+    const cartPrice = document.createElement('p');
+
+    const sales = document.createElement('a');
+
+    const searchBlock = document.createElement('div');
+    const searchInput = document.createElement('input');
+    const searchButton = document.createElement('button');
+
+    const likeBlock = document.createElement('a');
+    const likeImg = document.createElement('img');
 
     logoBlock.id = Buttons[0].id;
     logoBlock.href = `#${Buttons[0].id}`;
+    logoBlock.className = 'logo-block';
     logo.src = '../../assets/img/elements/palletport_logo_small.svg';
     containerMain.className = 'header-main';
 
@@ -100,12 +100,34 @@ class Header extends Component {
     catalogText.className = 'catalog-block-text';
     catalogBlock.append(catalogImg, catalogText);
 
-    cartBlock.innerText = Buttons[2].text;
+    sales.innerText = 'Wyprzedaż';
+    sales.href = '#';
+    sales.className = 'wyprzedaz';
+
+    searchInput.type = 'text';
+    searchInput.placeholder = 'Wpisz nazwę towaru';
+    searchInput.className = 'input-field';
+    searchButton.innerText = 'Szukaj';
+    searchButton.className = 'input-button';
+    searchBlock.className = 'search';
+    searchBlock.append(searchInput, searchButton);
+
+    likeImg.src = '../../assets/img/elements/like.svg';
+    likeImg.className = 'like-image';
+    likeBlock.append(likeImg);
+    likeBlock.className = 'like-block';
+    likeBlock.href = '#';
+
+    // cartBlock.innerText = Buttons[2].text;
+    cartImg.src = '../../assets/img/elements/cart.svg';
+    cartPrice.innerText = '152 243,66 Zł';
+    cartPrice.className = 'cart-price';
     cartBlock.href = `#${Buttons[2].id}`;
     cartBlock.className = 'cart-block';
+    cartBlock.append(cartImg, cartPrice);
 
     logoBlock.append(logo);
-    containerMain.append(logoBlock, catalogBlock, cartBlock);
+    containerMain.append(logoBlock, catalogBlock, sales, searchBlock, likeBlock, cartBlock);
     this.container.append(containerMain);
   }
 
