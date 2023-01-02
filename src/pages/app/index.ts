@@ -22,6 +22,8 @@ class App {
 
   private footer: Footer;
 
+  previousPage = '';
+
   static renderNewPage(idPage: string) {
     const currentPageHTML = document.getElementById(App.defaultPageId);
     if (currentPageHTML) {
@@ -40,15 +42,27 @@ class App {
     if (page) {
       const pageHTML = page.render();
       pageHTML.id = App.defaultPageId;
+      // this.previousPage = window.location.hash.slice(1);
       App.container?.append(pageHTML);
     }
   }
 
   private enableRouteChange() {
-    window.addEventListener('hashchange', () => {
+    const loadPage = () => {
       const hash = window.location.hash.slice(1);
-      App.renderNewPage(hash);
-    });
+  
+      if (!hash) {
+        window.location.hash = 'main-page';
+      }
+      if (!hash.includes('?')) {
+        App.renderNewPage(hash);
+      } else {
+        App.renderNewPage('catalog-page');
+      }
+    };
+
+    window.addEventListener('load', loadPage);
+    window.addEventListener('hashchange', loadPage);
   }
 
   constructor() {
@@ -59,9 +73,9 @@ class App {
 
   run() {
     App.container?.append(this.header.render());
-    App.renderNewPage('main-page');
+    App.renderNewPage('catalog-page');
     App.container?.append(this.footer.render());
-    window.location.hash = PageIds.MainPageId;
+    window.location.hash = PageIds.CatalogPageId;
     this.enableRouteChange();
   }
 }

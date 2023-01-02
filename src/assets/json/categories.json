@@ -1,34 +1,42 @@
 [
   {
   "name": "Palety Euro",
+  "short": "palety_euro",
   "productIDs": [0, 1, 2, 3]
   },
   {
     "name": "Palety europodobne",
+    "short": "palety_europodobne",
     "productIDs": [4, 5]
   },
   {
     "name": "Palety jednorazowe",
+    "short": "palety_jedno",
     "productIDs": [6, 7, 8, 9, 10]
   },
   {
     "name": "Palety przemysłowe",
+    "short": "palety_przem",
     "productIDs": [11, 12]
   },
   {
     "name": "Półpalety",
+    "short": "polpalety",
     "productIDs": [13, 14]
   },
   {
     "name": "Palety plastikowe",
+    "short": "palety_plastik",
     "productIDs": [15, 16]
   },
   {
     "name": "Palety tekturowe",
+    "short": "palety_tektur",
     "productIDs": [17]
   },
   {
     "name": "Nadstawki",
+    "short": "nadstawki",
     "productIDs": [18, 19]
   }
 ]

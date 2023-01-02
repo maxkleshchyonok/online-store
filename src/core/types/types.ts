@@ -25,9 +25,9 @@ export enum SortEnum {
 }
 
 export interface IFilters {
-  // price: [number, number] | [];
+  price: [number, number];
   // stock: boolean;
-  category: string;
+  category: string[];
   // material: string[];
   // length: [number, number] | [];
   // width: [number, number] | [];
@@ -37,9 +37,10 @@ export interface IFilters {
 }
 
 export const INITIAL_STATE: IFilters = {
-  // price: [],
+  price: [0, 1000],
   // stock: false,
-  category: '',
+  category: ['palety_euro', 'palety_europodobne', 'palety_jedno',
+    'palety_przem', 'polpalety', 'palety_plastik', 'palety_tektur', 'nadstawki'],
   // material: [],
   // length: [],
   // width: [],
