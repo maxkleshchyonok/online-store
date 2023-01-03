@@ -5,6 +5,8 @@
 .pricemax__input {
   border: 1px solid;
 }
-.categories__block {
+.categories__form {
   border: 1px solid;
+  display: flex;
+  flex-direction: column;
 }

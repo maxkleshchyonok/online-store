@@ -75,8 +75,8 @@ class App {
 
   run() {
     App.container?.append(this.header.render());
-    // this.renderNewPage('catalog-page');
-    // window.location.hash = PageIds.CatalogPageId;
+    this.renderNewPage('catalog-page');
+    window.location.hash = PageIds.CatalogPageId;
     this.enableRouteChange();
     App.container?.append(this.footer.render());
   }

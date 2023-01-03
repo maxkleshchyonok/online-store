@@ -33,7 +33,7 @@ export default class Filters extends Component implements IFilters {
     this.price = INITIAL_STATE.price;
     this.category = INITIAL_STATE.category;
   }
-  
+
   private categoriesFilter(): void {
 
     const categoriesBlock = document.createElement('form') as HTMLFormElement;
@@ -64,18 +64,52 @@ export default class Filters extends Component implements IFilters {
   private categoryChange():void {
     this.categoryCheckboxes =
       this.container.querySelectorAll('.category__checkbox');
-    this.categoryCheckboxes.forEach((checkbox) => {
-      checkbox.addEventListener('change', () => {
-        if (checkbox.checked) {
-          if (!this.category.find(x => x === checkbox.value))
-            this.category.push(checkbox.value);
-        } else if (!checkbox.checked) {
-          const indexDelete = this.category.findIndex(x => x === checkbox.value);
-          this.category.splice(indexDelete, 1);
-        }
+    if (this.categoryCheckboxes) {
+      this.categoryCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+          const a = [];
+          if (this.categoryCheckboxes)
+            for (let i = 0; i < this.categoryCheckboxes?.length; i += 1) {
+              if (this.categoryCheckboxes[i].checked)
+                a.push(this.categoryCheckboxes[i].value);
+            }
+          // const a = Array.from(this.categoryCheckboxes);
+          // this.category = a.map(x => x.value);
+          this.category = a;
+          parameters.set('category', `${this.category.join(',')}`);
+          console.log(this.category);
+          console.log(parameters);
+        });
       });
-    });
+    }
   }
+
+    // this.categoryCheckboxes.forEach((checkbox) => {
+    //   checkbox.addEventListener('change', () => {
+    //     this.category = INITIAL_STATE.category;
+    //     console.log(this.category);
+
+    //     if (this.category.find(x => x === checkbox.value)) {
+    //       if (!checkbox.checked) {
+    //         const indexDelete = this.category.findIndex(x => x === checkbox.value);
+    //         this.category.splice(indexDelete, 1);
+    //       }
+    //     } else if (checkbox.checked) {
+    //       this.category.push(checkbox.value);
+    //     }
+
+        // if (checkbox.checked) {
+        //   if (!this.category.find(x => x === checkbox.value)) {
+        //     this.category.push(checkbox.value);
+        //   }
+        // } else if (!checkbox.checked) {
+        //   const indexDelete = this.category.findIndex(x => x === checkbox.value);
+        //   this.category.splice(indexDelete, 1);
+        // }
+
+  //     });
+  //   });
+  // }
 
   public priceFilters() {
 
@@ -118,7 +152,7 @@ export default class Filters extends Component implements IFilters {
         console.log(priceSliderValues);
         // priceTemp = [parseInt(priceSliderValues[0]), parseInt(priceSliderValues[1])];
         parameters.set('price', `${priceSliderValues[0]}-${priceSliderValues[1]}`);
-        window.location.hash = parameters.toString() ? `catalog-page?${parameters.toString()}` : '/#catalog-page';
+        window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
       });
     }
 
@@ -133,14 +167,14 @@ export default class Filters extends Component implements IFilters {
   }
 
   run(): void {
-    this.priceFilters();
+    
     this.categoriesFilter();
     // this.resetFilters();
   }
 
   render(): HTMLElement {
     this.categoryChange();
-    this.priceChange();
+    this.priceFilters();
     return this.container;
   }
 }

@@ -37,7 +37,7 @@ export interface IFilters {
 }
 
 export const INITIAL_STATE: IFilters = {
-  price: [0, 1000],
+  price: [0, 500],
   // stock: false,
   category: ['palety_euro', 'palety_europodobne', 'palety_jedno',
     'palety_przem', 'polpalety', 'palety_plastik', 'palety_tektur', 'nadstawki'],
