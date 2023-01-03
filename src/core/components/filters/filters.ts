@@ -4,7 +4,7 @@ import categoriesJSON from '../../../assets/json/categories.json';
 import './filters.scss';
 import * as noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
-import { parameters } from '../parameters';
+import { parameters, createParametersObj, saveParameters, loadParameters } from '../parameters';
 
 export default class Filters extends Component implements IFilters {
   price: [number, number];
@@ -39,20 +39,21 @@ export default class Filters extends Component implements IFilters {
     categoriesBlock.classList.add('categories__form');
 
     for (let i = 0; i < categoriesJSON.length; i++) {
-      this.category.push(categoriesJSON[i].short);
+      const categoryName = (categoriesJSON[i].short);
 
       const categoryCheck = document.createElement('input') as HTMLInputElement;
-      categoryCheck.classList.add(`${this.category[i]}_checkbox`);
+      categoryCheck.classList.add(`${categoryName}_checkbox`);
       categoryCheck.classList.add('category__checkbox');
       categoryCheck.setAttribute('type', 'checkbox');
-      categoryCheck.setAttribute('id', `${this.category[i]}`);
-      categoryCheck.checked = true;
+      categoryCheck.setAttribute('id', `${categoryName}`);
+      categoryCheck.setAttribute('value', `${categoryName}`);
+      categoryCheck.setAttribute('name', `${categoryName}`);
 
-      categoryCheck.setAttribute('value', `${this.category[i]}`);
-      categoryCheck.setAttribute('name', `${this.category[i]}`);
+      if (this.category.find(x => x === categoryCheck.value))
+        categoryCheck.checked = true;
 
       const labelCategoryCheck = document.createElement('label');
-      labelCategoryCheck.setAttribute('for', `${this.category[i]}`);
+      labelCategoryCheck.setAttribute('for', `${categoryName}`);
       labelCategoryCheck.textContent = `${categoriesJSON[i].name}`;
 
       categoriesBlock.append(categoryCheck, labelCategoryCheck);
@@ -74,14 +75,15 @@ export default class Filters extends Component implements IFilters {
             }
           this.category = a;
           parameters.set('category', `${this.category.join(',')}`);
-          console.log(this.category);
-          console.log(parameters);
+          window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
+          createParametersObj();
+          saveParameters();
         });
       });
     }
   }
 
-  public priceFilters() {
+  private priceFilters() {
 
     const priceBlock = document.createElement('form') as HTMLFormElement;
     priceBlock.classList.add('price__form');
@@ -100,8 +102,20 @@ export default class Filters extends Component implements IFilters {
     priceSlider.setAttribute('id', 'price__slider');
     priceSlider.classList.add('price__slider');
 
+    let priceMin = 0;
+    let priceMax = 500;
+
+    if (parameters.get('price')) {
+      const dashIndex: number = parameters.get('price')?.indexOf('-') as number;
+      if (dashIndex) {
+        priceMin = Number(parameters.get('price')?.slice(0, dashIndex));
+        priceMax = Number(parameters.get('price')?.slice(dashIndex + 1));
+      }
+    }
+
+
     noUiSlider.create(priceSlider, {
-      start: [0, 500],
+      start: [priceMin, priceMax],
       connect: true,
       range: {
         'min': 0,
@@ -119,10 +133,11 @@ export default class Filters extends Component implements IFilters {
       priceSlider.noUiSlider.on('update', function (values, handle) {
         priceInputs[handle].value = values[handle].toString();
         const priceSliderValues = priceSlider.noUiSlider?.get() as string[];
-        console.log(priceSliderValues);
         // priceTemp = [parseInt(priceSliderValues[0]), parseInt(priceSliderValues[1])];
         parameters.set('price', `${priceSliderValues[0]}-${priceSliderValues[1]}`);
         window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
+        createParametersObj();
+        saveParameters();
       });
     }
 
@@ -137,14 +152,17 @@ export default class Filters extends Component implements IFilters {
   }
 
   run(): void {
-    
     this.categoriesFilter();
     // this.resetFilters();
   }
 
   render(): HTMLElement {
+    // if (localStorage.length('parameters')) {
+    console.log(localStorage.getItem('parameters'));
     this.categoryChange();
     this.priceFilters();
+    loadParameters();
+    createParametersObj();
     return this.container;
   }
 }

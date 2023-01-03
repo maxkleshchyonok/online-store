@@ -51,8 +51,6 @@ class App {
   private enableRouteChange() {
     const loadPage = () => {
       const hash = window.location.hash.slice(1);
-      console.log(hash);
-
       if (!hash) {
         window.location.hash = 'main-page';
       }
