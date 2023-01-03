@@ -2,7 +2,6 @@ import Component from '../../templates/components';
 import { IFilters, INITIAL_STATE } from '../../types/types';
 import categoriesJSON from '../../../assets/json/categories.json';
 import './filters.scss';
-// import noUiSlider, { target } from 'nouislider';
 import * as noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
 import { parameters } from '../parameters';
@@ -73,8 +72,6 @@ export default class Filters extends Component implements IFilters {
               if (this.categoryCheckboxes[i].checked)
                 a.push(this.categoryCheckboxes[i].value);
             }
-          // const a = Array.from(this.categoryCheckboxes);
-          // this.category = a.map(x => x.value);
           this.category = a;
           parameters.set('category', `${this.category.join(',')}`);
           console.log(this.category);
@@ -83,33 +80,6 @@ export default class Filters extends Component implements IFilters {
       });
     }
   }
-
-    // this.categoryCheckboxes.forEach((checkbox) => {
-    //   checkbox.addEventListener('change', () => {
-    //     this.category = INITIAL_STATE.category;
-    //     console.log(this.category);
-
-    //     if (this.category.find(x => x === checkbox.value)) {
-    //       if (!checkbox.checked) {
-    //         const indexDelete = this.category.findIndex(x => x === checkbox.value);
-    //         this.category.splice(indexDelete, 1);
-    //       }
-    //     } else if (checkbox.checked) {
-    //       this.category.push(checkbox.value);
-    //     }
-
-        // if (checkbox.checked) {
-        //   if (!this.category.find(x => x === checkbox.value)) {
-        //     this.category.push(checkbox.value);
-        //   }
-        // } else if (!checkbox.checked) {
-        //   const indexDelete = this.category.findIndex(x => x === checkbox.value);
-        //   this.category.splice(indexDelete, 1);
-        // }
-
-  //     });
-  //   });
-  // }
 
   public priceFilters() {
 
