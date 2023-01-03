@@ -4,6 +4,7 @@ import Page from '../../core/templates/page';
 import CartPage from '../cart';
 import Header from '../../core/components/header';
 import Footer from '../../core/components/footer';
+import { parameters } from '../../core/components/parameters';
 
 export const enum PageIds {
   MainPageId = 'main-page',
@@ -24,7 +25,7 @@ class App {
 
   previousPage = '';
 
-  static renderNewPage(idPage: string) {
+  renderNewPage(idPage: string) {
     const currentPageHTML = document.getElementById(App.defaultPageId);
     if (currentPageHTML) {
       currentPageHTML.remove();
@@ -42,7 +43,7 @@ class App {
     if (page) {
       const pageHTML = page.render();
       pageHTML.id = App.defaultPageId;
-      // this.previousPage = window.location.hash.slice(1);
+      this.previousPage = window.location.hash.slice(1);
       App.container?.append(pageHTML);
     }
   }
@@ -50,20 +51,21 @@ class App {
   private enableRouteChange() {
     const loadPage = () => {
       const hash = window.location.hash.slice(1);
-  
+      console.log(hash);
+
       if (!hash) {
         window.location.hash = 'main-page';
       }
       if (!hash.includes('?')) {
-        App.renderNewPage(hash);
+        this.renderNewPage(hash);
       } else {
-        App.renderNewPage('catalog-page');
+        window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
       }
     };
-
-    window.addEventListener('load', loadPage);
     window.addEventListener('hashchange', loadPage);
+    window.addEventListener('load', loadPage);
   }
+
 
   constructor() {
     this.header = new Header('header', 'header-container');
@@ -73,10 +75,10 @@ class App {
 
   run() {
     App.container?.append(this.header.render());
-    App.renderNewPage('catalog-page');
-    App.container?.append(this.footer.render());
+    this.renderNewPage('catalog-page');
     window.location.hash = PageIds.CatalogPageId;
     this.enableRouteChange();
+    App.container?.append(this.footer.render());
   }
 }
 
