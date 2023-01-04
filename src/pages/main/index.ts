@@ -1,4 +1,5 @@
 import Page from '../../core/templates/page';
+import Footer from '../../core/components/footer';
 
 const CatalogMain = [
   {
@@ -105,12 +106,16 @@ const PaletyMain = [
 ];
 
 class MainPage extends Page {
+
+  private footer: Footer;
+
   static TextObject = {
     MainTitle: 'Main page111',
   };
 
   constructor(id: string) {
     super(id);
+    this.footer = new Footer('footer', 'footer-container');
   }
 
   private renderCatalog(): void {
@@ -208,6 +213,8 @@ class MainPage extends Page {
     this.renderCatalog();
     this.renderMainBody();
     this.renderPaletMenu();
+    this.container.classList.add('main-page-styles');
+    this.container.append(this.footer.render());
     return this.container;
   }
 }

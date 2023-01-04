@@ -1,4 +1,5 @@
 import Component from '../../templates/components';
+import './footer.css';
 
 const FooterBar = [
   {

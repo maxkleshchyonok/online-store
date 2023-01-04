@@ -3,7 +3,7 @@ import CatalogPage from '../catalog';
 import Page from '../../core/templates/page';
 import CartPage from '../cart';
 import Header from '../../core/components/header';
-import Footer from '../../core/components/footer';
+// import Footer from '../../core/components/footer';
 import { parameters } from '../../core/components/parameters';
 
 export const enum PageIds {
@@ -21,7 +21,7 @@ class App {
 
   private header: Header;
 
-  private footer: Footer;
+  // private footer: Footer;
 
   previousPage = '';
 
@@ -70,7 +70,7 @@ class App {
   constructor() {
     this.header = new Header('header', 'header-container');
     this.initialPage = new MainPage('main-page');
-    this.footer = new Footer('footer', 'footer-container');
+    // this.footer = new Footer('footer', 'footer-container');
   }
 
   run() {
@@ -78,7 +78,7 @@ class App {
     this.renderNewPage('catalog-page');
     window.location.hash = PageIds.CatalogPageId;
     this.enableRouteChange();
-    App.container?.append(this.footer.render());
+    // App.container?.append(this.footer.render());
   }
 }
 
