@@ -1,0 +1,62 @@
+.footer-container {
+  grid-area: footer;
+  margin-top: 1%;
+  width: 100%;
+  height: 200px;
+  background: rgb(71, 74, 81);
+  display: flex;
+  flex-direction: row;
+}
+.footer-container .social-info {
+  margin-top: 2%;
+  margin-left: 3%;
+  display: flex;
+  flex-direction: column;
+}
+.footer-container .social-info .rs {
+  margin-top: 5%;
+}
+.footer-container .social-info .author-link {
+  text-decoration: none;
+  color: rgb(229, 229, 229);
+  font-size: 14px;
+}
+.footer-container .social-info .author-link img {
+  width: 30%;
+}
+.footer-container .social-info .social-block {
+  margin-bottom: 7%;
+  display: flex;
+}
+.footer-container .social-info .social-block .social-item {
+  margin-right: 5%;
+}
+.footer-container .footer-bar {
+  margin-left: 18%;
+  margin-top: 2%;
+  width: 21%;
+  height: 58%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.footer-container .footer-bar .footer-bar-item {
+  margin-bottom: 3%;
+  text-decoration: none;
+  font-size: 14px;
+  color: rgb(229, 229, 229);
+}
+.footer-container .footer-info {
+  margin-top: 2%;
+  margin-left: 18%;
+  width: 12%;
+  height: 64%;
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+}
+.footer-container .footer-info .footer-info-item {
+  width: 115%;
+  font-size: 14px;
+  color: rgb(229, 229, 229);
+}
+
+/*# sourceMappingURL=footer.css.map */
