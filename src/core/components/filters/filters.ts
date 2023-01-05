@@ -27,61 +27,34 @@ export default class Filters extends Component implements IFilters {
     this.price = INITIAL_STATE.price;
   }
 
-  private categoriesFilter(): void {
-
-    const categoriesBlock = document.createElement('form') as HTMLFormElement;
-    categoriesBlock.classList.add('categories__form');
-    categoriesBlock.setAttribute('name', 'categories__block');
-    const categoryLegend = document.createElement('legend');
-    categoryLegend.classList.add('categories__form__legend');
-    categoryLegend.innerText = 'Kategorie';
-    categoriesBlock.append(categoryLegend);
-
-    for (let i = 0; i < categoriesJSON.length; i++) {
-      const categoryName = (categoriesJSON[i].short);
-
-      const categoryCheck = document.createElement('input') as HTMLInputElement;
-      categoryCheck.classList.add(`${categoryName}_checkbox`);
-      categoryCheck.classList.add('category__checkbox');
-      categoryCheck.setAttribute('type', 'checkbox');
-      categoryCheck.setAttribute('id', `${categoryName}`);
-      categoryCheck.setAttribute('value', `${categoryName}`);
-      categoryCheck.setAttribute('name', `${categoryName}`);
-
-      if (parametersObj().category.find(x => x === categoryCheck.value))
-        categoryCheck.checked = true;
-
-      const labelCategoryCheck = document.createElement('label');
-      labelCategoryCheck.setAttribute('for', `${categoryName}`);
-      labelCategoryCheck.textContent = `${categoriesJSON[i].name}`;
-
-      categoriesBlock.append(categoryCheck, labelCategoryCheck);
-      this.container.append(categoriesBlock);
-    }
+  
+  createFilterBlock(nameBlock: HTMLFormElement, name: string, container: HTMLElement) {
+    nameBlock.classList.add(`${name}__form`);
+    nameBlock.setAttribute('name', `${name}__form`);
+    container.append(nameBlock);
   }
 
-  private categoryChange():void {
+  createLegend(legend: HTMLElement, container: HTMLFormElement, innerText?: string) {
+    legend.classList.add(`${container.name}__legend`);
+    if (innerText)
+      legend.innerText = innerText;
+    container.append(legend);
+  }
 
+  createCheckbox(checkbox: HTMLInputElement, name: string, container: HTMLFormElement): void {
+    checkbox.classList.add(`${name}_checkbox`);
+    checkbox.classList.add('checkbox');
+    checkbox.setAttribute('type', 'checkbox');
+    checkbox.setAttribute('id', `${name}`);
+    checkbox.setAttribute('value', `${name}`);
+    checkbox.setAttribute('name', `${name}`);
+    container.append(checkbox);
+  }
 
-    this.categoryCheckboxes =
-      this.container.querySelectorAll('.category__checkbox');
-    if (this.categoryCheckboxes) {
-      this.categoryCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', () => {
-          const a = [];
-          if (this.categoryCheckboxes)
-            for (let i = 0; i < this.categoryCheckboxes?.length; i += 1) {
-              if (this.categoryCheckboxes[i].checked)
-                a.push(this.categoryCheckboxes[i].value);
-            }
-          this.category = a;
-          parameters.set('category', `${this.category.join(',')}`);
-          window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
-          parametersObj();
-          saveParameters();
-        });
-      });
-    }
+  createCheckboxLabel(label: HTMLElement, checkbox: HTMLInputElement, text: string, container: HTMLFormElement): void {
+    label.setAttribute('for', `${checkbox}`);
+    label.textContent = text;
+    container.append(label);
   }
 
   private priceFilters() {
@@ -150,6 +123,125 @@ export default class Filters extends Component implements IFilters {
     this.container.append(priceBlock);
   }
 
+
+
+  private stockFilter(): void {
+    const stockBlock = document.createElement('form') as HTMLFormElement;
+    this.createFilterBlock(stockBlock, 'stock', this.container);
+
+    const stockLegend = document.createElement('legend');
+    this.createLegend(stockLegend, stockBlock, 'Zapas');
+
+    const stockCheckTrue = document.createElement('input') as HTMLInputElement;
+    this.createCheckbox(stockCheckTrue, 'stock__true', stockBlock);
+    const stockCheckLabel = document.createElement('label') as HTMLElement;
+    this.createCheckboxLabel(stockCheckLabel, stockCheckTrue, 'Na stanie', stockBlock);
+
+    const stockCheckFalse = document.createElement('input') as HTMLInputElement;
+    this.createCheckbox(stockCheckFalse, 'stock__false', stockBlock);
+    const stockCheckLabel2 = document.createElement('label') as HTMLElement;
+    this.createCheckboxLabel(stockCheckLabel2, stockCheckFalse, 'Na zamówenie', stockBlock);
+
+    function checkFalse(): void {
+      if (stockCheckTrue.checked) {
+        if (stockCheckFalse.checked)
+          parameters.set('quantity', '0-100000');
+        else parameters.set('quantity', '1-100000');
+      } else parameters.set('quantity', '0-0');
+
+      window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
+      parametersObj();
+      saveParameters();
+    }
+
+    function checkTrue(): void {
+      if (stockCheckTrue.checked) {
+        if (stockCheckFalse.checked)
+          parameters.set('quantity', '0-100000');
+        else parameters.set('quantity', '1-100000');
+      } else parameters.set('quantity', '0-0');
+
+      window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
+      parametersObj();
+      saveParameters();
+    }
+
+    if (parametersObj().quantity[1] !== 0) {
+      stockCheckTrue.checked = true;
+      checkTrue();
+    }
+    if (parametersObj().quantity[0] === 0) {
+      stockCheckFalse.checked = true;
+      checkFalse();
+    }
+
+    stockCheckTrue.addEventListener('change', () => {
+      checkTrue();
+    });
+
+    stockCheckFalse.addEventListener('change', () => {
+      checkFalse();
+    });
+  }
+
+
+  private categoriesFilter(): void {
+
+    const categoriesBlock = document.createElement('form') as HTMLFormElement;
+    categoriesBlock.classList.add('categories__form');
+    categoriesBlock.setAttribute('name', 'categories__block');
+    const categoryLegend = document.createElement('legend');
+    categoryLegend.classList.add('categories__form__legend');
+    categoryLegend.innerText = 'Kategorie';
+    categoriesBlock.append(categoryLegend);
+
+    for (let i = 0; i < categoriesJSON.length; i++) {
+      const categoryName = (categoriesJSON[i].short);
+
+      const categoryCheck = document.createElement('input') as HTMLInputElement;
+      categoryCheck.classList.add('checkbox');
+      categoryCheck.classList.add('category__checkbox');
+      categoryCheck.setAttribute('type', 'checkbox');
+      categoryCheck.setAttribute('id', `${categoryName}`);
+      categoryCheck.setAttribute('value', `${categoryName}`);
+      categoryCheck.setAttribute('name', `${categoryName}`);
+
+      if (parametersObj().category.find(x => x === categoryCheck.value))
+        categoryCheck.checked = true;
+
+      const labelCategoryCheck = document.createElement('label');
+      labelCategoryCheck.setAttribute('for', `${categoryName}`);
+      labelCategoryCheck.textContent = `${categoriesJSON[i].name}`;
+
+      categoriesBlock.append(categoryCheck, labelCategoryCheck);
+      this.container.append(categoriesBlock);
+    }
+  }
+
+  private categoryChange():void {
+
+
+    this.categoryCheckboxes =
+      this.container.querySelectorAll('.category__checkbox');
+    if (this.categoryCheckboxes) {
+      this.categoryCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+          const a = [];
+          if (this.categoryCheckboxes)
+            for (let i = 0; i < this.categoryCheckboxes?.length; i += 1) {
+              if (this.categoryCheckboxes[i].checked)
+                a.push(this.categoryCheckboxes[i].value);
+            }
+          this.category = a;
+          parameters.set('category', `${this.category.join(',')}`);
+          window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
+          parametersObj();
+          saveParameters();
+        });
+      });
+    }
+  }
+
   private resetFilters(): void {
     const resetBlock = document.createElement('form') as HTMLFormElement;
     resetBlock.classList.add('reset__form');
@@ -172,19 +264,15 @@ export default class Filters extends Component implements IFilters {
     this.container.append(resetBlock);
   }
 
-  priceChange(): void {
-  }
-
-  private recordFilters(): void {
-  }
-
   render(): HTMLElement {
+    this.priceFilters();
+    this.stockFilter();
     this.categoriesFilter();
     this.categoryChange();
-    this.priceFilters();
     this.resetFilters();
     loadParameters();
     parametersObj();
     return this.container;
   }
 }
+
