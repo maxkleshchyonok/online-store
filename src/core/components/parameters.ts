@@ -18,6 +18,7 @@ export const parametersObj = (clear?: string) => {
     parameters.set('price', INITIAL_STATE.price.join('-'));
     category = INITIAL_STATE.category;
     price = INITIAL_STATE.price;
+    window.location.hash = 'catalog-page';
   }
   console.log('Reset!');
   return  {
