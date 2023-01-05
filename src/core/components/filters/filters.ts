@@ -4,7 +4,7 @@ import categoriesJSON from '../../../assets/json/categories.json';
 import './filters.scss';
 import * as noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
-import { parameters, createParametersObj, saveParameters, loadParameters } from '../parameters';
+import { parameters, parametersObj, saveParameters, loadParameters } from '../parameters';
 
 export default class Filters extends Component implements IFilters {
   price: [number, number];
@@ -22,21 +22,20 @@ export default class Filters extends Component implements IFilters {
 
   constructor(tagName: string, className: string) {
     super(tagName, className);
-    this.category = INITIAL_STATE.category;
-    this.run();
+    this.category = parametersObj().category;
     this.categoryCheckboxes = null;
     this.price = INITIAL_STATE.price;
-  }
-
-  private resetFilters(): void {
-    this.price = INITIAL_STATE.price;
-    this.category = INITIAL_STATE.category;
   }
 
   private categoriesFilter(): void {
 
     const categoriesBlock = document.createElement('form') as HTMLFormElement;
     categoriesBlock.classList.add('categories__form');
+    categoriesBlock.setAttribute('name', 'categories__block');
+    const categoryLegend = document.createElement('legend');
+    categoryLegend.classList.add('categories__form__legend');
+    categoryLegend.innerText = 'Kategorie';
+    categoriesBlock.append(categoryLegend);
 
     for (let i = 0; i < categoriesJSON.length; i++) {
       const categoryName = (categoriesJSON[i].short);
@@ -49,7 +48,7 @@ export default class Filters extends Component implements IFilters {
       categoryCheck.setAttribute('value', `${categoryName}`);
       categoryCheck.setAttribute('name', `${categoryName}`);
 
-      if (this.category.find(x => x === categoryCheck.value))
+      if (parametersObj().category.find(x => x === categoryCheck.value))
         categoryCheck.checked = true;
 
       const labelCategoryCheck = document.createElement('label');
@@ -62,6 +61,8 @@ export default class Filters extends Component implements IFilters {
   }
 
   private categoryChange():void {
+
+
     this.categoryCheckboxes =
       this.container.querySelectorAll('.category__checkbox');
     if (this.categoryCheckboxes) {
@@ -76,7 +77,7 @@ export default class Filters extends Component implements IFilters {
           this.category = a;
           parameters.set('category', `${this.category.join(',')}`);
           window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
-          createParametersObj();
+          parametersObj();
           saveParameters();
         });
       });
@@ -87,6 +88,11 @@ export default class Filters extends Component implements IFilters {
 
     const priceBlock = document.createElement('form') as HTMLFormElement;
     priceBlock.classList.add('price__form');
+    priceBlock.setAttribute('name', 'price__form');
+
+    const priceLegend = document.createElement('legend');
+    priceLegend.classList.add('price__form__legend');
+    priceLegend.innerText = 'Cena';
 
     const priceMinInput = document.createElement('input');
     priceMinInput.classList.add('pricemin__input');
@@ -133,16 +139,37 @@ export default class Filters extends Component implements IFilters {
       priceSlider.noUiSlider.on('update', function (values, handle) {
         priceInputs[handle].value = values[handle].toString();
         const priceSliderValues = priceSlider.noUiSlider?.get() as string[];
-        // priceTemp = [parseInt(priceSliderValues[0]), parseInt(priceSliderValues[1])];
         parameters.set('price', `${priceSliderValues[0]}-${priceSliderValues[1]}`);
         window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
-        createParametersObj();
+        parametersObj();
         saveParameters();
       });
     }
 
-    priceBlock.append(priceMinInput, priceMaxInput, priceSlider);
+    priceBlock.append(priceLegend, priceMinInput, priceMaxInput, priceSlider);
     this.container.append(priceBlock);
+  }
+
+  private resetFilters(): void {
+    const resetBlock = document.createElement('form') as HTMLFormElement;
+    resetBlock.classList.add('reset__form');
+    resetBlock.setAttribute('name', 'reset__form');
+
+    const resetButton = document.createElement('button');
+    resetButton.setAttribute('type', 'reset');
+    resetButton.setAttribute('name', 'resetButton');
+    resetButton.classList.add('reset__form__button');
+    resetButton.classList.add('button');
+    resetButton.innerText = 'Reset';
+
+    resetButton.addEventListener('click', () => {
+      console.log('Reset!');
+      parametersObj('clear');
+      saveParameters();
+    });
+
+    resetBlock.append(resetButton);
+    this.container.append(resetBlock);
   }
 
   priceChange(): void {
@@ -151,18 +178,13 @@ export default class Filters extends Component implements IFilters {
   private recordFilters(): void {
   }
 
-  run(): void {
-    this.categoriesFilter();
-    // this.resetFilters();
-  }
-
   render(): HTMLElement {
-    // if (localStorage.length('parameters')) {
-    console.log(localStorage.getItem('parameters'));
+    this.categoriesFilter();
     this.categoryChange();
     this.priceFilters();
+    this.resetFilters();
     loadParameters();
-    createParametersObj();
+    parametersObj();
     return this.container;
   }
 }
