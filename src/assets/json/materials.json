@@ -1,0 +1,14 @@
+[
+  {
+  "name": "Drewniane",
+  "short": "drewno"
+  },
+  {
+    "name": "Plastikowe",
+    "short": "plastik"
+  },
+  {
+    "name": "Tekturowe",
+    "short": "tektura"
+  }
+]

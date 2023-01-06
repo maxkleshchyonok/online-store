@@ -1,6 +1,7 @@
 import Component from '../../templates/components';
 import { IFilters, INITIAL_STATE } from '../../types/types';
 import categoriesJSON from '../../../assets/json/categories.json';
+import materialsJSON from '../../../assets/json/materials.json';
 import './filters.scss';
 import * as noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
@@ -57,72 +58,105 @@ export default class Filters extends Component implements IFilters {
     container.append(label);
   }
 
-  private priceFilters() {
+  createInputMin(input: HTMLInputElement, name: string, container: HTMLFormElement) {
+    input.classList.add(`${name}__input`);
+    input.classList.add('filter__input');
+    input.setAttribute('type', 'text');
+    container.append(input);
+  }
 
-    const priceBlock = document.createElement('form') as HTMLFormElement;
-    priceBlock.classList.add('price__form');
-    priceBlock.setAttribute('name', 'price__form');
+  createSliderBlock(nameBlock: HTMLFormElement, nameLegend: HTMLLegendElement,
+    name: string, legendName: string, sliderMax: number) {
+    this.createFilterBlock(nameBlock, name, this.container);
+    this.createLegend(nameLegend, nameBlock, legendName);
 
-    const priceLegend = document.createElement('legend');
-    priceLegend.classList.add('price__form__legend');
-    priceLegend.innerText = 'Cena';
+    const minInput = document.createElement('input');
+    minInput.classList.add(`${name}min__input`);
+    minInput.setAttribute('type', 'text');
+    minInput.classList.add('filter__input');
 
-    const priceMinInput = document.createElement('input');
-    priceMinInput.classList.add('pricemin__input');
-    priceMinInput.setAttribute('type', 'text');
+    const maxInput = document.createElement('input');
+    maxInput.classList.add(`${name}max__input`);
+    maxInput.setAttribute('type', 'text');
+    maxInput.classList.add('filter__input');
 
-    const priceMaxInput = document.createElement('input');
-    priceMaxInput.classList.add('pricemax__input');
-    priceMaxInput.setAttribute('type', 'text');
+    const inputs = [minInput, maxInput];
 
-    const priceInputs = [priceMinInput, priceMaxInput];
+    const slider = document.createElement('div') as noUiSlider.target;
+    slider.setAttribute('id', `${name}__slider`);
+    slider.classList.add(`${name}__slider`);
+    
+    let min = 0;
+    let max = sliderMax;
 
-    const priceSlider = document.createElement('div') as noUiSlider.target;
-    priceSlider.setAttribute('id', 'price__slider');
-    priceSlider.classList.add('price__slider');
-
-    let priceMin = 0;
-    let priceMax = 500;
-
-    if (parameters.get('price')) {
-      const dashIndex: number = parameters.get('price')?.indexOf('-') as number;
+    if (parameters.get(`${name}`)) {
+      const dashIndex: number = parameters.get(`${name}`)?.indexOf('-') as number;
       if (dashIndex) {
-        priceMin = Number(parameters.get('price')?.slice(0, dashIndex));
-        priceMax = Number(parameters.get('price')?.slice(dashIndex + 1));
+        min = Number(parameters.get(`${name}`)?.slice(0, dashIndex));
+        max = Number(parameters.get(`${name}`)?.slice(dashIndex + 1));
       }
     }
 
-
-    noUiSlider.create(priceSlider, {
-      start: [priceMin, priceMax],
+    noUiSlider.create(slider, {
+      start: [min, max],
       connect: true,
       range: {
         'min': 0,
-        'max': 500,
+        'max': sliderMax,
       },
     });
 
-    priceInputs.forEach((input, handle) => {
+    inputs.forEach((input, handle) => {
       input.addEventListener('change', () => {
-        priceSlider.noUiSlider?.setHandle(handle, input.value);
+        slider.noUiSlider?.setHandle(handle, input.value);
       });
     });
 
-    if (priceSlider.noUiSlider) {
-      priceSlider.noUiSlider.on('update', function (values, handle) {
-        priceInputs[handle].value = values[handle].toString();
-        const priceSliderValues = priceSlider.noUiSlider?.get() as string[];
-        parameters.set('price', `${priceSliderValues[0]}-${priceSliderValues[1]}`);
+    if (slider.noUiSlider) {
+      slider.noUiSlider.on('update', function (values, handle) {
+        inputs[handle].value = values[handle].toString();
+        const sliderValues = slider.noUiSlider?.get() as string[];
+        parameters.set(`${name}`, `${sliderValues[0]}-${sliderValues[1]}`);
         window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
         parametersObj();
         saveParameters();
       });
     }
-
-    priceBlock.append(priceLegend, priceMinInput, priceMaxInput, priceSlider);
-    this.container.append(priceBlock);
+  
+    nameBlock.append(nameLegend, minInput, maxInput, slider);
+    this.container.append(nameBlock);
   }
 
+  private lengthFilters(): void {
+    const lengthBlock = document.createElement('form') as HTMLFormElement;
+    const lengthLegend = document.createElement('legend');
+    this.createSliderBlock(lengthBlock, lengthLegend, 'length', 'Długość, mm', 3000);
+  }
+
+
+  private priceFilters() {
+    const priceBlock = document.createElement('form') as HTMLFormElement;
+    const priceLegend = document.createElement('legend');
+    this.createSliderBlock(priceBlock, priceLegend, 'price', 'Cena, netto', 500);
+  }
+
+  private widthFilters() {
+    const widthBlock = document.createElement('form') as HTMLFormElement;
+    const widthLegend = document.createElement('legend');
+    this.createSliderBlock(widthBlock, widthLegend, 'width', 'Szerokość, mm', 2000);
+  }
+
+  private heightFilters() {
+    const heightBlock = document.createElement('form') as HTMLFormElement;
+    const heightLegend = document.createElement('legend');
+    this.createSliderBlock(heightBlock, heightLegend, 'height', 'Wysokość, mm', 1200);
+  }
+
+  private loadFilters() {
+    const loadBlock = document.createElement('form') as HTMLFormElement;
+    const loadLegend = document.createElement('legend');
+    this.createSliderBlock(loadBlock, loadLegend, 'load', 'Udźwig', 3000);
+  }
 
 
   private stockFilter(): void {
@@ -174,12 +208,13 @@ export default class Filters extends Component implements IFilters {
         stockCheckTrue.checked = true;
         stockCheckFalse.checked = false;
       }
+    } else {
+      stockCheckTrue.checked = false;
+      stockCheckFalse.checked = true;
     }
 
     stockCheckTrue.addEventListener('change', () => {
       checkTrue();
-      // if (!stockCheckTrue.cheked && !stockCheckFalse.checked) 
-
     });
 
     stockCheckFalse.addEventListener('change', () => {
@@ -292,15 +327,60 @@ export default class Filters extends Component implements IFilters {
         condCheckNew.checked = true;
         condCheckUsed.checked = false;
       }
+    } else {
+      condCheckNew.checked = false;
+      condCheckUsed.checked = true;
     }
+
+    condCheckUsed.addEventListener('change', () => {
+      checkUsed();
+    });
 
     condCheckNew.addEventListener('change', () => {
       checkNew();
     });
 
-    condCheckUsed.addEventListener('change', () => {
-      checkUsed();
-    });
+
+  }
+
+  private materialFilters(): void {
+    const materialBlock = document.createElement('form') as HTMLFormElement;
+    this.createFilterBlock(materialBlock, 'material', this.container);
+
+    const materialLegend = document.createElement('legend');
+    this.createLegend(materialLegend, materialBlock, 'Material');
+
+    for (let i = 0; i < materialsJSON.length; i += 1) {
+      const materialName = materialsJSON[i].short;
+      const materialCheck = document.createElement('input') as HTMLInputElement;
+      materialCheck.classList.add('material__checkbox');
+      this.createCheckbox(materialCheck, materialName, materialBlock);
+
+      const matCheckLabel = document.createElement('label');
+      this.createCheckboxLabel(matCheckLabel, materialCheck, materialsJSON[i].name, materialBlock);
+
+      if (parametersObj().material.find(x => x === materialCheck.value))
+        materialCheck.checked = true;
+    }
+
+    const materialCheckboxes: NodeListOf<HTMLInputElement> | null =
+        this.container.querySelectorAll('.material__checkbox');
+    if (materialCheckboxes) {
+      materialCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+          const a = [];
+          if (materialCheckboxes)
+            for (let i = 0; i < materialCheckboxes.length; i += 1) {
+              if (materialCheckboxes[i].checked)
+                a.push(materialCheckboxes[i].value);
+            }
+          parameters.set('material', `${a.join(',')}`);
+          window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
+          parametersObj();
+          saveParameters();
+        });
+      });
+    }
   }
 
   private resetFilters(): void {
@@ -326,12 +406,18 @@ export default class Filters extends Component implements IFilters {
   }
 
   render(): HTMLElement {
-    this.priceFilters();
-    this.stockFilter();
+    this.resetFilters();
+    this.loadFilters();
+    this.heightFilters();
+    this.widthFilters();
+    this.lengthFilters();
+    this.materialFilters();
+    this.conditionFilters();
     this.categoriesFilter();
     this.categoryChange();
-    this.conditionFilters();
-    this.resetFilters();
+    this.stockFilter();
+    this.priceFilters();
+
     loadParameters();
     parametersObj();
     console.log(parametersObj());
