@@ -275,16 +275,4 @@ html {
   margin-left: -19%;
 }
 
-.product__card {
-  width: 260px;
-  height: 410px;
-  box-sizing: border-box;
-  border: 1px solid;
-}
-
-.product__image {
-  width: 260px;
-  height: 200px;
-}
-
 /*# sourceMappingURL=product_card.css.map */
