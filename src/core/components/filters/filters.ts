@@ -155,28 +155,31 @@ export default class Filters extends Component implements IFilters {
     }
 
     function checkTrue(): void {
-      if (stockCheckTrue.checked) {
-        if (stockCheckFalse.checked)
+      if (stockCheckFalse.checked) {
+        if (stockCheckTrue.checked)
           parameters.set('quantity', '0-100000');
-        else parameters.set('quantity', '1-100000');
-      } else parameters.set('quantity', '0-0');
+        else parameters.set('quantity', '0-0');
+      } else parameters.set('quantity', '1-100000');
 
       window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
       parametersObj();
       saveParameters();
     }
 
-    if (parametersObj().quantity[1] !== 0) {
-      stockCheckTrue.checked = true;
-      checkTrue();
-    }
-    if (parametersObj().quantity[0] === 0) {
-      stockCheckFalse.checked = true;
-      checkFalse();
+    if (parameters.get('quantity')?.includes('10000')) {
+      if (parameters.get('quantity')?.includes('0-')) {
+        stockCheckTrue.checked = true;
+        stockCheckFalse.checked = true;
+      } else {
+        stockCheckTrue.checked = true;
+        stockCheckFalse.checked = false;
+      }
     }
 
     stockCheckTrue.addEventListener('change', () => {
       checkTrue();
+      // if (!stockCheckTrue.cheked && !stockCheckFalse.checked) 
+
     });
 
     stockCheckFalse.addEventListener('change', () => {
@@ -219,8 +222,6 @@ export default class Filters extends Component implements IFilters {
   }
 
   private categoryChange():void {
-
-
     this.categoryCheckboxes =
       this.container.querySelectorAll('.category__checkbox');
     if (this.categoryCheckboxes) {
@@ -240,6 +241,66 @@ export default class Filters extends Component implements IFilters {
         });
       });
     }
+  }
+
+  private conditionFilters(): void {
+    const conditionBlock = document.createElement('form') as HTMLFormElement;
+    this.createFilterBlock(conditionBlock, 'condition', this.container);
+
+    const conditionLegend = document.createElement('legend');
+    this.createLegend(conditionLegend, conditionBlock, 'Stan' );
+
+    const condCheckNew = document.createElement('input') as HTMLInputElement;
+    this.createCheckbox(condCheckNew, 'condition_new', conditionBlock);
+    const condCheckNewLabel = document.createElement('label') as HTMLElement;
+    this.createCheckboxLabel(condCheckNewLabel, condCheckNew, 'Nowe', conditionBlock);
+
+    const condCheckUsed = document.createElement('input') as HTMLInputElement;
+    this.createCheckbox(condCheckUsed, 'condition_used', conditionBlock);
+    const condCheckUsedLabel = document.createElement('label') as HTMLElement;
+    this.createCheckboxLabel(condCheckUsedLabel, condCheckUsed, 'Używane', conditionBlock);
+
+    function checkUsed(): void {
+      if (condCheckNew.checked) {
+        if (condCheckUsed.checked)
+          parameters.set('condition', 'used, new');
+        else parameters.set('condition', 'new');
+      } else parameters.set('condition', 'used');
+
+      window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
+      parametersObj();
+      saveParameters();
+    }
+
+    function checkNew(): void {
+      if (condCheckUsed.checked) {
+        if (condCheckNew.checked)
+          parameters.set('condition', 'used, new');
+        else parameters.set('condition', 'used');
+      } else parameters.set('condition', 'new');
+
+      window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
+      parametersObj();
+      saveParameters();
+    }
+
+    if (parameters.get('condition')?.includes('new')) {
+      if (parameters.get('condition')?.includes('used')) {
+        condCheckNew.checked = true;
+        condCheckUsed.checked = true;
+      } else {
+        condCheckNew.checked = true;
+        condCheckUsed.checked = false;
+      }
+    }
+
+    condCheckNew.addEventListener('change', () => {
+      checkNew();
+    });
+
+    condCheckUsed.addEventListener('change', () => {
+      checkUsed();
+    });
   }
 
   private resetFilters(): void {
@@ -269,9 +330,11 @@ export default class Filters extends Component implements IFilters {
     this.stockFilter();
     this.categoriesFilter();
     this.categoryChange();
+    this.conditionFilters();
     this.resetFilters();
     loadParameters();
     parametersObj();
+    console.log(parametersObj());
     return this.container;
   }
 }

@@ -9,27 +9,32 @@ export const parametersObj = (clear?: string) => {
   let category = [];
   let price = [];
   let quantity = [];
+  let condition = [];
 
   if (!clear) {
     category = parameters.getAll('category').join().split(',');
     const priceStr = parameters.getAll('price').join('-').split('-');
     price = [parseInt(priceStr[0]), parseInt(priceStr[1])];
-    quantity = parameters.getAll('quantity').join().split('-');
+    const quantityStr = parameters.getAll('quantity').join('-').split('-');
+    quantity = [parseInt(quantityStr[0]), parseInt(quantityStr[1])];
+    condition = parameters.getAll('condition').join().split(',');
   } else {
     parameters.set('category', INITIAL_STATE.category.join(','));
     parameters.set('price', INITIAL_STATE.price.join('-'));
     parameters.set('quantity', INITIAL_STATE.quantity.join('-'));
+    parameters.set('condition', INITIAL_STATE.condition.join(', '));
     category = INITIAL_STATE.category;
     price = INITIAL_STATE.price;
     quantity = INITIAL_STATE.quantity;
-
+    condition = INITIAL_STATE.condition;
     window.location.hash = 'catalog-page';
   }
-  console.log('Reset!');
+
   return  {
     category: category,
     price: price,
     quantity: quantity,
+    condition: condition,
   };
 };
 
