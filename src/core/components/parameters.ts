@@ -6,10 +6,17 @@ export let parameters = new URLSearchParams(hash.includes('?') ? hash.slice(hash
 
 export const parametersObj = (clear?: string) => {
 
-  let category = [];
-  let price = [];
-  let quantity = [];
-  let condition = [];
+  let category = [],
+    quantity = [],
+    condition = [],
+    material: string[] = [],
+    length: number[] = [],
+    price: number[] = [],
+    width: number[] = [],
+    height: number[] = [],
+    load: number[] = [],
+    sort = '';
+  
 
   if (!clear) {
     category = parameters.getAll('category').join().split(',');
@@ -18,6 +25,13 @@ export const parametersObj = (clear?: string) => {
     const quantityStr = parameters.getAll('quantity').join('-').split('-');
     quantity = [parseInt(quantityStr[0]), parseInt(quantityStr[1])];
     condition = parameters.getAll('condition').join().split(',');
+    material = INITIAL_STATE.material;
+    length = INITIAL_STATE.length;
+    width = INITIAL_STATE.width;
+    height = INITIAL_STATE.height;
+    load = INITIAL_STATE.load;
+    sort = INITIAL_STATE.sort;
+    
   } else {
     parameters.set('category', INITIAL_STATE.category.join(','));
     parameters.set('price', INITIAL_STATE.price.join('-'));
@@ -27,6 +41,13 @@ export const parametersObj = (clear?: string) => {
     price = INITIAL_STATE.price;
     quantity = INITIAL_STATE.quantity;
     condition = INITIAL_STATE.condition;
+    material = INITIAL_STATE.material;
+    length = INITIAL_STATE.length;
+    width = INITIAL_STATE.width;
+    height = INITIAL_STATE.height;
+    load = INITIAL_STATE.load;
+    sort = INITIAL_STATE.sort;
+
     window.location.hash = 'catalog-page';
   }
 
@@ -35,6 +56,12 @@ export const parametersObj = (clear?: string) => {
     price: price,
     quantity: quantity,
     condition: condition,
+    material: material,
+    length: length,
+    width: width,
+    height: height,
+    load: load,
+    sort: sort,
   };
 };
 
