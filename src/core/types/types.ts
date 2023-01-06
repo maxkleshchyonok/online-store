@@ -37,15 +37,29 @@ export interface IFilters {
   // quantity: number;
 }
 
-export const INITIAL_STATE: IFilters = {
-  price: [0, 500],
-  // stock: false,
+// export const INITIAL_STATE: IFilters = {
+//   price: [0, 500],
+//   // stock: false,
+//   category: ['palety_euro', 'palety_europodobne', 'palety_jedno',
+//     'palety_przem', 'polpalety', 'palety_plastik', 'palety_tektur'],
+//   // material: [],
+//   // length: [],
+//   // width: [],
+//   // height: [],
+//   // load: [],
+//   // sort: SortEnum.DEFAULT,
+// };
+
+export const INITIAL_STATE = {
+  price: [0, 500] as [number, number],
   category: ['palety_euro', 'palety_europodobne', 'palety_jedno',
     'palety_przem', 'polpalety', 'palety_plastik', 'palety_tektur'],
-  // material: [],
-  // length: [],
-  // width: [],
-  // height: [],
-  // load: [],
-  // sort: SortEnum.DEFAULT,
+  condition: ['used', 'new'],
+  quantity: [0, 100000],
+  material: ['drewno', 'plastik', 'tektura'],
+  length: [0, 3000],
+  width: [0, 3000],
+  height: [0, 3000],
+  load: [0, 10000],
+  sort: SortEnum.DEFAULT,
 };

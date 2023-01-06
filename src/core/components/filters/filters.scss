@@ -1,4 +1,11 @@
 
+.filters__section {
+  padding: 10px;
+}
+.price__form {
+  border: 1px solid;
+}
+
 .pricemin__input {
   border: 1px solid;
 }
@@ -9,4 +16,7 @@
   border: 1px solid;
   display: flex;
   flex-direction: column;
+}
+.reset__form {
+  border: 1px solid;
 }
