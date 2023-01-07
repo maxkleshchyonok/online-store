@@ -1,0 +1,105 @@
+.product-block {
+  margin-top: 2%;
+  margin-bottom: 5%;
+  font-family: "Lato", sans-serif;
+  font-style: normal;
+  display: flex;
+  justify-content: space-evenly;
+}
+.product-block .photos-block {
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.product-block .photos-block .arrow-up {
+  transform: rotate(-90deg);
+  margin-bottom: 3%;
+}
+.product-block .photos-block .photos-item {
+  padding: 1px 1px;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 5%;
+  border: 3px solid #c4c4c4;
+}
+.product-block .photos-block .arrow-down {
+  transform: rotate(90deg);
+}
+.product-block .big-photo {
+  width: 40%;
+  border: 3px solid #c4c4c4;
+}
+.product-block .big-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.product-block .description-block {
+  width: 40%;
+}
+.product-block .description-block .product-name {
+  margin-bottom: 7%;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 32px;
+  color: #474A51;
+}
+.product-block .description-block .buttons-block {
+  display: flex;
+  width: 70%;
+  margin-bottom: 3%;
+  justify-content: space-between;
+  align-items: center;
+}
+.product-block .description-block .buttons-block .price {
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 31px;
+  font-feature-settings: "tnum" on, "lnum" on;
+  color: #474A51;
+}
+.product-block .description-block .buttons-block .buttons-buy {
+  width: 55%;
+  height: 50px;
+  background: #15616D;
+  border-radius: 2px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  color: #FAFAFA;
+  cursor: pointer;
+}
+.product-block .description-block .buttons-block .buttons-like {
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  cursor: pointer;
+}
+.product-block .description-block .splitter {
+  width: 100%;
+  margin-bottom: 3%;
+}
+.product-block .description-block .product-description {
+  margin-bottom: 5%;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 22px;
+  font-feature-settings: "tnum" on, "lnum" on;
+  color: #474A51;
+}
+.product-block .description-block .product-info {
+  width: 70%;
+  display: grid;
+  grid-template-columns: repeat(2, 0.5fr);
+  grid-row-gap: 3%;
+}
+.product-block .description-block .product-info .info-item {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  font-feature-settings: "tnum" on, "lnum" on;
+  color: #62666c;
+}
+
+/*# sourceMappingURL=index.css.map */

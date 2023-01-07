@@ -517,6 +517,10 @@ html {
   height: 34px;
   margin-top: 15%;
   margin-left: 3%;
+}
+.catalog-page-styles .catalog__wrapper .catalog__section .product__card .product__name .name-href {
+  cursor: pointer;
+  text-decoration: none;
   font-weight: 400;
   font-size: 16px;
   line-height: 17px;

@@ -1,5 +1,8 @@
 import Product from '../product/product';
 import './product_card.scss';
+// import { parameters, parametersObj, saveParameters, loadParameters } from '../parameters';
+// import { parameters } from '../parameters';
+// import App from '../../../pages/app';
 
 const createProductCard: (product: Product, container: HTMLElement, i?: number) => void = (product, container) => {
 
@@ -37,13 +40,20 @@ const createProductCard: (product: Product, container: HTMLElement, i?: number) 
   // image.setAttribute('alt', product.name);
 
   image.src = product.image1;
-  name.textContent = product.name;
-  // length.textContent = `${product.length} mm`;
-  // width.textContent = `${product.width} mm`;
-  // load.textContent = `${product.load} kg`;
-  // quantity.textContent = `${product.quantity} szt.`;
-  // button.textContent = `${product.price} zł.`;
-
+  // // name.textContent = product.name;
+  const namehref = document.createElement('a');
+  namehref.className = 'name-href';
+  namehref.innerText = product.name;
+  namehref.href = '#product-page';
+  // namehref.addEventListener('click', () => {
+  //   // parameters.set('name', product.name);
+  //   // parameters.set('test', 'test');
+  //   // window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
+  //
+  // });
+  localStorage.setItem('productID', `${product.id}`);
+  console.log(localStorage.getItem('productId'));
+  name.append(namehref);
 
 
   const lengthTitle = document.createElement('h3');

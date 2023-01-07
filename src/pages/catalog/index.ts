@@ -6,6 +6,7 @@ import './index.scss';
 import Filters from '../../core/components/filters/filters';
 import { SortEnum } from '../../core/types/types';
 import Footer from '../../core/components/footer';
+import { parameters } from '../../core/components/parameters';
 
 const PaletRange = ['Wszystkie', 'Europalety', 'Jednorazowe', 'Nowe', 'Używane',
   'Wyprzedaż', 'Półpalety', 'Plastikowe'];
@@ -23,6 +24,7 @@ class CatalogPage extends Page {
     super(id);
     this.filters = new Filters('section', 'filters');
     this.footer = new Footer('footer', 'footer-container');
+    parameters.delete('name');
   }
 
   drawProductsCards(catalogSection: HTMLElement) {

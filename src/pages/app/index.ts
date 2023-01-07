@@ -3,13 +3,17 @@ import CatalogPage from '../catalog';
 import Page from '../../core/templates/page';
 import CartPage from '../cart';
 import Header from '../../core/components/header';
+import ProductPage from '../product-page';
 // import Footer from '../../core/components/footer';
 import { parameters } from '../../core/components/parameters';
+// import createProductCard from '../../core/components/product_card/product_card';
+
 
 export const enum PageIds {
   MainPageId = 'main-page',
   CatalogPageId = 'catalog-page',
   CartPageId = 'cart-page',
+  ProductPageId = 'product-page',
 }
 
 class App {
@@ -25,7 +29,7 @@ class App {
 
   previousPage = '';
 
-  renderNewPage(idPage: string) {
+  public renderNewPage(idPage: string) {
     const currentPageHTML = document.getElementById(App.defaultPageId);
     if (currentPageHTML) {
       currentPageHTML.remove();
@@ -35,9 +39,15 @@ class App {
     if (idPage === PageIds.MainPageId) {
       page = new MainPage(idPage);
     } else if (idPage === PageIds.CatalogPageId) {
+      // if (parameters.has('name')) {
+      //   // const name = parameters.get('name');
+      //   page = new ProductPage(PageIds.ProductPageId);
+      // }
       page = new CatalogPage(idPage);
     } else if (idPage === PageIds.CartPageId) {
       page = new CartPage(idPage);
+    } else if (idPage === PageIds.ProductPageId) {
+      page = new ProductPage(idPage, localStorage.getItem('productID'));
     }
 
     if (page) {
