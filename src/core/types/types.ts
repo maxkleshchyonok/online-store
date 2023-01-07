@@ -49,4 +49,9 @@ export const INITIAL_STATE = {
   height: [0, 3000],
   load: [0, 10000],
   sort: SortEnum.DEFAULT,
+  short: ['euro_new', 'euro_used_1', 'euro_used_2', 'euro_used_3',
+    'europod_new', 'europod_used', 'jedno_new_1', 'jedno_new_2',
+    'jedno_used_1', 'jedno_used_2', 'jedno_used_3', 'przem_1', 'przem_2',
+    'polpal_1', 'polpal_2', 'plastik_1', 'plastik_2', 'tektur_1',
+    'nadstawka_1', 'nadstawka_2'],
 };

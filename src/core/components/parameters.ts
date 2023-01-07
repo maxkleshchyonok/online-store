@@ -1,4 +1,5 @@
 import { INITIAL_STATE } from '../types/types';
+import productsJSON from '../../assets/json/products.json';
 
 const hash = window.location.hash.slice(1);
 
@@ -6,16 +7,18 @@ export let parameters = new URLSearchParams(hash.includes('?') ? hash.slice(hash
 
 export const parametersObj = (clear?: string) => {
 
-  let category = [],
-    quantity = [],
-    condition = [],
+  let category: string[] = [],
+    quantity: number[] = [],
+    condition: string[] = [],
     material: string[] = [],
     length: number[] = [],
     price: number[] = [],
     width: number[] = [],
     height: number[] = [],
     load: number[] = [],
-    sort = '';
+    sort = '',
+    short: string[] = [];
+
   
   const setSlider = (name: string) => {
     const sliderStr = parameters.getAll(`${name}`).join('-').split('-');
@@ -32,11 +35,12 @@ export const parametersObj = (clear?: string) => {
     category = parameters.getAll('category').join().split(',');
     const quantityStr = parameters.getAll('quantity').join('-').split('-');
     quantity = [parseInt(quantityStr[0]), parseInt(quantityStr[1])];
-    condition = parameters.getAll('condition').join().split(',');
+    condition = parameters.getAll('condition').join().split(', ');
     material = parameters.getAll('material').join().split(',');
     sort = INITIAL_STATE.sort;
+    short = parameters.getAll('short').join().split(',');
 
-  } else {
+  } else if (clear === 'clear') {
     parameters.set('category', INITIAL_STATE.category.join(','));
     parameters.set('price', INITIAL_STATE.price.join('-'));
     parameters.set('quantity', INITIAL_STATE.quantity.join('-'));
@@ -46,6 +50,14 @@ export const parametersObj = (clear?: string) => {
     parameters.set('width', INITIAL_STATE.width.join('-'));
     parameters.set('height', INITIAL_STATE.height.join('-'));
     parameters.set('load', INITIAL_STATE.load.join('-'));
+    parameters.set('short', INITIAL_STATE.short.join(','));
+
+    // price = setSlider('price');
+    // width = setSlider('width');
+    // length = setSlider('length');
+    // height = setSlider('height');
+    // load = setSlider('load');
+
     category = INITIAL_STATE.category;
     price = INITIAL_STATE.price;
     quantity = INITIAL_STATE.quantity;
@@ -56,8 +68,40 @@ export const parametersObj = (clear?: string) => {
     height = INITIAL_STATE.height;
     load = INITIAL_STATE.load;
     sort = INITIAL_STATE.sort;
+    short = INITIAL_STATE.short;
 
     window.location.hash = 'catalog-page';
+
+  } else if (INITIAL_STATE.short.includes(clear)) {
+
+    const productsArr = Array.from(productsJSON);
+    const product = productsArr.filter(x => x.short === clear);
+    
+    parameters.set('category', product[0].category);
+    parameters.set('price', `${product[0].price.toString()}-${product[0].price.toString()}`);
+    parameters.set('quantity', `${product[0].quantity.toString()}-${product[0].quantity.toString()}`);
+    parameters.set('condition', product[0].condition);
+    parameters.set('material', product[0].material);
+    parameters.set('length', `${product[0].length.toString()}-${product[0].length.toString()}`);
+    parameters.set('width', `${product[0].width.toString()}-${product[0].width.toString()}`);
+    parameters.set('height', `${product[0].height.toString()}-${product[0].height.toString()}`);
+    parameters.set('load', `${product[0].load.toString()}-${product[0].load.toString()}`);
+    parameters.set('short', `${product[0].short}`);
+    console.log(parameters.toString());
+
+    price = setSlider('price');
+    width = setSlider('width');
+    length = setSlider('length');
+    height = setSlider('height');
+    load = setSlider('load');
+    category = product[0].category.split('');
+    quantity = [product[0].quantity, product[0].quantity];
+    condition = product[0].condition.split('');
+    material = product[0].material.split('');
+    sort = INITIAL_STATE.sort;
+    short = [product[0].short];
+
+    window.location.hash = `catalog-page/${short}`;
   }
 
   return  {
@@ -71,6 +115,7 @@ export const parametersObj = (clear?: string) => {
     height: height,
     load: load,
     sort: sort,
+    short: short,
   };
 };
 

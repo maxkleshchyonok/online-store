@@ -398,6 +398,7 @@ export default class Filters extends Component implements IFilters {
     resetButton.addEventListener('click', () => {
       console.log('Reset!');
       parametersObj('clear');
+      console.log(parametersObj());
       saveParameters();
     });
 
