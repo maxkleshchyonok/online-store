@@ -402,8 +402,44 @@ export default class Filters extends Component implements IFilters {
       saveParameters();
     });
 
-    resetBlock.append(resetButton);
+    const copyButton = document.createElement('button');
+    copyButton.setAttribute('type', 'button');
+    copyButton.setAttribute('name', 'copyButton');
+    copyButton.classList.add('reset__form__button');
+    copyButton.classList.add('button');
+    copyButton.innerText = 'Copy';
+    copyButton.addEventListener('click', () => {
+      navigator.clipboard.writeText(document.location.href).then(() => {
+      }, (err) => console.log('Copy error' + err));
+    });
+
+    resetBlock.append(resetButton, copyButton);
     this.container.append(resetBlock);
+  }
+
+  public sortFilter(arr: Product[]) {
+    let temp = [];
+
+    switch (parametersObj().sort) {
+      case SortEnum.DEFAULT:
+        temp = arr.sort((a, b) => parseInt(a.category) - parseInt(b.category));
+        break;
+      case SortEnum.NAME:
+        temp = arr.sort((a, b) => parseInt(a.name) - parseInt(b.name));
+        break;
+      case SortEnum.NAME_REVERSED:
+        temp = arr.sort((a, b) => parseInt(b.name) - parseInt(a.name));
+        break;
+      case SortEnum.PRICE_DOWN:
+        temp = arr.sort((a, b) => b.price - a.price);
+        break;
+      case SortEnum.PRICE_UP:
+        temp = arr.sort((a, b) => a.price - b.price);
+        break;
+      default:
+        temp = arr.sort((a, b) => parseInt(a.category) - parseInt(b.category));
+    }
+    return temp;
   }
 
   render(): HTMLElement {
@@ -417,7 +453,7 @@ export default class Filters extends Component implements IFilters {
     this.categoriesFilter();
     this.categoryChange();
     this.stockFilter();
-    this.priceFilters();
+    this.priceFilters();s
 
     loadParameters();
     parametersObj();
