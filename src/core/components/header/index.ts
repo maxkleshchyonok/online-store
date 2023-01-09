@@ -1,5 +1,6 @@
 import Component from '../../templates/components';
 import { PageIds } from '../../../pages/app';
+// import { parameters, parametersObj, saveParameters } from '../parameters';
 
 const Buttons = [
   {

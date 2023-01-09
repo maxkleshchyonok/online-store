@@ -402,7 +402,18 @@ export default class Filters extends Component implements IFilters {
       saveParameters();
     });
 
-    resetBlock.append(resetButton);
+    const copyButton = document.createElement('button');
+    copyButton.setAttribute('type', 'button');
+    copyButton.setAttribute('name', 'copyButton');
+    copyButton.classList.add('reset__form__button');
+    copyButton.classList.add('button');
+    copyButton.innerText = 'Copy';
+    copyButton.addEventListener('click', () => {
+      navigator.clipboard.writeText(document.location.href).then(() => {
+      }, (err) => console.log('Copy error' + err));
+    });
+
+    resetBlock.append(resetButton, copyButton);
     this.container.append(resetBlock);
   }
 
