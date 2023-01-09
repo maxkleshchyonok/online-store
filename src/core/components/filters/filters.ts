@@ -417,31 +417,6 @@ export default class Filters extends Component implements IFilters {
     this.container.append(resetBlock);
   }
 
-  public sortFilter(arr: Product[]) {
-    let temp = [];
-
-    switch (parametersObj().sort) {
-      case SortEnum.DEFAULT:
-        temp = arr.sort((a, b) => parseInt(a.category) - parseInt(b.category));
-        break;
-      case SortEnum.NAME:
-        temp = arr.sort((a, b) => parseInt(a.name) - parseInt(b.name));
-        break;
-      case SortEnum.NAME_REVERSED:
-        temp = arr.sort((a, b) => parseInt(b.name) - parseInt(a.name));
-        break;
-      case SortEnum.PRICE_DOWN:
-        temp = arr.sort((a, b) => b.price - a.price);
-        break;
-      case SortEnum.PRICE_UP:
-        temp = arr.sort((a, b) => a.price - b.price);
-        break;
-      default:
-        temp = arr.sort((a, b) => parseInt(a.category) - parseInt(b.category));
-    }
-    return temp;
-  }
-
   render(): HTMLElement {
     this.resetFilters();
     this.loadFilters();
@@ -453,7 +428,7 @@ export default class Filters extends Component implements IFilters {
     this.categoriesFilter();
     this.categoryChange();
     this.stockFilter();
-    this.priceFilters();s
+    this.priceFilters();
 
     loadParameters();
     parametersObj();

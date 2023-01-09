@@ -37,7 +37,7 @@ export const parametersObj = (clear?: string) => {
     quantity = [parseInt(quantityStr[0]), parseInt(quantityStr[1])];
     condition = parameters.getAll('condition').join().split(', ');
     material = parameters.getAll('material').join().split(',');
-    sort = INITIAL_STATE.sort;
+    sort = parameters.get('sort') as string;
     short = parameters.getAll('short').join().split(',');
 
   } else if (clear === 'clear') {
@@ -51,12 +51,7 @@ export const parametersObj = (clear?: string) => {
     parameters.set('height', INITIAL_STATE.height.join('-'));
     parameters.set('load', INITIAL_STATE.load.join('-'));
     parameters.set('short', INITIAL_STATE.short.join(','));
-
-    // price = setSlider('price');
-    // width = setSlider('width');
-    // length = setSlider('length');
-    // height = setSlider('height');
-    // load = setSlider('load');
+    parameters.set('sort', INITIAL_STATE.sort);
 
     category = INITIAL_STATE.category;
     price = INITIAL_STATE.price;
