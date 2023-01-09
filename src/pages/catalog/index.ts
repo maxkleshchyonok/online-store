@@ -31,31 +31,6 @@ class CatalogPage extends Page {
 
   drawProductsCards(catalogSection: HTMLElement) {
     catalogSection.innerHTML = '';
-    // const arr = [...productsJSON];
-    // console.log(arr);
-    // for (let i = 0; i < parametersObj().short.length; i += 1) {
-    //   // arr.filter((el) => el.short === parametersObj().short.find((item) => item === el.short));
-    //   // arr.filter((el) => el.category === parametersObj().category.find((item) => item === el.category));
-    //   // arr.filter((el) => el.quantity === parametersObj().quantity.find((item) => item === el.quantity));
-    //   // arr.filter((el) => el.condition === parametersObj().condition.find((item) => item === el.condition));
-    //   // arr.filter((el) => el.material === parametersObj().material.find((item) => item === el.material));
-    //   // arr.filter((el) => el.length === parametersObj().length.find((item) => item === el.length));
-    //   // arr.filter((el) => el.width === parametersObj().width.find((item) => item === el.width));
-    //   // arr.filter((el) => el.height === parametersObj().height.find((item) => item === el.height));
-    //   // arr.filter((el) => el.price === parametersObj().price.find((item) => item === el.price));
-    //   // arr.filter((el) => el.load === parametersObj().load.find((item) => item === el.load));
-    // }
-
-    // arr.filter((el) => parametersObj().short.includes(el.short));
-    // arr.filter((el) => parametersObj().category.includes(el.category));
-    // arr.filter((el) => parametersObj().quantity.includes(el.quantity));
-    // arr.filter((el) => parametersObj().condition.includes(el.condition));
-    // arr.filter((el) => parametersObj().material.includes(el.material));
-    // arr.filter((el) => parametersObj().length.includes(el.length));
-    // arr.filter((el) => parametersObj().width.includes(el.width));
-    // arr.filter((el) => parametersObj().height.includes(el.height));
-    // arr.filter((el) => parametersObj().price.includes(el.price));
-    // arr.filter((el) => parametersObj().load.includes(el.load));
 
     const arr = [...productsJSON].filter((el) => parametersObj().short.includes(el.short)
         && parametersObj().category.includes(el.category) && parametersObj().quantity.includes(el.quantity)
@@ -63,10 +38,6 @@ class CatalogPage extends Page {
     && parametersObj().length.includes(el.length) && parametersObj().width.includes(el.width)
     && parametersObj().height.includes(el.height) && parametersObj().price.includes(el.price)
     && parametersObj().load.includes(el.load));
-
-    console.log(arr);
-
-
 
     for (let j = 0; j < arr.length; j += 1) {
       const productData = arr[j];
@@ -90,42 +61,6 @@ class CatalogPage extends Page {
       createProductCard(product, card, j);
       catalogSection.append(card);
     }
-
-
-    // if (this.filters.categoryCheckboxes) {
-    //   this.filters.categoryCheckboxes.forEach(x => {
-    //     x.addEventListener('change', () => {
-    //       catalogSection.innerHTML = '';
-    //       for (let i = 0; i < 20; i++) {
-    //         const productData = productsJSON[i];
-    //         if (this.filters.category.find(y=> y === productData.category)) {
-    //           const product = new Product(productData.id,
-    //             productData.short,
-    //             productData.name,
-    //             productData.category,
-    //             productData.condition,
-    //             productData.material,
-    //             productData.length,
-    //             productData.width,
-    //             productData.height,
-    //             productData.load,
-    //             productData.image1,
-    //             productData.image2,
-    //             productData.info,
-    //             productData.price,
-    //             productData.quantity);
-    //           const card = document.createElement('div');
-    //           // const cardImage = document.createElement('img');
-    //           // cardImage.src = product.image1;
-    //           // card.append(cardImage);
-    //           card.classList.add('product__card');
-    //           createProductCard(product, card, i);
-    //           catalogSection.append(card);
-    //         }
-    //       }
-    //     });
-    //   });
-    // }
   }
 
 
@@ -170,8 +105,6 @@ class CatalogPage extends Page {
     sortBlockTitle.className = 'sort-block-title';
     sort.className = 'sort-choose-click';
     sortList.className = 'choose-list';
-
-    // sort.innerText = 'Sortuj według...';
 
     const sortPlacehold = document.createElement('div');
     const placeholdImg = document.createElement('img');
@@ -325,8 +258,6 @@ class CatalogPage extends Page {
     const catalogSection = this.container.querySelector('.catalog__section') as HTMLElement;
 
     filtersSection.append(this.filters.render());
-
-    // this.drawProductsCards(catalogSection);
 
     setInterval(() => this.drawProductsCards(catalogSection), 100);
 
