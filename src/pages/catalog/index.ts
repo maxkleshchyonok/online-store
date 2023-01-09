@@ -28,20 +28,19 @@ class CatalogPage extends Page {
   }
 
   drawProductsCards(catalogSection: HTMLElement) {
-
-
     catalogSection.innerHTML = '';
-    const arr = [...productsJSON].filter((el) => parametersObj().short.includes(el.short)
+    let arr = [...productsJSON].filter((el) => parametersObj().short.includes(el.short)
       && parametersObj().category.includes(el.category)
       && parametersObj().quantity[0] <= el.quantity && parametersObj().quantity[1] >= el.quantity
       && parametersObj().condition.includes(el.condition) && parametersObj().material.includes(el.material)
       && parametersObj().length[0] <= el.length && parametersObj().length[1] >= el.length
       && parametersObj().width[0] <= el.width && parametersObj().width[1] >= el.width
       && parametersObj().height[0] <= el.height && parametersObj().height[1] >= el.height
+      && parametersObj().price[0] <= el.price && parametersObj().price[1] >= el.price
       && parametersObj().load[0] <= el.load && parametersObj().load[1] >= el.load);
 
     this.sortFilter(arr);
-    console.log(arr);
+    arr = this.searchFilter(arr);
 
     for (let j = 0; j < arr.length; j += 1) {
       const productData = arr[j];
@@ -107,8 +106,6 @@ class CatalogPage extends Page {
     sortBlockTitle.className = 'sort-block-title';
     sort.className = 'sort-choose-click';
     sortList.className = 'choose-list';
-
-    // sort.innerText = 'Sortuj według...';
 
     const sortPlacehold = document.createElement('div');
     const placeholdImg = document.createElement('img');
@@ -271,13 +268,13 @@ class CatalogPage extends Page {
 
     switch (parametersObj().sort) {
       case SortEnum.DEFAULT:
-        temp = arr.sort((a, b) => parseInt(a.category) - parseInt(b.category));
+        temp = arr.sort((a, b) => a.id - b.id);
         break;
       case SortEnum.NAME:
-        temp = arr.sort((a, b) => parseInt(a.name) - parseInt(b.name));
+        temp = arr.sort((a, b) => a.load - b.load);
         break;
       case SortEnum.NAME_REVERSED:
-        temp = arr.sort((a, b) => parseInt(b.name) - parseInt(a.name));
+        temp = arr.sort((a, b) => b.load - a.load);
         break;
       case SortEnum.PRICE_DOWN:
         temp = arr.sort((a, b) => b.price - a.price);
@@ -288,6 +285,13 @@ class CatalogPage extends Page {
       default:
         temp = arr.sort((a, b) => parseInt(a.category) - parseInt(b.category));
     }
+    return temp;
+  }
+
+  searchFilter(arr: Product[]) {
+    let temp = [];
+    const searchString = parameters.get('search') as string;
+    temp = arr.filter(el => el.info.toLowerCase().match(searchString.toLowerCase()));
     return temp;
   }
 
