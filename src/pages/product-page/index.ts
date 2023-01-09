@@ -3,24 +3,63 @@ import Footer from '../../core/components/footer';
 import './index.scss';
 // import { parameters } from '../../core/components/parameters';
 import productsJSON from '../../assets/json/products.json';
+import { parametersObj } from '../../core/components/parameters';
 
 class ProductPage extends Page {
 
-  private footer: Footer;
+  private nameValue: string | undefined;
 
-  private itemId: string | null;
+  private priceValue: number | undefined;
+
+  private descriptionValue: string | undefined;
+
+  private widthValue: number | undefined;
+
+  private lengthValue: number | undefined;
+
+  private heightValue: number | undefined;
+
+  private conditionValue: string | undefined;
+
+  private quantityValue: number | undefined;
+
+  private loadValue: number | undefined;
+
+  private materialValue: string | undefined;
+
+  private image1: string | undefined;
+
+  private image2: string | undefined;
+
+  private footer: Footer;
 
   static TextObject = {
     MainTitle: 'Product page',
   };
 
-  constructor(id: string, itemId: string | null) {
+  constructor(id: string) {
     super(id);
     this.footer = new Footer('footer', 'footer-container');
-    this.itemId = itemId;
   }
 
   private renderProductBlock(): void {
+    for (const item of productsJSON) {
+      if (item.short === parametersObj().short[0]) {
+        this.nameValue = item.name;
+        this.priceValue = item.price;
+        this.descriptionValue = item.info;
+        this.widthValue = item.width;
+        this.lengthValue = item.length;
+        this.heightValue = item.height;
+        this.conditionValue = item.condition;
+        this.quantityValue = item.quantity;
+        this.loadValue = item.load;
+        this.materialValue = item.material;
+        this.image1 = item.image1;
+        this.image2 = item.image2;
+      }
+    }
+
     const productBlock = document.createElement('div');
     productBlock.className = 'product-block';
 
@@ -32,7 +71,9 @@ class ProductPage extends Page {
     descriptionBlock.className = 'description-block';
 
     const bigPhotoImg = document.createElement('img');
-    bigPhotoImg.src = '../../assets/img/products/palety_euro/euro_nowe_1.jpg';
+    if (typeof this.image1 === 'string') {
+      bigPhotoImg.src = this.image1;
+    }
     bigPhoto.append(bigPhotoImg);
 
     for (let i = 0; i < 4; i += 1) {
@@ -47,11 +88,15 @@ class ProductPage extends Page {
         //   item.className = 'arrow-up';
         //   break;
         case 1:
-          item.src = '../../assets/img/products/palety_euro/euro_nowe_1.jpg';
+          if (typeof this.image1 === 'string') {
+            item.src = this.image1;
+          }
           item.className = 'photos-item';
           break;
         case 2:
-          item.src = '../../assets/img/products/palety_euro/euro_nowe_2.jpg';
+          if (typeof this.image2 === 'string') {
+            item.src = this.image2;
+          }
           item.className = 'photos-item';
           break;
         // case 3:
@@ -80,13 +125,17 @@ class ProductPage extends Page {
     infoBlock.className = 'product-info';
     split.className = 'splitter';
 
-    nameTitle.textContent = productsJSON[0].name;
-    priceBlock.textContent = `${productsJSON[0].price.toString()} zl`;
+    if (typeof this.nameValue === 'string') {
+      nameTitle.textContent = this.nameValue;
+    }
+    priceBlock.textContent = `${this.priceValue} zl`;
     buyButton.innerText = 'Dodaj do koszyka';
     like.src = '../../assets/img/elements/like.svg';
     likeButton.append(like);
     split.src = '../../assets/img/elements/split-horizontal.svg';
-    itemDescription.textContent = productsJSON[0].info;
+    if (typeof this.descriptionValue === 'string') {
+      itemDescription.textContent = this.descriptionValue;
+    }
 
     const width = document.createElement('h3');
     const length = document.createElement('h3');
@@ -104,13 +153,13 @@ class ProductPage extends Page {
     material.className = 'info-item';
     quantity.className = 'info-item';
 
-    width.textContent = `Width: ${productsJSON[0].width}`;
-    length.textContent = `Length: ${productsJSON[0].length}`;
-    height.textContent = `Height: ${productsJSON[0].height}`;
-    load.textContent = `Load: ${productsJSON[0].load}`;
-    condition.textContent = `Condition: ${productsJSON[0].condition}`;
-    material.textContent = `Material: ${productsJSON[0].material}`;
-    quantity.textContent = `Quantity: ${productsJSON[0].quantity}`;
+    width.textContent = `Width: ${this.widthValue}`;
+    length.textContent = `Length: ${this.lengthValue}`;
+    height.textContent = `Height: ${this.heightValue}`;
+    load.textContent = `Load: ${this.loadValue}`;
+    condition.textContent = `Condition: ${this.conditionValue}`;
+    material.textContent = `Material: ${this.materialValue}`;
+    quantity.textContent = `Quantity: ${this.quantityValue}`;
 
 
     buttonsBlock.append(priceBlock, buyButton, likeButton);
@@ -121,8 +170,6 @@ class ProductPage extends Page {
   }
 
   render(): HTMLElement {
-    // const title = this.createHeaderTitle(ProductPage.TextObject.MainTitle);
-    // this.renderTest();
     this.renderProductBlock();
     this.container.append(this.footer.render());
     return this.container;

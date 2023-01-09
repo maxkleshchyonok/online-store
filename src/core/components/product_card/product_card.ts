@@ -1,10 +1,17 @@
 import Product from '../product/product';
 import './product_card.scss';
+import { parametersObj, saveParameters } from '../parameters';
+import Page from '../../templates/page';
+import ProductPage from '../../../pages/product-page';
+// import page from '../../templates/page';
+import App from '../../../pages/app';
 // import { parameters, parametersObj, saveParameters, loadParameters } from '../parameters';
 // import { parameters } from '../parameters';
 // import App from '../../../pages/app';
 
 const createProductCard: (product: Product, container: HTMLElement, i?: number) => void = (product, container) => {
+
+  let page: Page | null = null;
 
   function createElement(tag: string, tagClass: string): void {
     const el = document.createElement(tag);
@@ -41,19 +48,21 @@ const createProductCard: (product: Product, container: HTMLElement, i?: number) 
 
   image.src = product.image1;
   // // name.textContent = product.name;
-  const namehref = document.createElement('a');
-  namehref.className = 'name-href';
-  namehref.innerText = product.name;
-  namehref.href = '#product-page';
-  // namehref.addEventListener('click', () => {
-  //   // parameters.set('name', product.name);
-  //   // parameters.set('test', 'test');
-  //   // window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
-  //
-  // });
-  localStorage.setItem('productID', `${product.id}`);
-  console.log(localStorage.getItem('productId'));
-  name.append(namehref);
+  const nameTitle = document.createElement('h2');
+  nameTitle.className = 'name-title';
+  nameTitle.innerText = product.name;
+  image.addEventListener('click', () => {
+    parametersObj(product.short);
+    saveParameters();
+    page = new ProductPage('product-page');
+    if (page) {
+      const pageHTML = page.render();
+      pageHTML.id = App.defaultPageId;
+      // this.previousPage = window.location.hash.slice(1);
+      App.container?.append(pageHTML);
+    }
+  });
+  name.append(nameTitle);
 
 
   const lengthTitle = document.createElement('h3');
@@ -103,6 +112,8 @@ const createProductCard: (product: Product, container: HTMLElement, i?: number) 
 
   buyButton.append(buttonImage, buttonSplit, buttonPrice);
   buttons.append(buyButton, likeButton);
+
+
   // createDomElement('img', 'button__image', button);
   // const buttonImage = document.querySelector('buttom__image') as HTMLImageElement;
   // buttonImage.src = '../../../assets/img/elements/button-cart.svg';

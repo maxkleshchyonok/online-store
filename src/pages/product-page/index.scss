@@ -20,6 +20,7 @@
       height: 100px;
       margin-bottom: 5%;
       border: 3px solid #c4c4c4;
+      object-fit: cover;
     }
     .arrow-down{
       transform: rotate(90deg);
@@ -27,7 +28,9 @@
   }
   .big-photo{
     width: 40%;
-    border: 3px solid #c4c4c4;
+    height: 500px;
+    border: 1px solid #c4c4c4;
+    border-radius: 5px;
     img{
       width: 100%;
       height: 100%;

@@ -22,13 +22,16 @@
   height: 100px;
   margin-bottom: 5%;
   border: 3px solid #c4c4c4;
+  object-fit: cover;
 }
 .product-block .photos-block .arrow-down {
   transform: rotate(90deg);
 }
 .product-block .big-photo {
   width: 40%;
-  border: 3px solid #c4c4c4;
+  height: 500px;
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
 }
 .product-block .big-photo img {
   width: 100%;

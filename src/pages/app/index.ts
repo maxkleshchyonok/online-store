@@ -3,7 +3,7 @@ import CatalogPage from '../catalog';
 import Page from '../../core/templates/page';
 import CartPage from '../cart';
 import Header from '../../core/components/header';
-import ProductPage from '../product-page';
+// import ProductPage from '../product-page';
 // import Footer from '../../core/components/footer';
 import { parameters } from '../../core/components/parameters';
 // import createProductCard from '../../core/components/product_card/product_card';
@@ -17,9 +17,9 @@ export const enum PageIds {
 }
 
 class App {
-  private static container: HTMLElement | null = document.getElementById('content');
+  static container: HTMLElement | null = document.getElementById('content');
 
-  private static defaultPageId = 'current-page';
+  static defaultPageId = 'current-page';
 
   private initialPage: MainPage;
 
@@ -39,16 +39,13 @@ class App {
     if (idPage === PageIds.MainPageId) {
       page = new MainPage(idPage);
     } else if (idPage === PageIds.CatalogPageId) {
-      // if (parameters.has('name')) {
-      //   // const name = parameters.get('name');
-      //   page = new ProductPage(PageIds.ProductPageId);
-      // }
       page = new CatalogPage(idPage);
     } else if (idPage === PageIds.CartPageId) {
       page = new CartPage(idPage);
-    } else if (idPage === PageIds.ProductPageId) {
-      page = new ProductPage(idPage, localStorage.getItem('productID'));
     }
+    // } else if (idPage === PageIds.ProductPageId) {
+    //   page = new ProductPage(idPage);
+    // }
 
     if (page) {
       const pageHTML = page.render();
