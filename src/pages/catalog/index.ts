@@ -6,7 +6,9 @@ import './index.scss';
 import Filters from '../../core/components/filters/filters';
 import { SortEnum } from '../../core/types/types';
 import Footer from '../../core/components/footer';
+
 import { parameters, parametersObj, saveParameters } from '../../core/components/parameters';
+
 
 const PaletRange = ['Wszystkie', 'Europalety', 'Jednorazowe', 'Nowe', 'Używane',
   'Wyprzedaż', 'Półpalety', 'Plastikowe'];
@@ -27,7 +29,11 @@ class CatalogPage extends Page {
     parameters.delete('name');
   }
 
+
+
   drawProductsCards(catalogSection: HTMLElement) {
+
+
     catalogSection.innerHTML = '';
     let arr = [...productsJSON].filter((el) => parametersObj().short.includes(el.short)
       && parametersObj().category.includes(el.category)
@@ -311,11 +317,13 @@ class CatalogPage extends Page {
 
     filtersSection.append(this.filters.render());
 
+
     this.drawProductsCards(catalogSection);
 
     window.addEventListener('hashchange', () => {
       this.drawProductsCards(catalogSection);
     });
+
     this.container.append(this.footer.render());
     this.container.classList.add('catalog-page-styles');
     return this.container;
