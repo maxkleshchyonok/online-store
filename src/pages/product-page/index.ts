@@ -7,6 +7,8 @@ import { parametersObj } from '../../core/components/parameters';
 
 class ProductPage extends Page {
 
+  private shortName: string | undefined;
+
   private nameValue: string | undefined;
 
   private priceValue: number | undefined;
@@ -57,6 +59,7 @@ class ProductPage extends Page {
         this.materialValue = item.material;
         this.image1 = item.image1;
         this.image2 = item.image2;
+        this.shortName = item.short;
       }
     }
 
@@ -115,6 +118,8 @@ class ProductPage extends Page {
     const itemDescription = document.createElement('p');
     const infoBlock = document.createElement('div');
     const split = document.createElement('img');
+    const amountButton = document.createElement('div');
+    let number = 1;
 
     nameTitle.className = 'product-name';
     buttonsBlock.className = 'buttons-block';
@@ -130,6 +135,42 @@ class ProductPage extends Page {
     }
     priceBlock.textContent = `${this.priceValue} zl`;
     buyButton.innerText = 'Dodaj do koszyka';
+    buyButton.addEventListener('click', () => {
+      amountButton.classList.add('activated');
+      localStorage.setItem(`${this.shortName}`, `${number}`);
+    });
+
+    const minus = document.createElement('div');
+    const plus = document.createElement('div');
+    const numberBlock = document.createElement('div');
+    const infoNumber = document.createElement('h3');
+    const infoTitle = document.createElement('p');
+
+    minus.className = 'button-minus';
+    plus.className = 'button-plus';
+    numberBlock.className = 'button-info-block';
+    infoNumber.className = 'info-number';
+    infoTitle.className = 'info-title';
+    amountButton.className = 'amount-buttons';
+
+    infoTitle.textContent = 'W koszyku';
+    infoNumber.textContent = `${number}`;
+    minus.textContent = '-';
+    plus.textContent = '+';
+    minus.addEventListener('click', () => {
+      number -= 1;
+      infoNumber.textContent = `${number}`;
+      localStorage.setItem(`${this.shortName}`, `${number}`);
+    });
+    plus.addEventListener('click', () => {
+      number += 1;
+      infoNumber.textContent = `${number}`;
+      localStorage.setItem(`${this.shortName}`, `${number}`);
+    });
+
+    numberBlock.append(infoNumber, infoTitle);
+    amountButton.append(minus, numberBlock, plus);
+
     like.src = '../../assets/img/elements/like.svg';
     likeButton.append(like);
     split.src = '../../assets/img/elements/split-horizontal.svg';
@@ -164,7 +205,7 @@ class ProductPage extends Page {
 
     buttonsBlock.append(priceBlock, buyButton, likeButton);
     infoBlock.append(width, length, height, load, condition, material, quantity);
-    descriptionBlock.append(nameTitle, buttonsBlock, split, itemDescription, infoBlock);
+    descriptionBlock.append(nameTitle, buttonsBlock, amountButton, split, itemDescription, infoBlock);
     productBlock.append(photosBlock, bigPhoto, descriptionBlock);
     this.container.append(productBlock);
   }
