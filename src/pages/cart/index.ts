@@ -1,9 +1,12 @@
 import Page from '../../core/templates/page';
 import Footer from '../../core/components/footer';
 import productsJSON from '../../assets/json/products.json';
+import Product from '../../core/components/product/product';
 import './index.scss';
 
 class CartPage extends Page {
+
+  private priceNum: number | undefined;
 
   private footer: Footer;
 
@@ -28,12 +31,21 @@ class CartPage extends Page {
     const cardsBlock = document.createElement('div');
     cardsBlock.className = 'order-items';
     // const keys = localStorage.getItem('plastik_1');
-    const arr = [];
+    const arr: Product [] = [];
+    // let priceNum = 0;
+    this.priceNum = 0;
+
     for (let i = 0; i < productsJSON.length; i += 1) {
       if (localStorage.getItem(productsJSON[i].short) !== null) {
         arr.push(productsJSON[i]);
       }
     }
+
+    for (let i = 0; i < arr.length; i += 1) {
+      const amountOfItems = localStorage.getItem(arr[i].short) as string;
+      this.priceNum += arr[i].price * parseInt(amountOfItems);
+    }
+    const price = document.createElement('h3');
     for (let i = 0; i < arr.length; i += 1) {
       const orderCard = document.createElement('div');
       const image = document.createElement('img');
@@ -55,7 +67,8 @@ class CartPage extends Page {
       deleteItem.src = '../../assets/img/elements/delete.png';
       deleteBlock.className = 'delete-order';
       deleteBlock.addEventListener('click', () => {
-        // localStorage.removeItem(`${arr[i].short}`);
+        localStorage.removeItem(arr[i].short);
+        location.reload();
       });
       deleteBlock.append(deleteItem);
 
@@ -83,12 +96,22 @@ class CartPage extends Page {
       minus.addEventListener('click', () => {
         numberNum -= 1;
         number.textContent = `${numberNum}`;
-        // localStorage.setItem(`${arr[i].short}`, `${number}`);
+        localStorage.setItem(`${arr[i].short}`, `${numberNum}`);
+        fullPrice.textContent = `${arr[i].price * numberNum} zl`;
+        if (typeof this.priceNum !== 'undefined') {
+          this.priceNum -= arr[i].price;
+        }
+        price.textContent = `${this.priceNum} zl`;
       });
       plus.addEventListener('click', () => {
         numberNum += 1;
         number.textContent = `${numberNum}`;
-        // localStorage.setItem(`${arr[i].short}`, `${number}`);
+        localStorage.setItem(`${arr[i].short}`, `${numberNum}`);
+        fullPrice.textContent = `${arr[i].price * numberNum} zl`;
+        if (typeof this.priceNum !== 'undefined') {
+          this.priceNum += arr[i].price;
+        }
+        price.textContent = `${this.priceNum} zl`;
       });
       singlePrice.textContent = `${arr[i].price} zl / rzecz`;
       fullPrice.textContent = `${arr[i].price * numberNum} zl`;
@@ -124,7 +147,6 @@ class CartPage extends Page {
 
     const orderAmountPrice = document.createElement('div');
     const amount = document.createElement('h3');
-    const price = document.createElement('h3');
 
     const orderDiscount = document.createElement('div');
     const discountTitle = document.createElement('h3');
@@ -254,12 +276,7 @@ class CartPage extends Page {
     buyTitle.textContent = 'About order';
 
     amount.textContent = `Orders(${arr.length})`;
-    let priceNum = 0;
-    for (let i = 0; i < arr.length; i += 1) {
-      const amountOfItems = localStorage.getItem(arr[i].short) as string;
-      priceNum += arr[i].price * parseInt(amountOfItems);
-    }
-    price.textContent = `${priceNum} zl`;
+    price.textContent = `${this.priceNum} zl`;
 
     discountTitle.textContent = 'Discounts:';
     discountNumber.textContent = '-200 zl';
