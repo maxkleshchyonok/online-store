@@ -36,13 +36,61 @@ class CartPage extends Page {
     }
     for (let i = 0; i < arr.length; i += 1) {
       const orderCard = document.createElement('div');
+      const image = document.createElement('img');
+
+      const info = document.createElement('div');
       const title = document.createElement('h1');
+      const amountOnStore = document.createElement('p');
+
+      const chooseAmountBlock = document.createElement('div');
+      const chooseBlock = document.createElement('div');
+      const minus = document.createElement('div');
+      const number = document.createElement('h2');
+      const plus = document.createElement('div');
+      const singlePrice = document.createElement('h3');
+
+      const fullPrice = document.createElement('h1');
 
       orderCard.className = 'order-card';
       title.className = 'card-title';
+      image.className = 'card-image';
+      info.className = 'order-info';
+      amountOnStore.className = 'order-amount';
+      chooseAmountBlock.className = 'choose-amount-block';
+      chooseBlock.className = 'choose-block';
+      minus.className = 'choose-minus';
+      number.className = 'choose-number';
+      plus.className = 'choose-plus';
+      singlePrice.className = 'single-price';
+      fullPrice.className = 'full-price';
 
+      image.src = arr[i].image1;
       title.textContent = arr[i].name;
-      orderCard.append(title);
+      amountOnStore.textContent = `W magazynie: ${arr[i].quantity}`;
+
+      let numberNum = parseInt(localStorage.getItem(arr[i].short) as string);
+      number.textContent = `${numberNum}`;
+      minus.textContent = '-';
+      plus.textContent = '+';
+      minus.addEventListener('click', () => {
+        numberNum -= 1;
+        number.textContent = `${numberNum}`;
+        // localStorage.setItem(`${arr[i].short}`, `${number}`);
+      });
+      plus.addEventListener('click', () => {
+        numberNum += 1;
+        number.textContent = `${numberNum}`;
+        // localStorage.setItem(`${arr[i].short}`, `${number}`);
+      });
+      singlePrice.textContent = `${arr[i].price} zl / rzecz`;
+      fullPrice.textContent = `${arr[i].price * numberNum} zl`;
+
+
+      info.append(title, amountOnStore);
+      chooseBlock.append(minus, number, plus);
+      chooseAmountBlock.append(chooseBlock, singlePrice);
+      orderCard.append(image, info, chooseAmountBlock, fullPrice);
+
       cardsBlock.append(orderCard);
     }
 
@@ -83,8 +131,8 @@ class CartPage extends Page {
     amount.textContent = `Orders(${arr.length})`;
     let priceNum = 0;
     for (let i = 0; i < arr.length; i += 1) {
-      const amountOfItems = localStorage.getItem(arr[i].short);
-      priceNum += arr[i].price * amountOfItems;
+      const amountOfItems = localStorage.getItem(arr[i].short) as string;
+      priceNum += arr[i].price * parseInt(amountOfItems);
     }
     price.textContent = `${priceNum} zl`;
 

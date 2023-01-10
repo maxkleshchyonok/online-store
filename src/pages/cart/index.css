@@ -6,16 +6,70 @@
 .order-container {
   width: 100%;
   display: flex;
+  font-family: "Lato", sans-serif;
+  font-style: normal;
 }
 .order-container .order-items {
   width: 70%;
   margin-left: 2%;
 }
 .order-container .order-items .order-card {
+  padding-top: 2%;
   width: 90%;
-  height: 150px;
+  height: 130px;
   border: 1px solid black;
   margin-bottom: 2%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.order-container .order-items .order-card .card-image {
+  object-fit: cover;
+  width: 160px;
+  height: 110px;
+}
+.order-container .order-items .order-card .order-info .card-title {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 17px;
+  color: #333333;
+}
+.order-container .order-items .order-card .order-info .order-amount {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: #828282;
+}
+.order-container .order-items .order-card .choose-amount-block {
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.order-container .order-items .order-card .choose-amount-block .choose-block {
+  width: 100%;
+  margin-bottom: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.order-container .order-items .order-card .choose-amount-block .choose-block div {
+  background: #dcdcdc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  font-size: 35px;
+  cursor: pointer;
+}
+.order-container .order-items .order-card .choose-amount-block .single-price {
+  font-size: 13px;
+}
+.order-container .order-items .order-card .full-price {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 22px;
+  color: #333333;
 }
 .order-container .buy-block {
   width: 20%;
