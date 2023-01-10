@@ -136,6 +136,75 @@ class CartPage extends Page {
 
     const orderButton = document.createElement('button');
 
+    const popup = document.createElement('div');
+    const popClose = document.createElement('button');
+    const form = document.createElement('form');
+    const formTitle = document.createElement('h1');
+    const formInputName = document.createElement('input');
+    const formInputPhone = document.createElement('input');
+    const formInputAddress = document.createElement('input');
+    const formInputEmail = document.createElement('input');
+    const submit = document.createElement('button');
+    const thank = document.createElement('h2');
+
+    const creditCard = document.createElement('div');
+    const cardImage = document.createElement('img');
+    const cardNumber = document.createElement('input');
+    const cardValid = document.createElement('input');
+    const cardCVV = document.createElement('input');
+
+    creditCard.className = 'credit-card';
+    cardImage.className = 'card-img';
+    cardNumber.className = 'card-number';
+    cardValid.className = 'card-valid';
+    cardCVV.className = 'card-cvv';
+
+    cardImage.src = '../../assets/img/elements/visa.png';
+    cardNumber.placeholder = 'card number';
+    cardValid.placeholder = 'valid to';
+    cardCVV.placeholder = 'cvv';
+
+    creditCard.append(cardImage, cardNumber, cardValid, cardCVV);
+
+    popup.className = 'popUp';
+    popClose.className = 'closeBtn';
+    form.className = 'holder';
+    formInputName.className = 'Name';
+    submit.className = 'submit-button';
+    thank.className = 'thanks';
+
+    formTitle.textContent = 'Personal details';
+    popClose.textContent = 'X';
+    submit.textContent = 'Submit';
+    thank.textContent = 'Dziękuję Ci!';
+    formInputName.placeholder = 'Enter name';
+    formInputPhone.placeholder = 'Enter phone';
+    formInputAddress.placeholder = 'enter address';
+    formInputEmail.placeholder = 'enter email';
+
+    form.append(formTitle, formInputName, formInputPhone,
+      formInputAddress, formInputEmail, creditCard, submit);
+    popup.append(popClose, form, thank);
+
+    function closeForm() {
+      popup.classList.remove('active');
+    }
+    function openForm() {
+      popup.classList.add('active');
+      form.classList.add('active');
+    }
+    function onSubmitForm() {
+      thank.classList.add('active');
+      form.classList.remove('active');
+      setTimeout(() => {
+        closeForm();
+        thank.classList.remove('active');
+        form.classList.add('active');
+      }, 2000);
+    }
+    popClose.addEventListener('click', closeForm);
+    submit.addEventListener('click', onSubmitForm);
+
     buyBlock.className = 'buy-block';
     buyTitle.className = 'buy-title';
     infoBlock.className = 'buy-info';
@@ -168,12 +237,14 @@ class CartPage extends Page {
 
     orderButton.innerText = 'Idź do kasy';
 
+    orderButton.addEventListener('click', openForm);
+
     orderAmountPrice.append(amount, price);
     orderDiscount.append(discountTitle, discountNumber);
     orderDelivery.append(deliveryTitle, deliveryAmount);
     infoBlock.append(orderAmountPrice, orderDiscount, orderDelivery);
     buyBlock.append(customerBlock, buyTitle, infoBlock, orderButton);
-    orderContainer.append(cardsBlock, buyBlock);
+    orderContainer.append(cardsBlock, buyBlock, popup);
 
 
     this.container.append(orderContainer);

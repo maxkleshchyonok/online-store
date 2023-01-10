@@ -250,5 +250,92 @@
   box-shadow: 0 5px 20px rgba(50, 50, 52, 0.3);
   transition: 0.2s ease-in-out;
 }
+.order-container .popUp {
+  position: fixed;
+  left: 27%;
+  top: 15%;
+  width: 45%;
+  height: 500px;
+  background: #f1f1f1;
+  border: 2px solid #d5d5d5;
+  box-shadow: 5px 10px 10px rgba(50, 50, 52, 0.4);
+  border-radius: 3px;
+  display: none;
+}
+.order-container .popUp .holder {
+  display: none;
+}
+.order-container .popUp .holder input {
+  width: 50%;
+  height: 30px;
+  margin-bottom: 2%;
+  padding-left: 2%;
+}
+.order-container .popUp .holder .credit-card {
+  border-radius: 6px;
+  width: 40%;
+  height: 150px;
+  background: #359164;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 0.5fr);
+  gap: 0 0;
+  grid-template-areas: "image number number number" "valid valid cvv cvv";
+}
+.order-container .popUp .holder .credit-card .card-img {
+  margin-top: 25%;
+  margin-left: 15%;
+  grid-area: image;
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+}
+.order-container .popUp .holder .credit-card .card-number {
+  padding-left: 3%;
+  margin-top: 10%;
+  grid-area: number;
+  width: 80%;
+  height: 30px;
+}
+.order-container .popUp .holder .credit-card .card-valid {
+  padding-left: 3%;
+  margin-left: 50%;
+  grid-area: valid;
+  width: 40%;
+  height: 30px;
+}
+.order-container .popUp .holder .credit-card .card-cvv {
+  padding-left: 3%;
+  margin-left: 25%;
+  grid-area: cvv;
+  width: 25%;
+  height: 30px;
+}
+.order-container .popUp .holder .submit-button {
+  margin-top: 5%;
+  width: 30%;
+  height: 50px;
+  background: #15616D;
+  color: #FFFFFF;
+  font-size: 20px;
+}
+.order-container .popUp .closeBtn {
+  margin-left: 1%;
+  margin-top: 1%;
+}
+.order-container .popUp .thanks {
+  display: none;
+  margin-top: 30%;
+  font-size: 30px;
+  font-weight: 600;
+}
+.order-container .popUp .active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.order-container .active {
+  display: block;
+}
 
 /*# sourceMappingURL=index.css.map */
