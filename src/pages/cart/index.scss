@@ -286,7 +286,7 @@
           grid-area: image;
           width: 30px;
           height: 30px;
-          object-fit: cover;
+          object-fit: scale-down;
         }
         .card-number{
           padding-left: 3%;
@@ -294,6 +294,9 @@
           grid-area: number;
           width: 80%;
           height: 30px;
+        }
+        .card-number:required{
+          border: 1px solid red;
         }
         .card-valid{
           padding-left: 3%;
@@ -317,11 +320,13 @@
         background: #15616D;
         color: #FFFFFF;
         font-size: 20px;
+        cursor: pointer;
       }
     }
     .closeBtn{
       margin-left: 1%;
       margin-top: 1%;
+      cursor: pointer;
     }
     .thanks{
       display: none;
