@@ -2,6 +2,7 @@ import Page from '../../core/templates/page';
 import Footer from '../../core/components/footer';
 import productsJSON from '../../assets/json/products.json';
 import './index.scss';
+import Product from '../../core/components/product/product';
 
 class CartPage extends Page {
 
@@ -28,7 +29,7 @@ class CartPage extends Page {
     const cardsBlock = document.createElement('div');
     cardsBlock.className = 'order-items';
     // const keys = localStorage.getItem('plastik_1');
-    const arr = [];
+    const arr: Product[] = [];
     for (let i = 0; i < productsJSON.length; i += 1) {
       if (localStorage.getItem(productsJSON[i].short) !== null) {
         arr.push(productsJSON[i]);
@@ -55,7 +56,8 @@ class CartPage extends Page {
       deleteItem.src = '../../assets/img/elements/delete.png';
       deleteBlock.className = 'delete-order';
       deleteBlock.addEventListener('click', () => {
-        // localStorage.removeItem(`${arr[i].short}`);
+        localStorage.removeItem(`${arr[i].short}`);
+        location.reload();
       });
       deleteBlock.append(deleteItem);
 
