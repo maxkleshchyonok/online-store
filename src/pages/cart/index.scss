@@ -1,0 +1,60 @@
+.page-top{
+  margin-bottom: 3%;
+  margin-left: 2%;
+}
+.order-container{
+  width: 100%;
+  display: flex;
+  .order-items{
+    width: 70%;
+    margin-left: 2%;
+    .order-card{
+      width: 90%;
+      height: 150px;
+      border: 1px solid black;
+      margin-bottom: 2%;
+    }
+  }
+  .buy-block{
+    width: 20%;
+    height: 300px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    .buy-title{
+      margin-left: 3%;
+      margin-top: 5%;
+      margin-bottom: 5%;
+    }
+    .buy-info{
+      margin-bottom: 10%;
+      .buy-amount-price{
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 5%;
+        .amount{}
+        .price{}
+      }
+      .buy-discount{
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 5%;
+        .discount-title{}
+        .discount-number{}
+      }
+      .buy-delivery{
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 5%;
+        .delivery-title{}
+        .delivery-amount{}
+      }
+    }
+    .order-button{
+      width: 50%;
+      height: 60px;
+      cursor: pointer;
+      margin-left: 5%;
+    }
+  }
+}

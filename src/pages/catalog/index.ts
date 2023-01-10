@@ -37,13 +37,14 @@ class CatalogPage extends Page {
 
     catalogSection.innerHTML = '';
     const arr = [...productsJSON].filter((el) => parametersObj().short.includes(el.short)
-      && parametersObj().category.includes(el.category)
-      && parametersObj().quantity[0] <= el.quantity && parametersObj().quantity[1] >= el.quantity
-      && parametersObj().condition.includes(el.condition) && parametersObj().material.includes(el.material)
-      && parametersObj().length[0] <= el.length && parametersObj().length[1] >= el.length
-      && parametersObj().width[0] <= el.width && parametersObj().width[1] >= el.width
-      && parametersObj().height[0] <= el.height && parametersObj().height[1] >= el.height
-      && parametersObj().load[0] <= el.load && parametersObj().load[1] >= el.load);
+        && parametersObj().category.includes(el.category) && parametersObj().price[0] <= el.price
+        && parametersObj().price[1] >= el.price && parametersObj().quantity[0] <= el.quantity
+        && parametersObj().quantity[1] >= el.quantity && parametersObj().condition.includes(el.condition)
+        && parametersObj().material.includes(el.material) && parametersObj().length[0] <= el.length
+        && parametersObj().length[1] >= el.length && parametersObj().width[0] <= el.width
+        && parametersObj().width[1] >= el.width && parametersObj().height[0] <= el.height
+        && parametersObj().height[1] >= el.height && parametersObj().load[0] <= el.load
+        && parametersObj().load[1] >= el.load);
 
     this.sortFilter(arr);
     console.log(arr);
@@ -268,7 +269,7 @@ class CatalogPage extends Page {
   private renderFilterBlock(): void {
 
   }
-  
+
   sortFilter(arr: Product[]) {
     let temp = [];
 

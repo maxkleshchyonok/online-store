@@ -1,0 +1,57 @@
+.page-top {
+  margin-bottom: 3%;
+  margin-left: 2%;
+}
+
+.order-container {
+  width: 100%;
+  display: flex;
+}
+.order-container .order-items {
+  width: 70%;
+  margin-left: 2%;
+}
+.order-container .order-items .order-card {
+  width: 90%;
+  height: 150px;
+  border: 1px solid black;
+  margin-bottom: 2%;
+}
+.order-container .buy-block {
+  width: 20%;
+  height: 300px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+}
+.order-container .buy-block .buy-title {
+  margin-left: 3%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+.order-container .buy-block .buy-info {
+  margin-bottom: 10%;
+}
+.order-container .buy-block .buy-info .buy-amount-price {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 5%;
+}
+.order-container .buy-block .buy-info .buy-discount {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 5%;
+}
+.order-container .buy-block .buy-info .buy-delivery {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 5%;
+}
+.order-container .buy-block .order-button {
+  width: 50%;
+  height: 60px;
+  cursor: pointer;
+  margin-left: 5%;
+}
+
+/*# sourceMappingURL=index.css.map */
