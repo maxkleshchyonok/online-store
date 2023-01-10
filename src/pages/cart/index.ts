@@ -50,6 +50,14 @@ class CartPage extends Page {
       const singlePrice = document.createElement('h3');
 
       const fullPrice = document.createElement('h1');
+      const deleteBlock = document.createElement('div');
+      const deleteItem = document.createElement('img');
+      deleteItem.src = '../../assets/img/elements/delete.png';
+      deleteBlock.className = 'delete-order';
+      deleteBlock.addEventListener('click', () => {
+        // localStorage.removeItem(`${arr[i].short}`);
+      });
+      deleteBlock.append(deleteItem);
 
       orderCard.className = 'order-card';
       title.className = 'card-title';
@@ -89,7 +97,7 @@ class CartPage extends Page {
       info.append(title, amountOnStore);
       chooseBlock.append(minus, number, plus);
       chooseAmountBlock.append(chooseBlock, singlePrice);
-      orderCard.append(image, info, chooseAmountBlock, fullPrice);
+      orderCard.append(image, info, chooseAmountBlock, fullPrice, deleteBlock);
 
       cardsBlock.append(orderCard);
     }
@@ -97,6 +105,22 @@ class CartPage extends Page {
     const buyBlock = document.createElement('div');
     const buyTitle = document.createElement('div');
     const infoBlock = document.createElement('div');
+
+    const customerBlock = document.createElement('div');
+    const customerTitle = document.createElement('h2');
+    const addressInput = document.createElement('input');
+    const promocodeInput = document.createElement('input');
+
+    customerBlock.className = 'customer-block';
+    customerTitle.className = 'customer-title';
+    addressInput.className = 'address-input';
+    promocodeInput.className = 'promocode-input';
+
+    customerTitle.textContent = 'Dane kupującego';
+    addressInput.placeholder = 'Wpisz swój adres...';
+    promocodeInput.placeholder = 'Wpisz swój kod promocyjny...';
+
+    customerBlock.append(customerTitle, addressInput, promocodeInput);
 
     const orderAmountPrice = document.createElement('div');
     const amount = document.createElement('h3');
@@ -137,18 +161,18 @@ class CartPage extends Page {
     price.textContent = `${priceNum} zl`;
 
     discountTitle.textContent = 'Discounts:';
-    discountNumber.textContent = '123456';
+    discountNumber.textContent = '-200 zl';
 
     deliveryTitle.textContent = 'Delivery price:';
     deliveryAmount.textContent = 'Free';
 
-    orderButton.innerText = 'Buy';
+    orderButton.innerText = 'Idź do kasy';
 
     orderAmountPrice.append(amount, price);
     orderDiscount.append(discountTitle, discountNumber);
     orderDelivery.append(deliveryTitle, deliveryAmount);
     infoBlock.append(orderAmountPrice, orderDiscount, orderDelivery);
-    buyBlock.append(buyTitle, infoBlock, orderButton);
+    buyBlock.append(customerBlock, buyTitle, infoBlock, orderButton);
     orderContainer.append(cardsBlock, buyBlock);
 
 
