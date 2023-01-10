@@ -288,7 +288,7 @@
   grid-area: image;
   width: 30px;
   height: 30px;
-  object-fit: cover;
+  object-fit: scale-down;
 }
 .order-container .popUp .holder .credit-card .card-number {
   padding-left: 3%;
@@ -296,6 +296,9 @@
   grid-area: number;
   width: 80%;
   height: 30px;
+}
+.order-container .popUp .holder .credit-card .card-number:required {
+  border: 1px solid red;
 }
 .order-container .popUp .holder .credit-card .card-valid {
   padding-left: 3%;
@@ -318,10 +321,12 @@
   background: #15616D;
   color: #FFFFFF;
   font-size: 20px;
+  cursor: pointer;
 }
 .order-container .popUp .closeBtn {
   margin-left: 1%;
   margin-top: 1%;
+  cursor: pointer;
 }
 .order-container .popUp .thanks {
   display: none;

@@ -147,6 +147,13 @@ class CartPage extends Page {
     const submit = document.createElement('button');
     const thank = document.createElement('h2');
 
+    formInputName.addEventListener('input', () => {
+      const reg = /^[a-z ,.'-]+$/i;
+      if (formInputName.value.match(reg)) {
+        console.log(formInputName.value);
+      }
+    });
+
     const creditCard = document.createElement('div');
     const cardImage = document.createElement('img');
     const cardNumber = document.createElement('input');
@@ -159,10 +166,34 @@ class CartPage extends Page {
     cardValid.className = 'card-valid';
     cardCVV.className = 'card-cvv';
 
-    cardImage.src = '../../assets/img/elements/visa.png';
+    cardImage.src = '../../assets/img/elements/money.png';
     cardNumber.placeholder = 'card number';
     cardValid.placeholder = 'valid to';
     cardCVV.placeholder = 'cvv';
+
+    let test;
+    cardNumber.maxLength = 16;
+    cardNumber.minLength = 16;
+    cardNumber.addEventListener('input', () => {
+      test = cardNumber.value;
+      if (test[0] === '3') {
+        cardImage.src = '../../assets/img/elements/american.png';
+      }
+      if (test[0] === '4') {
+        cardImage.src = '../../assets/img/elements/visa.png';
+      }
+      if (test[0] === '5') {
+        cardImage.src = '../../assets/img/elements/master.png';
+      }
+    });
+    cardCVV.minLength = 3;
+    cardCVV.maxLength = 3;
+    cardCVV.addEventListener('input', () => {
+      const reg = /(10[0-9]|1[1-9]\d|[2-9]\d\d|1000)$/gm;
+      if (cardCVV.value.match(reg) !== null) {
+        console.log(cardCVV.value);
+      }
+    });
 
     creditCard.append(cardImage, cardNumber, cardValid, cardCVV);
 
@@ -188,6 +219,7 @@ class CartPage extends Page {
 
     function closeForm() {
       popup.classList.remove('active');
+      cardImage.src = '../../assets/img/elements/money.png';
     }
     function openForm() {
       popup.classList.add('active');
