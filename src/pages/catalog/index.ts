@@ -42,9 +42,9 @@ class CatalogPage extends Page {
         && parametersObj().material.includes(el.material) && parametersObj().length[0] <= el.length
         && parametersObj().length[1] >= el.length && parametersObj().width[0] <= el.width
         && parametersObj().width[1] >= el.width && parametersObj().height[0] <= el.height
-        && parametersObj().height[1] >= el.height      && parametersObj().price[0] <= el.price && parametersObj().price[1] >= el.price
- && parametersObj().load[0] <= el.load
-        && parametersObj().load[1] >= el.load);
+        && parametersObj().height[1] >= el.height && parametersObj().price[0] <= el.price
+        && parametersObj().price[1] >= el.price
+        && parametersObj().load[0] <= el.load && parametersObj().load[1] >= el.load);
 
     this.sortFilter(arr);
     arr = this.searchFilter(arr);
