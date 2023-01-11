@@ -85,7 +85,7 @@ export default class Filters extends Component implements IFilters {
     const slider = document.createElement('div') as noUiSlider.target;
     slider.setAttribute('id', `${name}__slider`);
     slider.classList.add(`${name}__slider`);
-    
+
     let min = 0;
     let max = sliderMax;
 
@@ -137,7 +137,7 @@ export default class Filters extends Component implements IFilters {
   private priceFilters() {
     const priceBlock = document.createElement('form') as HTMLFormElement;
     const priceLegend = document.createElement('legend');
-    this.createSliderBlock(priceBlock, priceLegend, 'price', 'Cena, netto', 500);
+    this.createSliderBlock(priceBlock, priceLegend, 'price', 'Cena, netto', 150);
   }
 
   private widthFilters() {
@@ -155,7 +155,7 @@ export default class Filters extends Component implements IFilters {
   private loadFilters() {
     const loadBlock = document.createElement('form') as HTMLFormElement;
     const loadLegend = document.createElement('legend');
-    this.createSliderBlock(loadBlock, loadLegend, 'load', 'Udźwig', 3000);
+    this.createSliderBlock(loadBlock, loadLegend, 'load', 'Udźwig', 2000);
   }
 
 
@@ -396,9 +396,8 @@ export default class Filters extends Component implements IFilters {
     resetButton.innerText = 'Reset';
 
     resetButton.addEventListener('click', () => {
-      console.log('Reset!');
+      parameters.set('search', '');
       parametersObj('clear');
-      console.log(parametersObj());
       saveParameters();
     });
 
@@ -407,9 +406,10 @@ export default class Filters extends Component implements IFilters {
     copyButton.setAttribute('name', 'copyButton');
     copyButton.classList.add('reset__form__button');
     copyButton.classList.add('button');
-    copyButton.innerText = 'Copy';
+    copyButton.innerText = 'Skopiuj';
     copyButton.addEventListener('click', () => {
       navigator.clipboard.writeText(document.location.href).then(() => {
+        copyButton.innerText = 'Skopiowano';
       }, (err) => console.log('Copy error' + err));
     });
 
@@ -429,10 +429,11 @@ export default class Filters extends Component implements IFilters {
     this.categoryChange();
     this.stockFilter();
     this.priceFilters();
-
-    loadParameters();
+    window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
     parametersObj();
-    console.log(parametersObj());
+    saveParameters();
+    loadParameters();
+  
     return this.container;
   }
 }

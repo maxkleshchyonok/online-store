@@ -17,11 +17,11 @@ export type ProductType = {
 };
 
 export enum SortEnum {
-  DEFAULT = 'DEFAULT',
-  NAME = 'NAME',
-  NAME_REVERSED = 'NAME_REVERSED',
-  PRICE_UP = 'PRICE_UP',
-  PRICE_DOWN = 'PRICE_DOWN',
+  DEFAULT = 'Wybrane',
+  NAME = 'Udźwig rosnąco',
+  NAME_REVERSED = 'Udźwig malejąco ',
+  PRICE_UP = 'Najtańsze',
+  PRICE_DOWN = 'Najdroższe',
 }
 
 export interface IFilters {
@@ -38,7 +38,7 @@ export interface IFilters {
 }
 
 export const INITIAL_STATE = {
-  price: [0, 500] as [number, number],
+  price: [0, 150] as [number, number],
   category: ['palety_euro', 'palety_europodobne', 'palety_jedno',
     'palety_przem', 'polpalety'],
   condition: ['used', 'new'],
@@ -47,7 +47,7 @@ export const INITIAL_STATE = {
   length: [0, 3000],
   width: [0, 3000],
   height: [0, 3000],
-  load: [0, 10000],
+  load: [0, 2000],
   sort: SortEnum.DEFAULT,
   short: ['euro_new', 'euro_used_1', 'euro_used_2', 'euro_used_3',
     'europod_new', 'europod_used', 'jedno_new_1', 'jedno_new_2',

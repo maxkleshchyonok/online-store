@@ -1,21 +1,21 @@
 import Component from '../../templates/components';
-import { PageIds } from '../../../pages/app';
+// import { PageIds } from '../../../pages/app';
 import Product from '../product/product';
 import productsJSON from '../../../assets/json/products.json';
-// import { parameters, parametersObj, saveParameters } from '../parameters';
+import { parameters, parametersObj, saveParameters } from '../parameters';
 
 
 const Buttons = [
   {
-    id: PageIds.MainPageId,
+    id: 'main-page',
     text: 'Main',
   },
   {
-    id: PageIds.CatalogPageId,
+    id: 'catalog-page',
     text: 'Katalog',
   },
   {
-    id: PageIds.CartPageId,
+    id: 'cart-page',
     text: 'Cart',
   },
 ];
@@ -94,7 +94,7 @@ class Header extends Component {
     const likeBlock = document.createElement('a');
     const likeImg = document.createElement('img');
 
-    logoBlock.id = Buttons[0].id;
+    logoBlock.id = Buttons[0].id as string;
     logoBlock.href = `#${Buttons[0].id}`;
     logoBlock.className = 'logo-block';
     logo.src = '../../assets/img/elements/palletport_logo_small.svg';
@@ -112,12 +112,25 @@ class Header extends Component {
     sales.className = 'wyprzedaz';
 
     searchInput.type = 'text';
-    searchInput.placeholder = 'Wpisz nazwę towaru';
+    console.log(parameters.toString());
+    if (parameters.get('search'))
+      searchInput.value = parameters.get('search') as string;
+    else
+      searchInput.placeholder = 'Wpisz nazwę towaru';
     searchInput.className = 'input-field';
     searchButton.innerText = 'Szukaj';
     searchButton.className = 'input-button';
     searchBlock.className = 'search';
     searchBlock.append(searchInput, searchButton);
+
+    window.addEventListener('hashchange', () => {
+      if (parameters.get('search') === '')
+        searchInput.value = '';
+    });
+
+    searchInput.addEventListener('input', () => {
+      this.searchFilter(searchInput.value);
+    });
 
     likeImg.src = '../../assets/img/elements/like.svg';
     likeImg.className = 'like-image';
@@ -149,6 +162,13 @@ class Header extends Component {
     logoBlock.append(logo);
     containerMain.append(logoBlock, catalogBlock, sales, searchBlock, likeBlock, cartBlock);
     this.container.append(containerMain);
+  }
+
+  searchFilter(string: string): void {
+    parameters.set('search', string);
+    window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
+    parametersObj();
+    saveParameters();
   }
 
   render(): HTMLElement {
