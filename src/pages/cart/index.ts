@@ -11,7 +11,7 @@ class CartPage extends Page {
   private footer: Footer;
 
   static TextObject = {
-    MainTitle: 'Koszyk na zakupy',
+    MainTitle: 'Twój koszyk',
   };
 
   constructor(id: string) {
@@ -50,6 +50,7 @@ class CartPage extends Page {
     const price = document.createElement('h3');
     for (let i = 0; i < arr.length; i += 1) {
       const orderCard = document.createElement('div');
+      orderCard.className = `${arr[i].short}`;
       const image = document.createElement('img');
 
       const info = document.createElement('div');
@@ -70,11 +71,13 @@ class CartPage extends Page {
       deleteBlock.className = 'delete-order';
       deleteBlock.addEventListener('click', () => {
         localStorage.removeItem(arr[i].short);
-        location.reload();
+        const delItem = document.querySelector(`.${arr[i].short}`) as HTMLElement;
+        delItem.remove();
+        
       });
       deleteBlock.append(deleteItem);
 
-      orderCard.className = 'order-card';
+      orderCard.classList.add('order-card');
       title.className = 'card-title';
       image.className = 'card-image';
       info.className = 'order-info';
