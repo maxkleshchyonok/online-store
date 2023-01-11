@@ -5,7 +5,7 @@ import CartPage from '../cart';
 import Header from '../../core/components/header';
 import ProductPage from '../product-page';
 // import Footer from '../../core/components/footer';
-import { parameters } from '../../core/components/parameters';
+import { parameters, parametersObj } from '../../core/components/parameters';
 // import createProductCard from '../../core/components/product_card/product_card';
 import productsJSON from '../../assets/json/products.json';
 import Product from '../../core/components/product/product';
@@ -70,25 +70,37 @@ class App {
   private enableRouteChange() {
     const loadPage = () => {
       const hash = window.location.hash.slice(1);
+      console.log('this is hash ' + hash);
+      console.log('parameters', parameters.toString());
+      console.log('obj ', parametersObj() );
       if (!hash) {
+        console.log('No hash!');
         window.location.hash = 'main-page';
       }
       if (!hash.includes('?')) {
+        console.log('hash ?');
         this.previousPage.push(hash);
+        console.log(this.previousPage);
         this.renderNewPage(hash);
       } else {
         window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
+        console.log('else');
       }
     };
     window.addEventListener('hashchange', () => {
       if (window.location.hash.includes('?') && !this.previousPage[this.previousPage.length - 1].includes('catalog')) {
+
+        // this.enableRouteChange();
         this.renderNewPage('catalog-page');
+        console.log('hshchange cata');
+      } else {
+        loadPage();
+        console.log('hshchange');
       }
-      loadPage();
     });
-    window.addEventListener('load', () => {
-      loadPage();
-    });
+    // window.addEventListener('load', () => {
+    //   loadPage();
+    // });
   }
 
 

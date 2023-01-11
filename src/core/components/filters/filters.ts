@@ -429,9 +429,11 @@ export default class Filters extends Component implements IFilters {
     this.categoryChange();
     this.stockFilter();
     this.priceFilters();
-
-    loadParameters();
+    window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
     parametersObj();
+    saveParameters();
+    loadParameters();
+  
     return this.container;
   }
 }

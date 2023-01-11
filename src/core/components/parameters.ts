@@ -33,7 +33,7 @@ export const parametersObj = (clear?: string) => {
     height = setSlider('height');
     load = setSlider('load');
     category = parameters.getAll('category').join().split(',');
-    const quantityStr = parameters.getAll('quantity').join('-').split('-');
+    const quantityStr = parameters.getAll('quantity').join('').split('-');
     quantity = [parseInt(quantityStr[0]), parseInt(quantityStr[1])];
     condition = parameters.getAll('condition').join().split(', ');
     material = parameters.getAll('material').join().split(',');
