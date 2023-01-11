@@ -92,7 +92,15 @@ class CatalogPage extends Page {
     catalogAmountTitle.className = 'catalog-amount-title';
     catalogAmountTitle.innerText = 'Katalog';
     catalogAmountNumber.className = 'catalog-amount-number';
-    catalogAmountNumber.innerText = `${productsJSON.length.toString()} towarów`;
+
+    window.addEventListener('hashchange', () => {
+      const sum = document.querySelectorAll('.product__card');
+      console.log(sum);
+      if (sum) {
+        catalogAmountNumber.innerText = !(sum[0])
+          ? 'Teraz nie mamy dokładnie tego, czego szukasz.' : `${sum.length} towarów`;
+      } else catalogAmountNumber.innerText = `${productsJSON.length.toString()} towarów`;
+    });
     catalogAmount.className = 'catalog-amount';
     catalogAmount.append(catalogAmountTitle, catalogAmountNumber);
 
