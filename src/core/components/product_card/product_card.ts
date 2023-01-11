@@ -56,6 +56,7 @@ const createProductCard: (product: Product, container: HTMLElement, i?: number) 
     saveParameters();
     page = new ProductPage('product-page');
     if (page) {
+      window.location.hash = 'product-page';
       const pageHTML = page.render();
       pageHTML.id = App.defaultPageId;
       // this.previousPage = window.location.hash.slice(1);

@@ -1,21 +1,21 @@
 import Component from '../../templates/components';
-import { PageIds } from '../../../pages/app';
+// import { PageIds } from '../../../pages/app';
 import Product from '../product/product';
 import productsJSON from '../../../assets/json/products.json';
-// import { parameters, parametersObj, saveParameters } from '../parameters';
+import { parameters, parametersObj, saveParameters } from '../parameters';
 
 
 const Buttons = [
   {
-    id: PageIds.MainPageId,
+    id: 'main-page',
     text: 'Main',
   },
   {
-    id: PageIds.CatalogPageId,
+    id: 'catalog-page',
     text: 'Katalog',
   },
   {
-    id: PageIds.CartPageId,
+    id: 'cart-page',
     text: 'Cart',
   },
 ];
@@ -94,7 +94,7 @@ class Header extends Component {
     const likeBlock = document.createElement('a');
     const likeImg = document.createElement('img');
 
-    logoBlock.id = Buttons[0].id;
+    logoBlock.id = Buttons[0].id as string;
     logoBlock.href = `#${Buttons[0].id}`;
     logoBlock.className = 'logo-block';
     logo.src = '../../assets/img/elements/palletport_logo_small.svg';

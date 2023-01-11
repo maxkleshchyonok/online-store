@@ -8,6 +8,7 @@ import { SortEnum } from '../../core/types/types';
 import Footer from '../../core/components/footer';
 
 import { parameters, parametersObj, saveParameters } from '../../core/components/parameters';
+// import App from '../app';
 
 
 const PaletRange = ['Wszystkie', 'Europalety', 'Jednorazowe', 'Nowe', 'Używane',
@@ -137,7 +138,6 @@ class CatalogPage extends Page {
       window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
       parametersObj();
       saveParameters();
-      console.log(parametersObj());
     }
 
     for (let i = 0; i < 5; i += 1) {
@@ -334,6 +334,7 @@ class CatalogPage extends Page {
     window.addEventListener('hashchange', () => {
       this.drawProductsCards(catalogSection);
     });
+
 
     this.container.append(this.footer.render());
     this.container.classList.add('catalog-page-styles');

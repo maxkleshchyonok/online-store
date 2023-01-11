@@ -82,7 +82,6 @@ export const parametersObj = (clear?: string) => {
     parameters.set('height', `${product[0].height.toString()}-${product[0].height.toString()}`);
     parameters.set('load', `${product[0].load.toString()}-${product[0].load.toString()}`);
     parameters.set('short', `${product[0].short}`);
-    console.log(parameters.toString());
 
     price = setSlider('price');
     width = setSlider('width');
@@ -96,7 +95,7 @@ export const parametersObj = (clear?: string) => {
     sort = INITIAL_STATE.sort;
     short = [product[0].short];
 
-    window.location.hash = `catalog-page/${short}`;
+    // window.location.hash = `${short}`;
   }
 
   return  {

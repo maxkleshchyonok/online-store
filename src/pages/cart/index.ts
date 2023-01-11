@@ -3,7 +3,6 @@ import Footer from '../../core/components/footer';
 import productsJSON from '../../assets/json/products.json';
 import Product from '../../core/components/product/product';
 import './index.scss';
-import Product from '../../core/components/product/product';
 
 class CartPage extends Page {
 
