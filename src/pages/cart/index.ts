@@ -96,14 +96,16 @@ class CartPage extends Page {
       minus.textContent = '-';
       plus.textContent = '+';
       minus.addEventListener('click', () => {
-        numberNum -= 1;
-        number.textContent = `${numberNum}`;
-        localStorage.setItem(`${arr[i].short}`, `${numberNum}`);
-        fullPrice.textContent = `${arr[i].price * numberNum} zl`;
-        if (typeof this.priceNum !== 'undefined') {
-          this.priceNum -= arr[i].price;
+        if (numberNum > 1) {
+          numberNum -= 1;
+          number.textContent = `${numberNum}`;
+          localStorage.setItem(`${arr[i].short}`, `${numberNum}`);
+          fullPrice.textContent = `${arr[i].price * numberNum} zl`;
+          if (typeof this.priceNum !== 'undefined') {
+            this.priceNum -= arr[i].price;
+          }
+          price.textContent = `${this.priceNum} zl`;
         }
-        price.textContent = `${this.priceNum} zl`;
       });
       plus.addEventListener('click', () => {
         numberNum += 1;
@@ -112,6 +114,9 @@ class CartPage extends Page {
         fullPrice.textContent = `${arr[i].price * numberNum} zl`;
         if (typeof this.priceNum !== 'undefined') {
           this.priceNum += arr[i].price;
+          if (numberNum > arr[i].quantity) {
+            numberNum = arr[i].quantity;
+          }
         }
         price.textContent = `${this.priceNum} zl`;
       });
@@ -233,7 +238,7 @@ class CartPage extends Page {
     cardImage.src = '../../assets/img/elements/money.png';
     cardNumber.placeholder = 'card number';
     mm.placeholder = 'MM';
-    dd.placeholder = 'DD';
+    dd.placeholder = 'YY';
     cardCVV.placeholder = 'cvv';
 
     mm.maxLength = 2;
@@ -250,7 +255,7 @@ class CartPage extends Page {
       }
     });
     dd.addEventListener('input', () => {
-      const reg = /[0-31]{2}/gm;
+      const reg = /[0-99]{2}/gm;
       if (!dd.value.match(reg)) {
         mm.classList.add('invalid');
         dd.classList.add('invalid');
