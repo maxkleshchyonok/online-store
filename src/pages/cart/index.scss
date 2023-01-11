@@ -35,6 +35,7 @@
         height: 100px;
       }
       .order-info{
+        width: 30%;
         margin-right: 10%;
         margin-top: 1%;
         .card-title{
@@ -267,6 +268,10 @@
         height: 30px;
         margin-bottom: 2%;
         padding-left: 2%;
+        outline: none;
+      }
+      .invalid{
+        border: 3px solid red;
       }
       .credit-card{
         border-radius: 6px;
@@ -295,14 +300,21 @@
           width: 80%;
           height: 30px;
         }
-        .card-number:required{
-          border: 1px solid red;
+        .invalid{
+          border: 3px solid red;
         }
-        .card-valid{
+        .card-mm{
           padding-left: 3%;
           margin-left: 50%;
           grid-area: valid;
-          width: 40%;
+          width: 20%;
+          height: 30px;
+        }
+        .card-dd{
+          padding-left: 3%;
+          margin-left: 70%;
+          grid-area: valid;
+          width: 20%;
           height: 30px;
         }
         .card-cvv{
@@ -317,11 +329,21 @@
         margin-top: 5%;
         width: 30%;
         height: 50px;
-        background: #15616D;
         color: #FFFFFF;
         font-size: 20px;
+        background: #15616D;
         cursor: pointer;
       }
+      .submit-button:disabled{
+        background: #B1B1B1;
+        cursor: none;
+        pointer-events: none;
+      }
+      //.show{
+      //  background: #B1B1B1;
+      //  cursor: none;
+      //  pointer-events: none;
+      //}
     }
     .closeBtn{
       margin-left: 1%;

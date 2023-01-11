@@ -39,6 +39,7 @@
   height: 100px;
 }
 .order-container .order-items .order-card .order-info {
+  width: 30%;
   margin-right: 10%;
   margin-top: 1%;
 }
@@ -270,6 +271,10 @@
   height: 30px;
   margin-bottom: 2%;
   padding-left: 2%;
+  outline: none;
+}
+.order-container .popUp .holder .invalid {
+  border: 3px solid red;
 }
 .order-container .popUp .holder .credit-card {
   border-radius: 6px;
@@ -297,14 +302,21 @@
   width: 80%;
   height: 30px;
 }
-.order-container .popUp .holder .credit-card .card-number:required {
-  border: 1px solid red;
+.order-container .popUp .holder .credit-card .invalid {
+  border: 3px solid red;
 }
-.order-container .popUp .holder .credit-card .card-valid {
+.order-container .popUp .holder .credit-card .card-mm {
   padding-left: 3%;
   margin-left: 50%;
   grid-area: valid;
-  width: 40%;
+  width: 20%;
+  height: 30px;
+}
+.order-container .popUp .holder .credit-card .card-dd {
+  padding-left: 3%;
+  margin-left: 70%;
+  grid-area: valid;
+  width: 20%;
   height: 30px;
 }
 .order-container .popUp .holder .credit-card .card-cvv {
@@ -318,10 +330,15 @@
   margin-top: 5%;
   width: 30%;
   height: 50px;
-  background: #15616D;
   color: #FFFFFF;
   font-size: 20px;
+  background: #15616D;
   cursor: pointer;
+}
+.order-container .popUp .holder .submit-button:disabled {
+  background: #B1B1B1;
+  cursor: none;
+  pointer-events: none;
 }
 .order-container .popUp .closeBtn {
   margin-left: 1%;
