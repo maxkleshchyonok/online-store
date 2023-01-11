@@ -154,6 +154,7 @@ class CartPage extends Page {
     const discountTitle = document.createElement('h3');
     const discountNumber = document.createElement('h3');
 
+
     const orderDelivery = document.createElement('div');
     const deliveryTitle = document.createElement('h3');
     const deliveryAmount = document.createElement('h3');
@@ -357,7 +358,22 @@ class CartPage extends Page {
     price.textContent = `${this.priceNum} zl`;
 
     discountTitle.textContent = 'Discounts:';
-    discountNumber.textContent = '-200 zl';
+    discountNumber.textContent = '';
+
+    promocodeInput.addEventListener('input', () => {
+      if (promocodeInput.value === 'RS') {
+        this.priceNum! *= 0.8;
+        price.textContent = `${this.priceNum} zl`;
+        discountTitle.textContent = 'Discounts: (RS)';
+        discountNumber.textContent = `${this.priceNum! * 0.2} zl`;
+      }
+      if (promocodeInput.value === 'EPAM') {
+        this.priceNum! *= 0.8;
+        price.textContent = `${this.priceNum} zl`;
+        discountTitle.textContent += '(EPAM)';
+        discountNumber.textContent += ` ${this.priceNum! * 0.2} zl`;
+      }
+    });
 
     deliveryTitle.textContent = 'Delivery price:';
     deliveryAmount.textContent = 'Free';
