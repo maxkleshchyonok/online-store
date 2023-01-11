@@ -5,6 +5,19 @@ const hash = window.location.hash.slice(1);
 
 export let parameters = new URLSearchParams(hash.includes('?') ? hash.slice(hash.indexOf('?') + 1) : '');
 
+export function saveParameters() {
+  localStorage.setItem('parameters', parameters.toString());
+}
+
+export function loadParameters() {
+  const tempPar = localStorage.getItem('parameters') as string;
+  if (tempPar) {
+    const tempParams = new URLSearchParams(tempPar);
+    parameters = tempParams;
+  }
+}
+
+
 export const parametersObj = (clear?: string) => {
 
   let category: string[] = [],
@@ -74,7 +87,7 @@ export const parametersObj = (clear?: string) => {
 
     parameters.set('category', product[0].category);
     parameters.set('price', `${product[0].price.toString()}-${product[0].price.toString()}`);
-    parameters.set('quantity', `${product[0].quantity.toString()}-${product[0].quantity.toString()}`);
+    parameters.set('quantity', '0-100000');
     parameters.set('condition', product[0].condition);
     parameters.set('material', product[0].material);
     parameters.set('length', `${product[0].length.toString()}-${product[0].length.toString()}`);
@@ -89,11 +102,15 @@ export const parametersObj = (clear?: string) => {
     height = setSlider('height');
     load = setSlider('load');
     category = product[0].category.split('');
-    quantity = [product[0].quantity, product[0].quantity];
+    quantity = INITIAL_STATE.quantity;
     condition = product[0].condition.split('');
     material = product[0].material.split('');
     sort = INITIAL_STATE.sort;
     short = [product[0].short];
+
+    saveParameters();
+    loadParameters();
+    // window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
 
     // window.location.hash = `${short}`;
   }
@@ -113,14 +130,3 @@ export const parametersObj = (clear?: string) => {
   };
 };
 
-export function saveParameters() {
-  localStorage.setItem('parameters', parameters.toString());
-}
-
-export function loadParameters() {
-  const tempPar = localStorage.getItem('parameters') as string;
-  if (tempPar) {
-    const tempParams = new URLSearchParams(tempPar);
-    parameters = tempParams;
-  }
-}
