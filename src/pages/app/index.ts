@@ -5,10 +5,11 @@ import CartPage from '../cart';
 import Header from '../../core/components/header';
 import ProductPage from '../product-page';
 // import Footer from '../../core/components/footer';
-import { loadParameters, parameters, parametersObj } from '../../core/components/parameters';
+import { loadParameters, parametersObj } from '../../core/components/parameters';
 // import createProductCard from '../../core/components/product_card/product_card';
 import productsJSON from '../../assets/json/products.json';
 import Product from '../../core/components/product/product';
+import ErrorPage from '../error/error';
 
 const products: Product[] = productsJSON;
 const productsId: string[] = [];
@@ -20,13 +21,14 @@ export const PageIds: { [props: string]: string | string[] } = {
   MainPageId: 'main-page',
   CatalogPageId:'catalog-page',
   CartPageId: 'cart-page',
+  ErrorPage: 'error-page',
   ProductPageId: productsId,
 };
 
 class App {
   static container: HTMLElement | null = document.getElementById('content');
 
-  static defaultPageId = 'current-page';
+  static defaultPageId = 'some-page';
 
   private initialPage: MainPage;
 
@@ -34,7 +36,8 @@ class App {
 
   // private footer: Footer;
 
-  previousPage: string[] = [];
+  // previousPage: string[] = [];
+  previousPage = '';
 
   public renderNewPage(idPage: string) {
     const currentPageHTML = document.getElementById(App.defaultPageId);
@@ -42,7 +45,7 @@ class App {
       currentPageHTML.remove();
     }
     let page: Page | null = null;
-
+    console.log('idpge ' + idPage);
     if (idPage === PageIds.MainPageId) {
       page = new MainPage(idPage);
     } else if (idPage === PageIds.CatalogPageId) {
@@ -50,19 +53,21 @@ class App {
     } else if (idPage === PageIds.CartPageId) {
       page = new CartPage(idPage);
     } else if (PageIds.ProductPageId.includes(idPage)) {
-      // const id = Number(idPage.replace(/[\D]+/g, ''));
-      // const findItem = products.find((el) => el.id === id);
-      // if (findItem == undefined) return false;
-      page = new ProductPage(idPage);
+      console.log(idPage);
+      const id = Number(idPage.replace(/[\D]+/g, ''));
+      const product = products.find((el) => el.id === id);
+      console.log(product);
+      if (product !== undefined) {
+        page = new ProductPage(idPage);
+      }
+    } else {
+      page = new ErrorPage(idPage, '404');
     }
-    // } else {
-    //   page = new ErrorPage(idPage, ErrorTypes.Error_404);
-    // }
 
     if (page) {
+      this.previousPage = window.location.hash.slice(1);
       const pageHTML = page.render();
       pageHTML.id = App.defaultPageId;
-      this.previousPage.push(window.location.hash.slice(1));
       App.container?.append(pageHTML);
     }
   }
@@ -73,18 +78,24 @@ class App {
       loadParameters();
       console.log('obj ', parametersObj() );
       if (!hash) {
-        console.log('No hash!');
         window.location.hash = 'main-page';
       }
       if (!hash.includes('?')) {
-        console.log('hash ?');
-        this.previousPage.push(hash);
-        console.log(hash);
+        console.log('hash is ' + hash);
         this.renderNewPage(hash);
+      // } else {
+      //   window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
+      //   console.log('else');
+      // }
       } else {
-        window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
-        console.log('else');
+        if (this.previousPage.slice(0, hash.indexOf('?')) === hash.slice(0, hash.indexOf('?'))) {
+          console.log('It s fine!');
+        } else {
+          console.log(`${hash.slice(0, hash.indexOf('?'))}`);
+          this.renderNewPage(`${hash.slice(0, hash.indexOf('?'))}`);
+        }
       }
+
     };
     window.addEventListener('hashchange', () => {
       if (window.location.hash.includes('?') && !this.previousPage[this.previousPage.length - 1].includes('catalog')) {
@@ -95,6 +106,7 @@ class App {
         console.log('hshchange');
       }
     });
+    window.addEventListener('load', loadPage);
   }
 
 

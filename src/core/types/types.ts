@@ -40,7 +40,7 @@ export interface IFilters {
 export const INITIAL_STATE = {
   price: [0, 150] as [number, number],
   category: ['palety_euro', 'palety_europodobne', 'palety_jedno',
-    'palety_przem', 'polpalety'],
+    'palety_przem', 'polpalety', 'palety_tektur', 'palety_plastik', 'nadstawki'],
   condition: ['used', 'new'],
   quantity: [0, 100000],
   material: ['drewno', 'plastik', 'tektura'],
