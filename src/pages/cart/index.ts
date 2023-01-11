@@ -6,7 +6,7 @@ import './index.scss';
 
 class CartPage extends Page {
 
-  private priceNum: number | undefined;
+  public priceNum: number | undefined;
 
   private footer: Footer;
 
@@ -44,6 +44,8 @@ class CartPage extends Page {
     for (let i = 0; i < arr.length; i += 1) {
       const amountOfItems = localStorage.getItem(arr[i].short) as string;
       this.priceNum += arr[i].price * parseInt(amountOfItems);
+      localStorage.setItem('cartTotal', `${this.priceNum}`);
+      localStorage.setItem('cartNum', `${arr.length}`);
     }
     const price = document.createElement('h3');
     for (let i = 0; i < arr.length; i += 1) {
@@ -167,35 +169,99 @@ class CartPage extends Page {
     const formInputAddress = document.createElement('input');
     const formInputEmail = document.createElement('input');
     const submit = document.createElement('button');
+    submit.className = 'submit-button';
+    submit.disabled = true;
     const thank = document.createElement('h2');
 
+
     formInputName.addEventListener('input', () => {
-      const reg = /^[a-z ,.'-]+$/i;
+      const reg = /^[а-яА-ЯёЁa-zA-Z]{3,} [а-яА-ЯёЁa-zA-Z]{3,}$/gm;
+      if (!formInputName.value.match(reg)) {
+        formInputName.classList.add('invalid');
+      }
       if (formInputName.value.match(reg)) {
-        console.log(formInputName.value);
+        formInputName.classList.remove('invalid');
+      }
+    });
+
+    formInputPhone.addEventListener('input', () => {
+      const reg = /^(\+)((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){5,12}\d$/gm;
+      if (!formInputPhone.value.match(reg)) {
+        formInputPhone.classList.add('invalid');
+      }
+      if (formInputPhone.value.match(reg)) {
+        formInputPhone.classList.remove('invalid');
+      }
+    });
+
+    formInputAddress.addEventListener('input', () => {
+      const reg = /^[а-яА-ЯёЁa-zA-Z]{5,} [а-яА-ЯёЁa-zA-Z]{5,} [а-яА-ЯёЁa-zA-Z]{5,}$/gm;
+      if (!formInputAddress.value.match(reg)) {
+        formInputAddress.classList.add('invalid');
+      }
+      if (formInputAddress.value.match(reg)) {
+        formInputAddress.classList.remove('invalid');
+      }
+    });
+
+    formInputEmail.addEventListener('input', () => {
+      const reg = /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/gm;
+      if (!formInputEmail.value.match(reg)) {
+        formInputEmail.classList.add('invalid');
+      }
+      if (formInputEmail.value.match(reg)) {
+        formInputEmail.classList.remove('invalid');
       }
     });
 
     const creditCard = document.createElement('div');
     const cardImage = document.createElement('img');
     const cardNumber = document.createElement('input');
-    const cardValid = document.createElement('input');
+    const mm = document.createElement('input');
+    const dd = document.createElement('input');
     const cardCVV = document.createElement('input');
+
 
     creditCard.className = 'credit-card';
     cardImage.className = 'card-img';
     cardNumber.className = 'card-number';
-    cardValid.className = 'card-valid';
+    mm.className = 'card-mm';
+    dd.className = 'card-dd';
     cardCVV.className = 'card-cvv';
 
     cardImage.src = '../../assets/img/elements/money.png';
     cardNumber.placeholder = 'card number';
-    cardValid.placeholder = 'valid to';
+    mm.placeholder = 'MM';
+    dd.placeholder = 'DD';
     cardCVV.placeholder = 'cvv';
+
+    mm.maxLength = 2;
+    dd.maxLength = 2;
+    mm.addEventListener('input', () => {
+      const reg = /[0-12]{2}/gm;
+      if (!mm.value.match(reg)) {
+        mm.classList.add('invalid');
+        dd.classList.add('invalid');
+      }
+      if (mm.value.match(reg)) {
+        mm.classList.remove('invalid');
+        dd.classList.remove('invalid');
+      }
+    });
+    dd.addEventListener('input', () => {
+      const reg = /[0-31]{2}/gm;
+      if (!dd.value.match(reg)) {
+        mm.classList.add('invalid');
+        dd.classList.add('invalid');
+      }
+      if (dd.value.match(reg)) {
+        dd.classList.remove('invalid');
+        mm.classList.remove('invalid');
+      }
+    });
 
     let test;
     cardNumber.maxLength = 16;
-    cardNumber.minLength = 16;
     cardNumber.addEventListener('input', () => {
       test = cardNumber.value;
       if (test[0] === '3') {
@@ -207,23 +273,34 @@ class CartPage extends Page {
       if (test[0] === '5') {
         cardImage.src = '../../assets/img/elements/master.png';
       }
+      const reg = /[0-9]{16}/gm;
+      if (!cardNumber.value.match(reg)) {
+        cardNumber.classList.add('invalid');
+      }
+      if (cardNumber.value.match(reg)) {
+        cardNumber.classList.remove('invalid');
+      }
     });
     cardCVV.minLength = 3;
     cardCVV.maxLength = 3;
     cardCVV.addEventListener('input', () => {
-      const reg = /(10[0-9]|1[1-9]\d|[2-9]\d\d|1000)$/gm;
-      if (cardCVV.value.match(reg) !== null) {
-        console.log(cardCVV.value);
+      const reg = /[0-9]{3}/gm;
+      if (!cardCVV.value.match(reg)) {
+        cardCVV.classList.add('invalid');
+      }
+      if (cardCVV.value.match(reg)) {
+        cardCVV.classList.remove('invalid');
+        submit.disabled = false;
       }
     });
 
-    creditCard.append(cardImage, cardNumber, cardValid, cardCVV);
+    creditCard.append(cardImage, cardNumber, mm, dd, cardCVV);
 
     popup.className = 'popUp';
     popClose.className = 'closeBtn';
     form.className = 'holder';
     formInputName.className = 'Name';
-    submit.className = 'submit-button';
+
     thank.className = 'thanks';
 
     formTitle.textContent = 'Personal details';
@@ -234,6 +311,7 @@ class CartPage extends Page {
     formInputPhone.placeholder = 'Enter phone';
     formInputAddress.placeholder = 'enter address';
     formInputEmail.placeholder = 'enter email';
+
 
     form.append(formTitle, formInputName, formInputPhone,
       formInputAddress, formInputEmail, creditCard, submit);

@@ -1,6 +1,9 @@
 import Component from '../../templates/components';
 import { PageIds } from '../../../pages/app';
+import Product from '../product/product';
+import productsJSON from '../../../assets/json/products.json';
 // import { parameters, parametersObj, saveParameters } from '../parameters';
+
 
 const Buttons = [
   {
@@ -41,6 +44,9 @@ const HeaderInfo = [
 ];
 
 class Header extends Component {
+
+  public priceNum: number | undefined = 0;
+
   constructor(tagName: string, className: string) {
     super(tagName, className);
   }
@@ -65,7 +71,7 @@ class Header extends Component {
   }
 
 
-  private renderHeaderMain(): void {
+  public renderHeaderMain(): void {
     const containerMain = document.createElement('div');
 
     const logoBlock = document.createElement('a');
@@ -119,9 +125,22 @@ class Header extends Component {
     likeBlock.className = 'like-block';
     likeBlock.href = '#';
 
+    const arr: Product [] = [];
+    for (let i = 0; i < productsJSON.length; i += 1) {
+      if (localStorage.getItem(productsJSON[i].short) !== null) {
+        arr.push(productsJSON[i]);
+      }
+    }
+    console.log(arr);
+    for (let i = 0; i < arr.length; i += 1) {
+      const amountOfItems = localStorage.getItem(arr[i].short) as string;
+      if (typeof this.priceNum !== 'undefined') {
+        this.priceNum += arr[i].price * parseInt(amountOfItems);
+      }
+    }
     // cartBlock.innerText = Buttons[2].text;
     cartImg.src = '../../assets/img/elements/cart.svg';
-    cartPrice.innerText = '152 243,66 Zł';
+    cartPrice.innerText = `${this.priceNum} zl (${arr.length})`;
     cartPrice.className = 'cart-price';
     cartBlock.href = `#${Buttons[2].id}`;
     cartBlock.className = 'cart-block';
