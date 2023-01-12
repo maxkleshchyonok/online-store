@@ -36,7 +36,7 @@ class CatalogPage extends Page {
 
 
     catalogSection.innerHTML = '';
-    let arr = [...productsJSON].filter((el) => parametersObj().short.includes(el.short)
+    let arr: Product[] = [...productsJSON].filter((el) => parametersObj().short.includes(el.short)
         && parametersObj().category.includes(el.category) && parametersObj().price[0] <= el.price
         && parametersObj().price[1] >= el.price && parametersObj().quantity[0] <= el.quantity
         && parametersObj().quantity[1] >= el.quantity && parametersObj().condition.includes(el.condition)
@@ -47,8 +47,10 @@ class CatalogPage extends Page {
         && parametersObj().price[1] >= el.price
         && parametersObj().load[0] <= el.load && parametersObj().load[1] >= el.load);
 
-    this.sortFilter(arr);
-    arr = this.searchFilter(arr);
+    if (this.sortFilter(arr))
+      arr = this.sortFilter(arr);
+    if (this.searchFilter(arr))
+      arr = this.searchFilter(arr);
 
     for (let j = 0; j < arr.length; j += 1) {
       const productData = arr[j];
@@ -303,20 +305,23 @@ class CatalogPage extends Page {
   }
 
   searchFilter(arr: Product[]) {
-    let temp = [];
-    const searchString = parameters.get('search') as string;
-    temp = arr.filter(el => el.info.toLowerCase().match(searchString.toLowerCase())
-      || el.name.toLowerCase().match(searchString.toLowerCase())
-      || el.material.toLowerCase().match(searchString.toLowerCase())
-      || el.category.toLowerCase().match(searchString.toLowerCase())
-      || el.condition.toLowerCase().match(searchString.toLowerCase())
-      || el.price.toString().toLowerCase().match(searchString.toLowerCase())
-      || el.load.toString().toLowerCase().match(searchString.toLowerCase())
-      || el.quantity.toString().toLowerCase().match(searchString.toLowerCase())
-      || el.width.toString().toLowerCase().match(searchString.toLowerCase())
-      || el.height.toString().toLowerCase().match(searchString.toLowerCase())
-      || el.length.toString().toLowerCase().match(searchString.toLowerCase()));
-    return temp;
+    if (parameters.get('search')) {
+      let temp = [];
+      
+      const searchString = parameters.get('search') as string;
+      temp = arr.filter(el => el.info.toLowerCase().match(searchString.toLowerCase())
+        || el.name.toLowerCase().match(searchString.toLowerCase())
+        || el.material.toLowerCase().match(searchString.toLowerCase())
+        || el.category.toLowerCase().match(searchString.toLowerCase())
+        || el.condition.toLowerCase().match(searchString.toLowerCase())
+        || el.price.toString().toLowerCase().match(searchString.toLowerCase())
+        || el.load.toString().toLowerCase().match(searchString.toLowerCase())
+        || el.quantity.toString().toLowerCase().match(searchString.toLowerCase())
+        || el.width.toString().toLowerCase().match(searchString.toLowerCase())
+        || el.height.toString().toLowerCase().match(searchString.toLowerCase())
+        || el.length.toString().toLowerCase().match(searchString.toLowerCase()));
+      return temp;
+    } else return arr;
   }
 
   changeSum(el: HTMLElement): void {

@@ -28,7 +28,7 @@ export const PageIds: { [props: string]: string | string[] } = {
 class App {
   static container: HTMLElement | null = document.getElementById('content');
 
-  static defaultPageId = 'catalog-page';
+  static defaultPageId = '#catalog-page';
 
   private initialPage: MainPage;
 
@@ -39,6 +39,15 @@ class App {
   // previousPage: string[] = [];
   previousPage = '';
 
+  setPreviousPage(): void {
+    localStorage.removeItem('previousPage');
+    localStorage.setItem('previousPage', this.previousPage);
+  }
+
+  getPreviousPage(): void {
+    this.previousPage = localStorage.getItem('previousPage') as string;
+  }
+ 
   public renderNewPage(idPage: string) {
     const currentPageHTML = document.getElementById(App.defaultPageId);
     if (currentPageHTML) {
@@ -66,10 +75,14 @@ class App {
     }
 
     if (page) {
-      this.previousPage = window.location.hash.slice(1);
+      if (localStorage.getItem('previousPage'))
+        this.getPreviousPage();
+      else 
+        this.previousPage = window.location.hash;
       const pageHTML = page.render();
       pageHTML.id = App.defaultPageId;
       App.container?.append(pageHTML);
+      this.setPreviousPage();
     }
   }
 
@@ -92,9 +105,9 @@ class App {
 
     };
     window.addEventListener('hashchange', () => {
-      if (window.location.hash.includes('?') && !this.previousPage[this.previousPage.length - 1].includes('catalog')) {
+      if (window.location.hash.includes('?') && !this.previousPage.includes('catalog')) {
         this.renderNewPage('catalog-page');
-      } else 
+      } else
         loadPage();
     });
     window.addEventListener('load', () => {
@@ -111,8 +124,13 @@ class App {
 
   run() {
     App.container?.append(this.header.render());
-    this.renderNewPage('main-page');
-    window.location.hash = PageIds.MainPageId as string;
+
+    if (localStorage.getItem('previousPage')) {
+      // this.getPreviousPage();
+      this.renderNewPage(this.previousPage);
+    } else
+      this.renderNewPage('main-page');
+    // window.location.hash = this.;
     this.enableRouteChange();
     // App.container?.append(this.footer.render());
   }
