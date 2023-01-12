@@ -149,11 +149,12 @@ class CartPage extends Page {
     addressInput.className = 'address-input';
     promocodeInput.className = 'promocode-input';
 
-    customerTitle.textContent = 'Dane kupującego';
-    addressInput.placeholder = 'Wpisz swój adres...';
-    promocodeInput.placeholder = 'Wpisz swój kod promocyjny...';
+    customerTitle.textContent = 'Masz promocode?';
 
-    customerBlock.append(customerTitle, addressInput, promocodeInput);
+    // addressInput.placeholder = 'Wpisz swój adres...';
+    promocodeInput.placeholder = 'Wpisz RS albo EPAM';
+
+    customerBlock.append(customerTitle, promocodeInput);
 
     const orderAmountPrice = document.createElement('div');
     const amount = document.createElement('h3');
