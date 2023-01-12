@@ -92,14 +92,14 @@ class CatalogPage extends Page {
     catalogAmountTitle.className = 'catalog-amount-title';
     catalogAmountTitle.innerText = 'Katalog';
     catalogAmountNumber.className = 'catalog-amount-number';
+    catalogAmountNumber.innerText = 'Nic nie znazeziono';
 
-    window.addEventListener('hashchange', () => {
-      const sum = document.querySelectorAll('.product__card');
-      if (sum) {
-        catalogAmountNumber.innerText = !(sum[0])
-          ? 'Teraz nie mamy dokładnie tego, czego szukasz.' : `${sum.length} towarów`;
-      } else catalogAmountNumber.innerText = `${productsJSON.length.toString()} towarów`;
-    });
+    setInterval(() => {
+      window.addEventListener('mousemove', () => {
+        this.changeSum(catalogAmountNumber);
+      });
+    }, 1000);
+
     catalogAmount.className = 'catalog-amount';
     catalogAmount.append(catalogAmountTitle, catalogAmountNumber);
 
@@ -319,6 +319,12 @@ class CatalogPage extends Page {
     return temp;
   }
 
+  changeSum(el: HTMLElement): void {
+    const sum = document.querySelectorAll('.product__card');
+    if (sum) {
+      el.innerText = `${sum.length} towarów`;
+    }
+  }
 
   render() {
     // this.renderCatalogTop();
@@ -341,7 +347,6 @@ class CatalogPage extends Page {
     window.addEventListener('hashchange', () => {
       this.drawProductsCards(catalogSection);
     });
-
 
     this.container.append(this.footer.render());
     this.container.classList.add('catalog-page-styles');
