@@ -366,19 +366,6 @@
       }
     }
   }
-  .filters__section {
-    grid-area: filters;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    margin-left: 10%;
-    .filters{
-      display: flex;
-      flex-direction: column-reverse;
-      .categories__form{}
-      .price__form{}
-    }
-  }
   .footer-container{
     grid-area: footer;
   }

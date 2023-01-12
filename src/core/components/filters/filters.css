@@ -1,37 +1,265 @@
 .filters__section {
-  padding: 10px;
-}
-
-.price__form {
-  border: 1px solid;
-}
-
-.pricemin__input {
-  border: 1px solid;
-}
-
-.pricemax__input {
-  border: 1px solid;
-}
-
-.categories__form {
-  border: 1px solid;
+  font-family: "Lato", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  color: #474A51;
+  margin-top: 15%;
+  grid-area: filters;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+  margin-left: 10%;
 }
-
-.material__form {
-  border: 1px solid;
+.filters__section .filters {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
 }
-
-.reset__form {
-  border: 1px solid;
+.filters__section .filters .price__form {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0 0;
+  grid-template-areas: "cena cena cena cena cena" "min max max max max" "slider slider slider slider slider";
+  margin-bottom: 15%;
 }
-
-.button {
-  border: 1px solid;
+.filters__section .filters .price__form .price__form__legend {
+  grid-area: cena;
+  margin-bottom: 5%;
+  font-weight: 600;
+  font-size: 21px;
+}
+.filters__section .filters .price__form .pricemin__input {
+  grid-area: min;
+  margin-bottom: 6%;
+}
+.filters__section .filters .price__form .pricemax__input {
+  grid-area: max;
+  margin-bottom: 6%;
+}
+.filters__section .filters .price__form .price__slider {
+  grid-area: slider;
+}
+.filters__section .filters .price__form .price__slider .noUi-base .noUi-connects .noUi-connect {
+  background: #15616D;
+  height: 30px;
+}
+.filters__section .filters .stock__form {
+  margin-bottom: 10%;
+  display: grid;
+  grid-template-columns: 0.2fr 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0 0;
+  grid-template-areas: "stock stock" "yes yesL" "no noL";
+}
+.filters__section .filters .stock__form .stock__form__legend {
+  grid-area: stock;
+  margin-bottom: 5%;
+  font-weight: 600;
+  font-size: 21px;
+}
+.filters__section .filters .stock__form #stock__true {
+  grid-area: yes;
+  width: 20px;
+  height: 20px;
+}
+.filters__section .filters .stock__form #stock__false {
+  grid-area: no;
+  width: 20px;
+  height: 20px;
+}
+.filters__section .filters .categories__form {
+  margin-bottom: 70%;
+  display: grid;
+  grid-template-columns: 0.2fr 1fr;
+  grid-template-rows: repeat(9, 0.85fr);
+  gap: 7% 0;
+  grid-template-areas: "title title" "palety_euro yesL" "palety_europodobne yesL" "palety_jedno yesL" "palety_przem yesL" "polpalety yesL" "palety_plastic yesL" "palety_tektur yesL" "nadstawki noL";
+}
+.filters__section .filters .categories__form legend {
+  grid-area: title;
+  font-weight: 600;
+  font-size: 21px;
+}
+.filters__section .filters .categories__form #palety_euro {
+  grid-area: palety_euro;
+}
+.filters__section .filters .categories__form #palety_europodobne {
+  grid-area: palety_europodobne;
+}
+.filters__section .filters .categories__form #palety_jedno {
+  grid-area: palety_jedno;
+}
+.filters__section .filters .categories__form #palety_przem {
+  grid-area: palety_przem;
+}
+.filters__section .filters .categories__form #polpalety {
+  grid-area: polpalety;
+}
+.filters__section .filters .categories__form #palety_plastic {
+  grid-area: palety_plastic;
+}
+.filters__section .filters .categories__form #palety_tektur {
+  grid-area: palety_tektur;
+}
+.filters__section .filters .categories__form #nadstawki {
+  grid-area: nadstawki;
+}
+.filters__section .filters .condition__form {
+  margin-bottom: 25%;
+  display: grid;
+  grid-template-columns: 0.2fr 1fr;
+  grid-template-rows: repeat(3, 0.8fr);
+  gap: 15% 0;
+  grid-template-areas: "title title" "check lab" "check lab";
+}
+.filters__section .filters .condition__form legend {
+  grid-area: title;
+  font-weight: 600;
+  font-size: 21px;
+}
+.filters__section .filters .material__form {
+  margin-bottom: 25%;
+  display: grid;
+  grid-template-columns: 0.2fr 1fr;
+  grid-template-rows: repeat(4, 0.8fr);
+  gap: 10% 0;
+  grid-template-areas: "title title" "check lab" "check lab" "check lab";
+}
+.filters__section .filters .material__form legend {
+  grid-area: title;
+  font-weight: 600;
+  font-size: 21px;
+}
+.filters__section .filters .length__form {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0 0;
+  grid-template-areas: "cena cena cena cena cena" "min max max max max" "slider slider slider slider slider";
+  margin-bottom: 5%;
+}
+.filters__section .filters .length__form .length__form__legend {
+  grid-area: cena;
+  margin-bottom: 5%;
+  font-weight: 600;
+  font-size: 21px;
+}
+.filters__section .filters .length__form .lengthmin__input {
+  grid-area: min;
+  margin-bottom: 6%;
+}
+.filters__section .filters .length__form .lengthmax__input {
+  grid-area: max;
+  margin-bottom: 6%;
+}
+.filters__section .filters .length__form .length__slider {
+  grid-area: slider;
+}
+.filters__section .filters .length__form .length__slider .noUi-base .noUi-connects .noUi-connect {
+  background: #15616D;
+  height: 30px;
+}
+.filters__section .filters .width__form {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0 0;
+  grid-template-areas: "cena cena cena cena cena" "min max max max max" "slider slider slider slider slider";
+  margin-bottom: 5%;
+}
+.filters__section .filters .width__form .width__form__legend {
+  grid-area: cena;
+  margin-bottom: 5%;
+  font-weight: 600;
+  font-size: 21px;
+}
+.filters__section .filters .width__form .widthmin__input {
+  grid-area: min;
+  margin-bottom: 6%;
+}
+.filters__section .filters .width__form .widthmax__input {
+  grid-area: max;
+  margin-bottom: 6%;
+}
+.filters__section .filters .width__form .width__slider {
+  grid-area: slider;
+}
+.filters__section .filters .width__form .width__slider .noUi-base .noUi-connects .noUi-connect {
+  background: #15616D;
+  height: 30px;
+}
+.filters__section .filters .height__form {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0 0;
+  grid-template-areas: "cena cena cena cena cena" "min max max max max" "slider slider slider slider slider";
+  margin-bottom: 5%;
+}
+.filters__section .filters .height__form .height__form__legend {
+  grid-area: cena;
+  margin-bottom: 5%;
+  font-weight: 600;
+  font-size: 21px;
+}
+.filters__section .filters .height__form .heightmin__input {
+  grid-area: min;
+  margin-bottom: 6%;
+}
+.filters__section .filters .height__form .heightmax__input {
+  grid-area: max;
+  margin-bottom: 6%;
+}
+.filters__section .filters .height__form .height__slider {
+  grid-area: slider;
+}
+.filters__section .filters .height__form .height__slider .noUi-base .noUi-connects .noUi-connect {
+  background: #15616D;
+  height: 30px;
+}
+.filters__section .filters .load__form {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0 0;
+  grid-template-areas: "cena cena cena cena cena" "min max max max max" "slider slider slider slider slider";
+  margin-bottom: 15%;
+}
+.filters__section .filters .load__form .load__form__legend {
+  grid-area: cena;
+  margin-bottom: 5%;
+  font-weight: 600;
+  font-size: 21px;
+}
+.filters__section .filters .load__form .loadmin__input {
+  grid-area: min;
+  margin-bottom: 6%;
+}
+.filters__section .filters .load__form .loadmax__input {
+  grid-area: max;
+  margin-bottom: 6%;
+}
+.filters__section .filters .load__form .load__slider {
+  grid-area: slider;
+}
+.filters__section .filters .load__form .load__slider .noUi-base .noUi-connects .noUi-connect {
+  background: #15616D;
+  height: 30px;
+}
+.filters__section .filters .reset__form {
+  width: 120%;
+}
+.filters__section .filters .reset__form button {
+  width: 90px;
+  height: 30px;
+  margin-right: 4%;
+  margin-bottom: 5%;
+  font-weight: 600;
+  font-size: 14px;
+  color: #FFFFFF;
+  background: #15616D;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=filters.css.map */
