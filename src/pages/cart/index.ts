@@ -73,7 +73,7 @@ class CartPage extends Page {
         localStorage.removeItem(arr[i].short);
         const delItem = document.querySelector(`.${arr[i].short}`) as HTMLElement;
         delItem.remove();
-        
+
       });
       deleteBlock.append(deleteItem);
 
@@ -239,7 +239,7 @@ class CartPage extends Page {
     cardCVV.className = 'card-cvv';
 
     cardImage.src = '../../assets/img/elements/money.png';
-    cardNumber.placeholder = 'card number';
+    cardNumber.placeholder = 'Numer karty';
     mm.placeholder = 'MM';
     dd.placeholder = 'YY';
     cardCVV.placeholder = 'cvv';
@@ -312,14 +312,14 @@ class CartPage extends Page {
 
     thank.className = 'thanks';
 
-    formTitle.textContent = 'Personal details';
+    formTitle.textContent = 'Dane osobiste';
     popClose.textContent = 'X';
-    submit.textContent = 'Submit';
+    submit.textContent = 'Wysłać';
     thank.textContent = 'Dziękuję Ci!';
-    formInputName.placeholder = 'Enter name';
-    formInputPhone.placeholder = 'Enter phone';
-    formInputAddress.placeholder = 'enter address';
-    formInputEmail.placeholder = 'enter email';
+    formInputName.placeholder = 'Wprowadź imię';
+    formInputPhone.placeholder = 'Wpisz telefon';
+    formInputAddress.placeholder = 'Podaj adres';
+    formInputEmail.placeholder = 'Wprowadź e-mail';
 
 
     form.append(formTitle, formInputName, formInputPhone,
@@ -360,19 +360,19 @@ class CartPage extends Page {
     deliveryAmount.className = 'delivery-amount';
     orderButton.className = 'order-button';
 
-    buyTitle.textContent = 'About order';
+    buyTitle.textContent = 'O porządku';
 
-    amount.textContent = `Orders(${arr.length})`;
+    amount.textContent = `Zamówienia(${arr.length})`;
     price.textContent = `${this.priceNum} zl`;
 
-    discountTitle.textContent = 'Discounts:';
+    discountTitle.textContent = 'Zniżki:';
     discountNumber.textContent = '';
 
     promocodeInput.addEventListener('input', () => {
       if (promocodeInput.value === 'RS') {
         this.priceNum! *= 0.8;
         price.textContent = `${this.priceNum} zl`;
-        discountTitle.textContent = 'Discounts: (RS)';
+        discountTitle.textContent = 'Zniżki: (RS)';
         discountNumber.textContent = `${this.priceNum! * 0.2} zl`;
       }
       if (promocodeInput.value === 'EPAM') {
@@ -383,8 +383,8 @@ class CartPage extends Page {
       }
     });
 
-    deliveryTitle.textContent = 'Delivery price:';
-    deliveryAmount.textContent = 'Free';
+    deliveryTitle.textContent = 'Cena dostawy:';
+    deliveryAmount.textContent = 'Bezpłatny';
 
     orderButton.innerText = 'Idź do kasy';
 
