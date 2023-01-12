@@ -5,6 +5,33 @@ const hash = window.location.hash.slice(1);
 
 export let parameters = new URLSearchParams(hash.includes('?') ? hash.slice(hash.indexOf('?') + 1) : '');
 
+export function saveParameters() {
+  localStorage.setItem('parameters', parameters.toString());
+}
+
+export function saveParametersBeforeProductPage() {
+  localStorage.setItem('parameters2', parameters.toString());
+}
+
+
+export function loadParameters() {
+  const tempPar = localStorage.getItem('parameters') as string;
+  if (tempPar) {
+    const tempParams = new URLSearchParams(tempPar);
+    parameters = tempParams;
+  }
+}
+
+export function loadParametersAfterPP() {
+  const tempPar = localStorage.getItem('parameters2') as string;
+  setTimeout(() => {
+    if (tempPar) {
+      const tempParams = new URLSearchParams(tempPar);
+      parameters = tempParams;
+    }
+  }, 100);
+}
+
 export const parametersObj = (clear?: string) => {
 
   let category: string[] = [],
@@ -33,11 +60,11 @@ export const parametersObj = (clear?: string) => {
     height = setSlider('height');
     load = setSlider('load');
     category = parameters.getAll('category').join().split(',');
-    const quantityStr = parameters.getAll('quantity').join('-').split('-');
+    const quantityStr = parameters.getAll('quantity').join('').split('-');
     quantity = [parseInt(quantityStr[0]), parseInt(quantityStr[1])];
     condition = parameters.getAll('condition').join().split(', ');
     material = parameters.getAll('material').join().split(',');
-    sort = INITIAL_STATE.sort;
+    sort = parameters.get('sort') as string;
     short = parameters.getAll('short').join().split(',');
 
   } else if (clear === 'clear') {
@@ -51,12 +78,7 @@ export const parametersObj = (clear?: string) => {
     parameters.set('height', INITIAL_STATE.height.join('-'));
     parameters.set('load', INITIAL_STATE.load.join('-'));
     parameters.set('short', INITIAL_STATE.short.join(','));
-
-    // price = setSlider('price');
-    // width = setSlider('width');
-    // length = setSlider('length');
-    // height = setSlider('height');
-    // load = setSlider('load');
+    parameters.set('sort', INITIAL_STATE.sort);
 
     category = INITIAL_STATE.category;
     price = INITIAL_STATE.price;
@@ -74,12 +96,14 @@ export const parametersObj = (clear?: string) => {
 
   } else if (INITIAL_STATE.short.includes(clear)) {
 
+    saveParametersBeforeProductPage();
+
     const productsArr = Array.from(productsJSON);
     const product = productsArr.filter(x => x.short === clear);
 
     parameters.set('category', product[0].category);
     parameters.set('price', `${product[0].price.toString()}-${product[0].price.toString()}`);
-    parameters.set('quantity', `${product[0].quantity.toString()}-${product[0].quantity.toString()}`);
+    parameters.set('quantity', '0-100000');
     parameters.set('condition', product[0].condition);
     parameters.set('material', product[0].material);
     parameters.set('length', `${product[0].length.toString()}-${product[0].length.toString()}`);
@@ -87,7 +111,6 @@ export const parametersObj = (clear?: string) => {
     parameters.set('height', `${product[0].height.toString()}-${product[0].height.toString()}`);
     parameters.set('load', `${product[0].load.toString()}-${product[0].load.toString()}`);
     parameters.set('short', `${product[0].short}`);
-    console.log(parameters.toString());
 
     price = setSlider('price');
     width = setSlider('width');
@@ -95,13 +118,19 @@ export const parametersObj = (clear?: string) => {
     height = setSlider('height');
     load = setSlider('load');
     category = product[0].category.split('');
-    quantity = [product[0].quantity, product[0].quantity];
+    quantity = INITIAL_STATE.quantity;
     condition = product[0].condition.split('');
     material = product[0].material.split('');
     sort = INITIAL_STATE.sort;
     short = [product[0].short];
+    
+    loadParametersAfterPP();
 
-    window.location.hash = `catalog-page/${short}`;
+    // saveParameters();
+    // loadParameters();
+    // window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
+
+    // window.location.hash = `${short}`;
   }
 
   return  {
@@ -119,14 +148,3 @@ export const parametersObj = (clear?: string) => {
   };
 };
 
-export function saveParameters() {
-  localStorage.setItem('parameters', parameters.toString());
-}
-
-export function loadParameters() {
-  const tempPar = localStorage.getItem('parameters') as string;
-  if (tempPar) {
-    const tempParams = new URLSearchParams(tempPar);
-    parameters = tempParams;
-  }
-}

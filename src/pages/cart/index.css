@@ -1,0 +1,364 @@
+.page-top {
+  margin-top: 2%;
+  margin-bottom: 3%;
+  margin-left: 2%;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  color: #474A51;
+  font-family: "Lato", sans-serif;
+  font-style: normal;
+}
+
+.order-container {
+  width: 100%;
+  display: flex;
+  font-family: "Lato", sans-serif;
+  font-style: normal;
+}
+.order-container .order-items {
+  width: 70%;
+  margin-left: 2%;
+}
+.order-container .order-items .order-card {
+  width: 90%;
+  height: 120px;
+  border: 1px solid #d5d5d5;
+  box-shadow: 0 5px 20px rgba(50, 50, 52, 0.1);
+  border-radius: 3px;
+  margin-bottom: 2%;
+  display: flex;
+  transition: 0.2s ease-in-out;
+}
+.order-container .order-items .order-card .card-image {
+  margin-right: 3%;
+  margin-left: 1%;
+  margin-top: 1%;
+  object-fit: cover;
+  width: 15%;
+  height: 100px;
+}
+.order-container .order-items .order-card .order-info {
+  width: 30%;
+  margin-right: 10%;
+  margin-top: 1%;
+}
+.order-container .order-items .order-card .order-info .card-title {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 17px;
+  color: #494949;
+  margin-bottom: 2%;
+}
+.order-container .order-items .order-card .order-info .order-amount {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: #828282;
+}
+.order-container .order-items .order-card .choose-amount-block {
+  margin-right: 10%;
+  margin-top: 1%;
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.order-container .order-items .order-card .choose-amount-block .choose-block {
+  width: 100%;
+  margin-bottom: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.order-container .order-items .order-card .choose-amount-block .choose-block div {
+  background: #15616D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  font-size: 25px;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+.order-container .order-items .order-card .choose-amount-block .choose-block .choose-number {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 19px;
+  color: #333333;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+.order-container .order-items .order-card .choose-amount-block .single-price {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 14px;
+  color: #828282;
+}
+.order-container .order-items .order-card .full-price {
+  text-align: center;
+  width: 12%;
+  font-weight: 400;
+  margin-top: 2%;
+  font-size: 22px;
+  line-height: 22px;
+  color: #333333;
+}
+.order-container .order-items .order-card .delete-order {
+  margin-left: 7%;
+  margin-top: 8%;
+  margin-right: 1%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.order-container .order-items .order-card .delete-order img {
+  width: 100%;
+  height: 100%;
+}
+.order-container .order-items .order-card .delete-order:hover {
+  width: 25px;
+  height: 25px;
+}
+.order-container .order-items .order-card:hover {
+  width: 91%;
+  height: 125px;
+  border: 1px solid #c4c4c4;
+  box-shadow: 0 5px 20px rgba(50, 50, 52, 0.3);
+  transition: 0.2s ease-in-out;
+}
+.order-container .buy-block {
+  width: 20%;
+  height: 400px;
+  border: 1px solid #d5d5d5;
+  box-shadow: 0 5px 20px rgba(50, 50, 52, 0.1);
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  transition: 0.2s ease-in-out;
+}
+.order-container .buy-block .customer-block {
+  margin-left: 5%;
+  margin-top: 3%;
+}
+.order-container .buy-block .customer-block .customer-title {
+  margin-bottom: 4%;
+  font-weight: 500;
+  color: rgb(100, 100, 100);
+  font-size: 22px;
+}
+.order-container .buy-block .customer-block .address-input {
+  width: 80%;
+  padding-left: 5px;
+  height: 30px;
+  background: #FAFAFA;
+  border: 1px solid #d5d5d5;
+  box-shadow: 2px 4px 5px rgba(50, 50, 52, 0.1);
+  border-radius: 3px;
+  margin-bottom: 2%;
+}
+.order-container .buy-block .customer-block .promocode-input {
+  width: 80%;
+  padding-left: 5px;
+  height: 30px;
+  background: #FAFAFA;
+  border: 1px solid #d5d5d5;
+  box-shadow: 2px 4px 5px rgba(50, 50, 52, 0.1);
+  border-radius: 3px;
+}
+.order-container .buy-block .buy-title {
+  margin-left: 5%;
+  color: rgb(100, 100, 100);
+  font-size: 22px;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+.order-container .buy-block .buy-info {
+  margin-bottom: 10%;
+  margin-left: 5%;
+}
+.order-container .buy-block .buy-info .buy-amount-price {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5%;
+}
+.order-container .buy-block .buy-info .buy-amount-price .amount {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  color: #828282;
+}
+.order-container .buy-block .buy-info .buy-amount-price .price {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: right;
+  color: #333333;
+}
+.order-container .buy-block .buy-info .buy-discount {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5%;
+}
+.order-container .buy-block .buy-info .buy-discount .discount-title {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  color: #828282;
+}
+.order-container .buy-block .buy-info .buy-discount .discount-number {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: right;
+  color: #912323;
+}
+.order-container .buy-block .buy-info .buy-delivery {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5%;
+}
+.order-container .buy-block .buy-info .buy-delivery .delivery-title {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  color: #828282;
+}
+.order-container .buy-block .buy-info .buy-delivery .delivery-amount {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: right;
+  color: #333333;
+}
+.order-container .buy-block .order-button {
+  width: 50%;
+  height: 60px;
+  cursor: pointer;
+  margin-left: 5%;
+  background: #15616D;
+  border-radius: 2px;
+  font-size: 17px;
+  color: #FAFAFA;
+}
+.order-container .buy-block:hover {
+  width: 21%;
+  border: 1px solid #c4c4c4;
+  box-shadow: 0 5px 20px rgba(50, 50, 52, 0.3);
+  transition: 0.2s ease-in-out;
+}
+.order-container .popUp {
+  position: fixed;
+  left: 27%;
+  top: 15%;
+  width: 45%;
+  height: 500px;
+  background: #f1f1f1;
+  border: 2px solid #d5d5d5;
+  box-shadow: 5px 10px 10px rgba(50, 50, 52, 0.4);
+  border-radius: 3px;
+  display: none;
+}
+.order-container .popUp .holder {
+  display: none;
+}
+.order-container .popUp .holder input {
+  width: 50%;
+  height: 30px;
+  margin-bottom: 2%;
+  padding-left: 2%;
+  outline: none;
+}
+.order-container .popUp .holder .invalid {
+  border: 3px solid red;
+}
+.order-container .popUp .holder .credit-card {
+  border-radius: 6px;
+  width: 40%;
+  height: 150px;
+  background: #359164;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 0.5fr);
+  gap: 0 0;
+  grid-template-areas: "image number number number" "valid valid cvv cvv";
+}
+.order-container .popUp .holder .credit-card .card-img {
+  margin-top: 25%;
+  margin-left: 15%;
+  grid-area: image;
+  width: 30px;
+  height: 30px;
+  object-fit: scale-down;
+}
+.order-container .popUp .holder .credit-card .card-number {
+  padding-left: 3%;
+  margin-top: 10%;
+  grid-area: number;
+  width: 80%;
+  height: 30px;
+}
+.order-container .popUp .holder .credit-card .invalid {
+  border: 3px solid red;
+}
+.order-container .popUp .holder .credit-card .card-mm {
+  padding-left: 3%;
+  margin-left: 50%;
+  grid-area: valid;
+  width: 20%;
+  height: 30px;
+}
+.order-container .popUp .holder .credit-card .card-dd {
+  padding-left: 3%;
+  margin-left: 70%;
+  grid-area: valid;
+  width: 20%;
+  height: 30px;
+}
+.order-container .popUp .holder .credit-card .card-cvv {
+  padding-left: 3%;
+  margin-left: 25%;
+  grid-area: cvv;
+  width: 25%;
+  height: 30px;
+}
+.order-container .popUp .holder .submit-button {
+  margin-top: 5%;
+  width: 30%;
+  height: 50px;
+  color: #FFFFFF;
+  font-size: 20px;
+  background: #15616D;
+  cursor: pointer;
+}
+.order-container .popUp .holder .submit-button:disabled {
+  background: #B1B1B1;
+  cursor: none;
+  pointer-events: none;
+}
+.order-container .popUp .closeBtn {
+  margin-left: 1%;
+  margin-top: 1%;
+  cursor: pointer;
+}
+.order-container .popUp .thanks {
+  display: none;
+  margin-top: 30%;
+  font-size: 30px;
+  font-weight: 600;
+}
+.order-container .popUp .active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none;
+}
+.order-container .active {
+  display: block;
+}
+
+/*# sourceMappingURL=index.css.map */

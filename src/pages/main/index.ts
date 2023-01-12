@@ -1,76 +1,9 @@
 import Page from '../../core/templates/page';
 import Footer from '../../core/components/footer';
+import productsJSON from '../../assets/json/products.json';
 
-const CatalogMain = [
-  {
-    title: 'Palety Euro EPAL 1200*800',
-    description: 'nowe',
-  },
-  {
-    title: 'Palety Euro EPAL 1200*800',
-    description: 'I gatunek używane',
-  },
-  {
-    title: 'Palety Euro EPAL 1200*800',
-    description: 'II gatunek używane',
-  },
-  {
-    title: 'Palety typu EURO 1200*800',
-    description: 'nowe',
-  },
-  {
-    title: 'Palety typu EURO 1200*800',
-    description: 'I gatunek używane',
-  },
-  {
-    title: 'Palety typu EURO 1200*800',
-    description: 'II gatunek używane',
-  },
-  {
-    title: 'Palety typu EURO 1200*800',
-    description: 'III gatunek używane',
-  },
-  {
-    title: 'Palety jednorazowe 1200*800',
-    description: 'nowe',
-  },
-  {
-    title: 'Palety jednorazowe 1200*800',
-    description: 'I gatunek używane',
-  },
-  {
-    title: 'Palety jednorazowe 1200*800',
-    description: 'II gatunek używane',
-  },
-  {
-    title: 'Palety przemysłowe 1200*1000',
-    description: 'nowe',
-  },
-  {
-    title: 'Palety przemysłowe 1200*1000',
-    description: 'używane',
-  },
-  {
-    title: 'Palety przemysłowe 1200*1200',
-    description: 'nowe',
-  },
-  {
-    title: 'Palety przemysłowe 1200*1200',
-    description: 'używane',
-  },
-  {
-    title: 'Palety przemysłowe 80*60',
-    description: 'nowe',
-  },
-  {
-    title: 'Palety przemysłowe 80*60',
-    description: 'używane',
-  },
-  {
-    title: 'Palety inne',
-    description: '',
-  },
-];
+
+const CatalogMain = Array.from(productsJSON);
 
 const PaletyMain = [
   {
@@ -132,12 +65,12 @@ class MainPage extends Page {
       const itemBlock = document.createElement('div');
       const itemTitle = document.createElement('h3');
       const itemDesc = document.createElement('h3');
-      itemTitle.innerText = el.title;
-      itemDesc.innerText = el.description;
+      itemTitle.innerText = el.name;
+      // itemDesc.innerText = el.material;
       itemBlock.append(itemTitle, itemDesc);
       itemBlock.className = 'item-block';
       catalogListItem.append(itemBlock);
-      catalogListItem.href = '#';
+      catalogListItem.href = `#product-page/${el.id}`;
       catalogListItem.className = 'catalog-item';
       catalogList.append(catalogListItem);
     });

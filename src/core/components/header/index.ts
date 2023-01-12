@@ -1,17 +1,21 @@
 import Component from '../../templates/components';
-import { PageIds } from '../../../pages/app';
+// import { PageIds } from '../../../pages/app';
+import Product from '../product/product';
+import productsJSON from '../../../assets/json/products.json';
+import { parameters, parametersObj, saveParameters } from '../parameters';
+
 
 const Buttons = [
   {
-    id: PageIds.MainPageId,
+    id: 'main-page',
     text: 'Main',
   },
   {
-    id: PageIds.CatalogPageId,
+    id: 'catalog-page',
     text: 'Katalog',
   },
   {
-    id: PageIds.CartPageId,
+    id: 'cart-page',
     text: 'Cart',
   },
 ];
@@ -40,6 +44,9 @@ const HeaderInfo = [
 ];
 
 class Header extends Component {
+
+  public priceNum: number | undefined = 0;
+
   constructor(tagName: string, className: string) {
     super(tagName, className);
   }
@@ -64,7 +71,7 @@ class Header extends Component {
   }
 
 
-  private renderHeaderMain(): void {
+  public renderHeaderMain(): void {
     const containerMain = document.createElement('div');
 
     const logoBlock = document.createElement('a');
@@ -87,7 +94,7 @@ class Header extends Component {
     const likeBlock = document.createElement('a');
     const likeImg = document.createElement('img');
 
-    logoBlock.id = Buttons[0].id;
+    logoBlock.id = Buttons[0].id as string;
     logoBlock.href = `#${Buttons[0].id}`;
     logoBlock.className = 'logo-block';
     logo.src = '../../assets/img/elements/palletport_logo_small.svg';
@@ -105,12 +112,24 @@ class Header extends Component {
     sales.className = 'wyprzedaz';
 
     searchInput.type = 'text';
-    searchInput.placeholder = 'Wpisz nazwę towaru';
+    if (parameters.get('search'))
+      searchInput.value = parameters.get('search') as string;
+    else
+      searchInput.placeholder = 'Wpisz nazwę towaru';
     searchInput.className = 'input-field';
     searchButton.innerText = 'Szukaj';
     searchButton.className = 'input-button';
     searchBlock.className = 'search';
     searchBlock.append(searchInput, searchButton);
+
+    window.addEventListener('hashchange', () => {
+      if (parameters.get('search') === '')
+        searchInput.value = '';
+    });
+
+    searchInput.addEventListener('input', () => {
+      this.searchFilter(searchInput.value);
+    });
 
     likeImg.src = '../../assets/img/elements/like.svg';
     likeImg.className = 'like-image';
@@ -118,9 +137,21 @@ class Header extends Component {
     likeBlock.className = 'like-block';
     likeBlock.href = '#';
 
+    const arr: Product [] = [];
+    for (let i = 0; i < productsJSON.length; i += 1) {
+      if (localStorage.getItem(productsJSON[i].short) !== null) {
+        arr.push(productsJSON[i]);
+      }
+    }
+    for (let i = 0; i < arr.length; i += 1) {
+      const amountOfItems = localStorage.getItem(arr[i].short) as string;
+      if (typeof this.priceNum !== 'undefined') {
+        this.priceNum += arr[i].price * parseInt(amountOfItems);
+      }
+    }
     // cartBlock.innerText = Buttons[2].text;
     cartImg.src = '../../assets/img/elements/cart.svg';
-    cartPrice.innerText = '152 243,66 Zł';
+    cartPrice.innerText = `${this.priceNum} zl (${arr.length})`;
     cartPrice.className = 'cart-price';
     cartBlock.href = `#${Buttons[2].id}`;
     cartBlock.className = 'cart-block';
@@ -129,6 +160,13 @@ class Header extends Component {
     logoBlock.append(logo);
     containerMain.append(logoBlock, catalogBlock, sales, searchBlock, likeBlock, cartBlock);
     this.container.append(containerMain);
+  }
+
+  searchFilter(string: string): void {
+    parameters.set('search', string);
+    window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
+    parametersObj();
+    saveParameters();
   }
 
   render(): HTMLElement {

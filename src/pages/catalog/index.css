@@ -113,7 +113,8 @@ html {
   align-items: center;
 }
 .content .header-container .header-main .cart-block .cart-price {
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: 400;
   line-height: 19px;
   color: #474A51;
 }
@@ -634,17 +635,6 @@ html {
   width: 15%;
   height: 34px;
   cursor: pointer;
-}
-.catalog-page-styles .filters__section {
-  grid-area: filters;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  margin-left: 10%;
-}
-.catalog-page-styles .filters__section .filters {
-  display: flex;
-  flex-direction: column-reverse;
 }
 .catalog-page-styles .footer-container {
   grid-area: footer;

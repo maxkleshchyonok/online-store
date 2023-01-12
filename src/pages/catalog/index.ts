@@ -6,7 +6,10 @@ import './index.scss';
 import Filters from '../../core/components/filters/filters';
 import { SortEnum } from '../../core/types/types';
 import Footer from '../../core/components/footer';
-import { parameters } from '../../core/components/parameters';
+
+import { parameters, parametersObj, saveParameters } from '../../core/components/parameters';
+// import App from '../app';
+
 
 const PaletRange = ['Wszystkie', 'Europalety', 'Jednorazowe', 'Nowe', 'Używane',
   'Wyprzedaż', 'Półpalety', 'Plastikowe'];
@@ -27,44 +30,51 @@ class CatalogPage extends Page {
     parameters.delete('name');
   }
 
+
+
   drawProductsCards(catalogSection: HTMLElement) {
-    if (this.filters.categoryCheckboxes) {
-      this.filters.categoryCheckboxes.forEach(x => {
-        x.addEventListener('change', () => {
-          catalogSection.innerHTML = '';
-          for (let i = 0; i < 20; i++) {
-            const productData = productsJSON[i];
-            if (this.filters.category.find(y=> y === productData.category)) {
-              const product = new Product(productData.id,
-                productData.short,
-                productData.name,
-                productData.category,
-                productData.condition,
-                productData.material,
-                productData.length,
-                productData.width,
-                productData.height,
-                productData.load,
-                productData.image1,
-                productData.image2,
-                productData.info,
-                productData.price,
-                productData.quantity);
-              const card = document.createElement('div');
-              // const cardImage = document.createElement('img');
-              // cardImage.src = product.image1;
-              // card.append(cardImage);
-              card.classList.add('product__card');
-              createProductCard(product, card, i);
-              catalogSection.append(card);
-            }
-          }
-        });
-      });
+
+
+    catalogSection.innerHTML = '';
+    let arr: Product[] = [...productsJSON].filter((el) => parametersObj().short.includes(el.short)
+        && parametersObj().category.includes(el.category) && parametersObj().price[0] <= el.price
+        && parametersObj().price[1] >= el.price && parametersObj().quantity[0] <= el.quantity
+        && parametersObj().quantity[1] >= el.quantity && parametersObj().condition.includes(el.condition)
+        && parametersObj().material.includes(el.material) && parametersObj().length[0] <= el.length
+        && parametersObj().length[1] >= el.length && parametersObj().width[0] <= el.width
+        && parametersObj().width[1] >= el.width && parametersObj().height[0] <= el.height
+        && parametersObj().height[1] >= el.height && parametersObj().price[0] <= el.price
+        && parametersObj().price[1] >= el.price
+        && parametersObj().load[0] <= el.load && parametersObj().load[1] >= el.load);
+
+    if (this.sortFilter(arr))
+      arr = this.sortFilter(arr);
+    if (this.searchFilter(arr))
+      arr = this.searchFilter(arr);
+
+    for (let j = 0; j < arr.length; j += 1) {
+      const productData = arr[j];
+      const product = new Product(productData.id,
+        productData.short,
+        productData.name,
+        productData.category,
+        productData.condition,
+        productData.material,
+        productData.length,
+        productData.width,
+        productData.height,
+        productData.load,
+        productData.image1,
+        productData.image2,
+        productData.info,
+        productData.price,
+        productData.quantity);
+      const card = document.createElement('div');
+      card.classList.add('product__card');
+      createProductCard(product, card, j);
+      catalogSection.append(card);
     }
   }
-
-
 
   private renderCatalogTop(): HTMLElement {
     const content = document.createElement('div');
@@ -84,7 +94,14 @@ class CatalogPage extends Page {
     catalogAmountTitle.className = 'catalog-amount-title';
     catalogAmountTitle.innerText = 'Katalog';
     catalogAmountNumber.className = 'catalog-amount-number';
-    catalogAmountNumber.innerText = `${productsJSON.length.toString()} towarów`;
+    catalogAmountNumber.innerText = 'Nic nie znazeziono';
+
+    setInterval(() => {
+      window.addEventListener('mousemove', () => {
+        this.changeSum(catalogAmountNumber);
+      });
+    }, 1000);
+
     catalogAmount.className = 'catalog-amount';
     catalogAmount.append(catalogAmountTitle, catalogAmountNumber);
 
@@ -107,8 +124,6 @@ class CatalogPage extends Page {
     sort.className = 'sort-choose-click';
     sortList.className = 'choose-list';
 
-    // sort.innerText = 'Sortuj według...';
-
     const sortPlacehold = document.createElement('div');
     const placeholdImg = document.createElement('img');
     const placeHoldText = document.createElement('p');
@@ -120,11 +135,19 @@ class CatalogPage extends Page {
 
     placeholdImg.src = '../../assets/img/elements/sort-icon.svg';
     placeHoldTextArrow.src = '../../assets/img/elements/arrow-down.svg';
-    placeHoldText.innerText = 'Sortuj według...';
+    placeHoldText.innerText = parametersObj().sort;
     sortPlacehold.append(placeholdImg, placeHoldText, placeHoldTextArrow);
     sort.append(sortPlacehold);
 
     sortBlockTitle.innerText = 'Sortuj:';
+
+    function sortApply(sortStyle: string): void {
+      placeHoldText.innerHTML = sortStyle;
+      parameters.set('sort', sortStyle);
+      window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
+      parametersObj();
+      saveParameters();
+    }
 
     for (let i = 0; i < 5; i += 1) {
       const li = document.createElement('li');
@@ -132,31 +155,41 @@ class CatalogPage extends Page {
       switch (i) {
         case 0:
           a.innerText = SortEnum.DEFAULT;
-          a.href = '#';
+          a.addEventListener('click', () => {
+            sortApply(a.innerText);
+          });
           li.append(a);
           sortList.append(li);
           break;
         case 1:
           a.innerText = SortEnum.NAME;
-          a.href = '#';
+          a.addEventListener('click', () => {
+            sortApply(a.innerText);
+          });
           li.append(a);
           sortList.append(li);
           break;
         case 2:
           a.innerText = SortEnum.NAME_REVERSED;
-          a.href = '#';
+          a.addEventListener('click', () => {
+            sortApply(a.innerText);
+          });
           li.append(a);
           sortList.append(li);
           break;
         case 3:
           a.innerText = SortEnum.PRICE_UP;
-          a.href = '#';
+          a.addEventListener('click', () => {
+            sortApply(a.innerText);
+          });
           li.append(a);
           sortList.append(li);
           break;
         case 4:
           a.innerText = SortEnum.PRICE_DOWN;
-          a.href = '#';
+          a.addEventListener('click', () => {
+            sortApply(a.innerText);
+          });
           li.append(a);
           sortList.append(li);
           break;
@@ -246,6 +279,57 @@ class CatalogPage extends Page {
 
   }
 
+  sortFilter(arr: Product[]) {
+    let temp = [];
+
+    switch (parametersObj().sort) {
+      case SortEnum.DEFAULT:
+        temp = arr.sort((a, b) => a.id - b.id);
+        break;
+      case SortEnum.NAME:
+        temp = arr.sort((a, b) => a.load - b.load);
+        break;
+      case SortEnum.NAME_REVERSED:
+        temp = arr.sort((a, b) => b.load - a.load);
+        break;
+      case SortEnum.PRICE_DOWN:
+        temp = arr.sort((a, b) => b.price - a.price);
+        break;
+      case SortEnum.PRICE_UP:
+        temp = arr.sort((a, b) => a.price - b.price);
+        break;
+      default:
+        temp = arr.sort((a, b) => parseInt(a.category) - parseInt(b.category));
+    }
+    return temp;
+  }
+
+  searchFilter(arr: Product[]) {
+    if (parameters.get('search')) {
+      let temp = [];
+      
+      const searchString = parameters.get('search') as string;
+      temp = arr.filter(el => el.info.toLowerCase().match(searchString.toLowerCase())
+        || el.name.toLowerCase().match(searchString.toLowerCase())
+        || el.material.toLowerCase().match(searchString.toLowerCase())
+        || el.category.toLowerCase().match(searchString.toLowerCase())
+        || el.condition.toLowerCase().match(searchString.toLowerCase())
+        || el.price.toString().toLowerCase().match(searchString.toLowerCase())
+        || el.load.toString().toLowerCase().match(searchString.toLowerCase())
+        || el.quantity.toString().toLowerCase().match(searchString.toLowerCase())
+        || el.width.toString().toLowerCase().match(searchString.toLowerCase())
+        || el.height.toString().toLowerCase().match(searchString.toLowerCase())
+        || el.length.toString().toLowerCase().match(searchString.toLowerCase()));
+      return temp;
+    } else return arr;
+  }
+
+  changeSum(el: HTMLElement): void {
+    const sum = document.querySelectorAll('.product__card');
+    if (sum) {
+      el.innerText = `${sum.length} towarów`;
+    }
+  }
 
   render() {
     // this.renderCatalogTop();
@@ -262,13 +346,17 @@ class CatalogPage extends Page {
 
     filtersSection.append(this.filters.render());
 
+
     this.drawProductsCards(catalogSection);
+
+    window.addEventListener('hashchange', () => {
+      this.drawProductsCards(catalogSection);
+    });
+
     this.container.append(this.footer.render());
     this.container.classList.add('catalog-page-styles');
     return this.container;
   }
 }
-
-
 
 export default CatalogPage;

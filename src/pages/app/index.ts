@@ -3,23 +3,32 @@ import CatalogPage from '../catalog';
 import Page from '../../core/templates/page';
 import CartPage from '../cart';
 import Header from '../../core/components/header';
-// import ProductPage from '../product-page';
+import ProductPage from '../product-page';
 // import Footer from '../../core/components/footer';
-import { parameters } from '../../core/components/parameters';
+import { loadParameters, parametersObj } from '../../core/components/parameters';
 // import createProductCard from '../../core/components/product_card/product_card';
+import productsJSON from '../../assets/json/products.json';
+import Product from '../../core/components/product/product';
+import ErrorPage from '../error/error';
 
+const products: Product[] = productsJSON;
+const productsId: string[] = [];
+products.forEach((product) => {
+  productsId.push(`product-page/${product.id}`);
+});
 
-export const enum PageIds {
-  MainPageId = 'main-page',
-  CatalogPageId = 'catalog-page',
-  CartPageId = 'cart-page',
-  ProductPageId = 'product-page',
-}
+export const PageIds: { [props: string]: string | string[] } = {
+  MainPageId: 'main-page',
+  CatalogPageId:'catalog-page',
+  CartPageId: 'cart-page',
+  ErrorPage: 'error-page',
+  ProductPageId: productsId,
+};
 
 class App {
   static container: HTMLElement | null = document.getElementById('content');
 
-  static defaultPageId = 'current-page';
+  static defaultPageId = '#catalog-page';
 
   private initialPage: MainPage;
 
@@ -27,48 +36,83 @@ class App {
 
   // private footer: Footer;
 
+  // previousPage: string[] = [];
   previousPage = '';
 
+  setPreviousPage(): void {
+    localStorage.removeItem('previousPage');
+    localStorage.setItem('previousPage', this.previousPage);
+  }
+
+  getPreviousPage(): void {
+    this.previousPage = localStorage.getItem('previousPage') as string;
+  }
+ 
   public renderNewPage(idPage: string) {
     const currentPageHTML = document.getElementById(App.defaultPageId);
     if (currentPageHTML) {
       currentPageHTML.remove();
     }
     let page: Page | null = null;
-
     if (idPage === PageIds.MainPageId) {
       page = new MainPage(idPage);
     } else if (idPage === PageIds.CatalogPageId) {
       page = new CatalogPage(idPage);
     } else if (idPage === PageIds.CartPageId) {
       page = new CartPage(idPage);
+    } else if (PageIds.ProductPageId.includes(idPage)) {
+      const id = Number(idPage.replace(/[\D]+/g, ''));
+      const product = products.find((el) => el.id === id);
+      if (product !== undefined) {
+        parametersObj(product.short);
+        // saveParameters();
+        page = new ProductPage(idPage);
+      } else {
+        page = new ErrorPage(idPage, '404');
+      }
+    } else {
+      page = new ErrorPage(idPage, '404');
     }
-    // } else if (idPage === PageIds.ProductPageId) {
-    //   page = new ProductPage(idPage);
-    // }
 
     if (page) {
+      if (localStorage.getItem('previousPage'))
+        this.getPreviousPage();
+      else 
+        this.previousPage = window.location.hash;
       const pageHTML = page.render();
       pageHTML.id = App.defaultPageId;
-      this.previousPage = window.location.hash.slice(1);
       App.container?.append(pageHTML);
+      this.setPreviousPage();
     }
   }
 
   private enableRouteChange() {
     const loadPage = () => {
       const hash = window.location.hash.slice(1);
+      loadParameters();
       if (!hash) {
         window.location.hash = 'main-page';
       }
       if (!hash.includes('?')) {
         this.renderNewPage(hash);
       } else {
-        window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
+        if (this.previousPage.slice(0, hash.indexOf('?')) === hash.slice(0, hash.indexOf('?'))) {
+          setTimeout(() => {}, 1);
+        } else {
+          this.renderNewPage(`${hash.slice(0, hash.indexOf('?'))}`);
+        }
       }
+
     };
-    window.addEventListener('hashchange', loadPage);
-    window.addEventListener('load', loadPage);
+    window.addEventListener('hashchange', () => {
+      if (window.location.hash.includes('?') && !this.previousPage.includes('catalog')) {
+        this.renderNewPage('catalog-page');
+      } else
+        loadPage();
+    });
+    window.addEventListener('load', () => {
+      loadPage();
+    });
   }
 
 
@@ -80,8 +124,13 @@ class App {
 
   run() {
     App.container?.append(this.header.render());
-    this.renderNewPage('catalog-page');
-    window.location.hash = PageIds.CatalogPageId;
+
+    if (localStorage.getItem('previousPage')) {
+      // this.getPreviousPage();
+      this.renderNewPage(this.previousPage);
+    } else
+      this.renderNewPage('main-page');
+    // window.location.hash = this.;
     this.enableRouteChange();
     // App.container?.append(this.footer.render());
   }
