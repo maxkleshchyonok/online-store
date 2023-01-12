@@ -636,17 +636,6 @@ html {
   height: 34px;
   cursor: pointer;
 }
-.catalog-page-styles .filters__section {
-  grid-area: filters;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  margin-left: 10%;
-}
-.catalog-page-styles .filters__section .filters {
-  display: flex;
-  flex-direction: column-reverse;
-}
 .catalog-page-styles .footer-container {
   grid-area: footer;
 }

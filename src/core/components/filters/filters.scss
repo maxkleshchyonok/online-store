@@ -1,7 +1,325 @@
-.button {
-  border: 1px solid;
-}
-form {
-  border: 1px solid;
-  margin: 5px;
+//.button {
+//  border: 1px solid;
+//}
+//form {
+//  border: 1px solid;
+//  margin: 5px;
+//}
+
+.filters__section {
+  font-family: "Lato", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  color: #474A51;
+  margin-top: 15%;
+  grid-area: filters;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-left: 10%;
+  .filters{
+    display: flex;
+    flex-direction: column-reverse;
+    .price__form{
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 0 0;
+      grid-template-areas:
+    "cena cena cena cena cena"
+    "min max max max max"
+    "slider slider slider slider slider";
+      margin-bottom: 15%;
+      .price__form__legend{
+        grid-area: cena;
+        margin-bottom: 5%;
+        font-weight: 600;
+        font-size: 21px;
+      }
+      .pricemin__input{
+        grid-area: min;
+        margin-bottom: 6%;
+      }
+      .pricemax__input{
+        grid-area: max;
+        margin-bottom: 6%;
+      }
+      .price__slider{
+        grid-area: slider;
+        .noUi-base{
+          .noUi-connects{
+            .noUi-connect{
+              background: #15616D;
+              height: 30px;
+            }
+          }
+        }
+      }
+    }
+    .stock__form{
+      margin-bottom: 10%;
+      display: grid;
+      grid-template-columns: 0.2fr 1fr;
+      grid-template-rows: repeat(3, 1fr);
+      gap: 0 0;
+      grid-template-areas:
+    "stock stock"
+    "yes yesL"
+    "no noL";
+      .stock__form__legend{
+        grid-area: stock;
+        margin-bottom: 5%;
+        font-weight: 600;
+        font-size: 21px;
+      }
+      #stock__true{
+        grid-area: yes;
+        width: 20px;
+        height: 20px;
+      }
+      #stock__false{
+        grid-area: no;
+        width: 20px;
+        height: 20px;
+      }
+    }
+    .categories__form{
+      margin-bottom: 70%;
+      display: grid;
+      grid-template-columns: 0.2fr 1fr;
+      grid-template-rows: repeat(9, 0.85fr);
+      gap: 7% 0;
+      grid-template-areas:
+    "title title"
+    "palety_euro yesL"
+    "palety_europodobne yesL"
+    "palety_jedno yesL"
+    "palety_przem yesL"
+    "polpalety yesL"
+    "palety_plastic yesL"
+    "palety_tektur yesL"
+    "nadstawki noL";
+      legend{
+        grid-area: title;
+        font-weight: 600;
+        font-size: 21px;
+      }
+      #palety_euro{
+        grid-area: palety_euro;
+      }
+      #palety_europodobne{
+        grid-area: palety_europodobne;
+      }
+      #palety_jedno{
+        grid-area: palety_jedno;
+      }
+      #palety_przem{
+        grid-area: palety_przem;
+      }
+      #polpalety{
+        grid-area: polpalety;
+      }
+      #palety_plastic{
+        grid-area: palety_plastic;
+      }
+      #palety_tektur{
+        grid-area: palety_tektur;
+      }
+      #nadstawki{
+        grid-area: nadstawki;
+      }
+    }
+    .condition__form{
+      margin-bottom: 25%;
+      display: grid;
+      grid-template-columns: 0.2fr 1fr;
+      grid-template-rows: repeat(3, 0.8fr);
+      gap: 15% 0;
+      grid-template-areas:
+    "title title"
+    "check lab"
+    "check lab";
+      legend{
+        grid-area: title;
+        font-weight: 600;
+        font-size: 21px;
+      }
+    }
+    .material__form{
+      margin-bottom: 25%;
+      display: grid;
+      grid-template-columns: 0.2fr 1fr;
+      grid-template-rows: repeat(4, 0.8fr);
+      gap: 10% 0;
+      grid-template-areas:
+    "title title"
+    "check lab"
+    "check lab"
+    "check lab";
+      legend{
+        grid-area: title;
+        font-weight: 600;
+        font-size: 21px;
+      }
+    }
+    .length__form{
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 0 0;
+      grid-template-areas:
+    "cena cena cena cena cena"
+    "min max max max max"
+    "slider slider slider slider slider";
+      margin-bottom: 5%;
+      .length__form__legend{
+        grid-area: cena;
+        margin-bottom: 5%;
+        font-weight: 600;
+        font-size: 21px;
+      }
+      .lengthmin__input{
+        grid-area: min;
+        margin-bottom: 6%;
+      }
+      .lengthmax__input{
+        grid-area: max;
+        margin-bottom: 6%;
+      }
+      .length__slider{
+        grid-area: slider;
+        .noUi-base{
+          .noUi-connects{
+            .noUi-connect{
+              background: #15616D;
+              height: 30px;
+            }
+          }
+        }
+      }
+    }
+    .width__form{
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 0 0;
+      grid-template-areas:
+    "cena cena cena cena cena"
+    "min max max max max"
+    "slider slider slider slider slider";
+      margin-bottom: 5%;
+      .width__form__legend{
+        grid-area: cena;
+        margin-bottom: 5%;
+        font-weight: 600;
+        font-size: 21px;
+      }
+      .widthmin__input{
+        grid-area: min;
+        margin-bottom: 6%;
+      }
+      .widthmax__input{
+        grid-area: max;
+        margin-bottom: 6%;
+      }
+      .width__slider{
+        grid-area: slider;
+        .noUi-base{
+          .noUi-connects{
+            .noUi-connect{
+              background: #15616D;
+              height: 30px;
+            }
+          }
+        }
+      }
+    }
+    .height__form{
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 0 0;
+      grid-template-areas:
+    "cena cena cena cena cena"
+    "min max max max max"
+    "slider slider slider slider slider";
+      margin-bottom: 5%;
+      .height__form__legend{
+        grid-area: cena;
+        margin-bottom: 5%;
+        font-weight: 600;
+        font-size: 21px;
+      }
+      .heightmin__input{
+        grid-area: min;
+        margin-bottom: 6%;
+      }
+      .heightmax__input{
+        grid-area: max;
+        margin-bottom: 6%;
+      }
+      .height__slider{
+        grid-area: slider;
+        .noUi-base{
+          .noUi-connects{
+            .noUi-connect{
+              background: #15616D;
+              height: 30px;
+            }
+          }
+        }
+      }
+    }
+    .load__form{
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 0 0;
+      grid-template-areas:
+    "cena cena cena cena cena"
+    "min max max max max"
+    "slider slider slider slider slider";
+      margin-bottom: 15%;
+      .load__form__legend{
+        grid-area: cena;
+        margin-bottom: 5%;
+        font-weight: 600;
+        font-size: 21px;
+      }
+      .loadmin__input{
+        grid-area: min;
+        margin-bottom: 6%;
+      }
+      .loadmax__input{
+        grid-area: max;
+        margin-bottom: 6%;
+      }
+      .load__slider{
+        grid-area: slider;
+        .noUi-base{
+          .noUi-connects{
+            .noUi-connect{
+              background: #15616D;
+              height: 30px;
+            }
+          }
+        }
+      }
+    }
+    .reset__form{
+      width: 120%;
+      button{
+        width: 90px;
+        height: 30px;
+        margin-right: 4%;
+        margin-bottom: 5%;
+        font-weight: 600;
+        font-size: 14px;
+        color: #FFFFFF;
+        background: #15616D;
+        cursor: pointer;
+      }
+    }
+  }
 }
