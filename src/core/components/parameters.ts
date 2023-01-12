@@ -9,6 +9,11 @@ export function saveParameters() {
   localStorage.setItem('parameters', parameters.toString());
 }
 
+export function saveParametersBeforeProductPage() {
+  localStorage.setItem('parameters2', parameters.toString());
+}
+
+
 export function loadParameters() {
   const tempPar = localStorage.getItem('parameters') as string;
   if (tempPar) {
@@ -17,6 +22,15 @@ export function loadParameters() {
   }
 }
 
+export function loadParametersAfterPP() {
+  const tempPar = localStorage.getItem('parameters2') as string;
+  setTimeout(() => {
+    if (tempPar) {
+      const tempParams = new URLSearchParams(tempPar);
+      parameters = tempParams;
+    }
+  }, 100);
+}
 
 export const parametersObj = (clear?: string) => {
 
@@ -82,6 +96,8 @@ export const parametersObj = (clear?: string) => {
 
   } else if (INITIAL_STATE.short.includes(clear)) {
 
+    saveParametersBeforeProductPage();
+
     const productsArr = Array.from(productsJSON);
     const product = productsArr.filter(x => x.short === clear);
 
@@ -107,9 +123,11 @@ export const parametersObj = (clear?: string) => {
     material = product[0].material.split('');
     sort = INITIAL_STATE.sort;
     short = [product[0].short];
+    
+    loadParametersAfterPP();
 
-    saveParameters();
-    loadParameters();
+    // saveParameters();
+    // loadParameters();
     // window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
 
     // window.location.hash = `${short}`;

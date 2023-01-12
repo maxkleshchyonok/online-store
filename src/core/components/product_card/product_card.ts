@@ -1,13 +1,9 @@
 import Product from '../product/product';
 import './product_card.scss';
-import { parametersObj, saveParameters } from '../parameters';
+import { parametersObj } from '../parameters';
 import Page from '../../templates/page';
 import ProductPage from '../../../pages/product-page';
-// import page from '../../templates/page';
 import App from '../../../pages/app';
-// import { parameters, parametersObj, saveParameters, loadParameters } from '../parameters';
-// import { parameters } from '../parameters';
-// import App from '../../../pages/app';
 
 const createProductCard: (product: Product, container: HTMLElement, i?: number) => void = (product, container) => {
 
@@ -53,14 +49,12 @@ const createProductCard: (product: Product, container: HTMLElement, i?: number) 
   nameTitle.innerText = product.name;
   image.addEventListener('click', () => {
     parametersObj(product.short);
-    saveParameters();
+    // saveParameters();
     page = new ProductPage('product-page');
     if (page) {
       window.location.hash = `product-page/${product.id}`;
       const pageHTML = page.render();
       pageHTML.id = App.defaultPageId;
-      // this.previousPage = window.location.hash.slice(1);
-      App.container?.append(pageHTML);
     }
   });
   name.append(nameTitle);
@@ -110,7 +104,11 @@ const createProductCard: (product: Product, container: HTMLElement, i?: number) 
   buttonSplit.src = '../../../assets/img/elements/button-split.svg';
   const buttonPrice = document.createElement('h3');
   buttonPrice.innerText = `${product.price} zł.`;
-
+  
+  if (localStorage.getItem(`${product.short}`)) {
+    buyButton.innerText = 'W koszyku';
+    buttonPrice.innerText = '';
+  }
   
   buyButton.addEventListener('click', () => {
     buyButton.innerText = 'W koszyku';

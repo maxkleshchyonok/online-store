@@ -112,7 +112,6 @@ class Header extends Component {
     sales.className = 'wyprzedaz';
 
     searchInput.type = 'text';
-    console.log(parameters.toString());
     if (parameters.get('search'))
       searchInput.value = parameters.get('search') as string;
     else
@@ -144,7 +143,6 @@ class Header extends Component {
         arr.push(productsJSON[i]);
       }
     }
-    console.log(arr);
     for (let i = 0; i < arr.length; i += 1) {
       const amountOfItems = localStorage.getItem(arr[i].short) as string;
       if (typeof this.priceNum !== 'undefined') {

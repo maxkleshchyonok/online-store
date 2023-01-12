@@ -137,7 +137,7 @@ export default class Filters extends Component implements IFilters {
   private priceFilters() {
     const priceBlock = document.createElement('form') as HTMLFormElement;
     const priceLegend = document.createElement('legend');
-    this.createSliderBlock(priceBlock, priceLegend, 'price', 'Cena, netto', 150);
+    this.createSliderBlock(priceBlock, priceLegend, 'price', 'Cena, netto', 500);
   }
 
   private widthFilters() {
@@ -155,7 +155,7 @@ export default class Filters extends Component implements IFilters {
   private loadFilters() {
     const loadBlock = document.createElement('form') as HTMLFormElement;
     const loadLegend = document.createElement('legend');
-    this.createSliderBlock(loadBlock, loadLegend, 'load', 'Udźwig', 2000);
+    this.createSliderBlock(loadBlock, loadLegend, 'load', 'Udźwig', 5000);
   }
 
 
