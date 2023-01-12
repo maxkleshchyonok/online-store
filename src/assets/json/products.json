@@ -248,8 +248,8 @@
     "width": 600,
     "height": 120,
     "load": 250,
-    "image1": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6Wd5qH5ZF_Fbu9Elel8eNiwJkvHWIigCwKrbKXk6kqy9uX02FDStlGeTJQ-IKhZjoFD8&usqp=CAU",
-    "image2": "https://www.abccrates.com.au/wp-content/uploads/2021/03/colorful-wooden-pallets.jpg",
+    "image1": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXVvRSkXzEOGf5vrFD6zO5j4ebKeyQ5WrNUSdf4uniXL7lsblmL2BBbWMplbNBHIFabZs&usqp=CAU",
+    "image2": "https://imengine.prod.srp.navigacloud.com/?uuid=94e43d6b-c97c-58e2-bc5c-8bffeba66110&type=primary&q=72&width=1024",
     "info": "Popularna paleta wystawowa 800x600, wykonana z drewna poddanego obróbce IPPC. Idelane rozwiązanie do ekspozycji towarów w marketach.",
     "price": 15,
     "quantity": 1000
@@ -337,6 +337,23 @@
     "image2": "https://www.provost-racking.com/18002-product_default/extender-for-wooden-pallets.jpg",
     "info": "Skrzynia z płyt OSB 1200x800x1000mm zamykana za pomocą metalowych klamr. Certyfikat IPPC.",
     "price": 400,
+    "quantity": 5
+  },
+  {
+    "id": 19,
+    "short": "nadstawka_3",
+    "name": "Skrzynia z zabudową 1200*800 OSB używana",
+    "category": "nadstawki",
+    "condition": "used",
+    "material": "drewno",
+    "length": 1200,
+    "width": 800,
+    "height": 1000,
+    "load": 5000,
+    "image1": "http://associated-pallets.co.uk/wp-content/uploads/2021/05/wooden-pallet-collars-portsmouth.jpg",
+    "image2": "https://www.provost-racking.com/18002-product_default/extender-for-wooden-pallets.jpg",
+    "info": "Skrzynia z płyt OSB 1200x800x1000mm zamykana za pomocą metalowych klamr. Certyfikat IPPC.",
+    "price": 300,
     "quantity": 5
   }
 ]
