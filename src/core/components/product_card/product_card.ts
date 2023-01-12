@@ -110,7 +110,11 @@ const createProductCard: (product: Product, container: HTMLElement, i?: number) 
   buttonSplit.src = '../../../assets/img/elements/button-split.svg';
   const buttonPrice = document.createElement('h3');
   buttonPrice.innerText = `${product.price} zł.`;
-
+  
+  if (localStorage.getItem(`${product.short}`)) {
+    buyButton.innerText = 'W koszyku';
+    buttonPrice.innerText = '';
+  }
   
   buyButton.addEventListener('click', () => {
     buyButton.innerText = 'W koszyku';

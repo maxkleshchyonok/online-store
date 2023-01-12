@@ -95,7 +95,6 @@ class CatalogPage extends Page {
 
     window.addEventListener('hashchange', () => {
       const sum = document.querySelectorAll('.product__card');
-      console.log(sum);
       if (sum) {
         catalogAmountNumber.innerText = !(sum[0])
           ? 'Teraz nie mamy dokładnie tego, czego szukasz.' : `${sum.length} towarów`;

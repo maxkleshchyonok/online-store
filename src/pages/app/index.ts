@@ -5,7 +5,7 @@ import CartPage from '../cart';
 import Header from '../../core/components/header';
 import ProductPage from '../product-page';
 // import Footer from '../../core/components/footer';
-import { loadParameters, parametersObj } from '../../core/components/parameters';
+import { loadParameters, parametersObj, saveParameters } from '../../core/components/parameters';
 // import createProductCard from '../../core/components/product_card/product_card';
 import productsJSON from '../../assets/json/products.json';
 import Product from '../../core/components/product/product';
@@ -14,7 +14,7 @@ import ErrorPage from '../error/error';
 const products: Product[] = productsJSON;
 const productsId: string[] = [];
 products.forEach((product) => {
-  productsId.push(`/product-page/${product.id}`);
+  productsId.push(`product-page/${product.id}`);
 });
 
 export const PageIds: { [props: string]: string | string[] } = {
@@ -28,7 +28,7 @@ export const PageIds: { [props: string]: string | string[] } = {
 class App {
   static container: HTMLElement | null = document.getElementById('content');
 
-  static defaultPageId = 'some-page';
+  static defaultPageId = 'catalog-page';
 
   private initialPage: MainPage;
 
@@ -36,7 +36,6 @@ class App {
 
   // private footer: Footer;
 
-  // previousPage: string[] = [];
   previousPage = '';
 
   public renderNewPage(idPage: string) {
@@ -45,7 +44,6 @@ class App {
       currentPageHTML.remove();
     }
     let page: Page | null = null;
-    console.log('idpge ' + idPage);
     if (idPage === PageIds.MainPageId) {
       page = new MainPage(idPage);
     } else if (idPage === PageIds.CatalogPageId) {
@@ -53,14 +51,18 @@ class App {
     } else if (idPage === PageIds.CartPageId) {
       page = new CartPage(idPage);
     } else if (PageIds.ProductPageId.includes(idPage)) {
-      console.log(idPage);
       const id = Number(idPage.replace(/[\D]+/g, ''));
       const product = products.find((el) => el.id === id);
       console.log(product);
       if (product !== undefined) {
+        parametersObj(product.short);
+        saveParameters();
         page = new ProductPage(idPage);
+      } else {
+        page = new ErrorPage(idPage, '404');
       }
     } else {
+      console.log(idPage);
       page = new ErrorPage(idPage, '404');
     }
 
@@ -76,12 +78,10 @@ class App {
     const loadPage = () => {
       const hash = window.location.hash.slice(1);
       loadParameters();
-      console.log('obj ', parametersObj() );
       if (!hash) {
-        window.location.hash = 'main-page';
+        // window.location.hash = 'main-page';
       }
       if (!hash.includes('?')) {
-        console.log('hash is ' + hash);
         this.renderNewPage(hash);
       // } else {
       //   window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
@@ -91,7 +91,6 @@ class App {
         if (this.previousPage.slice(0, hash.indexOf('?')) === hash.slice(0, hash.indexOf('?'))) {
           console.log('It s fine!');
         } else {
-          console.log(`${hash.slice(0, hash.indexOf('?'))}`);
           this.renderNewPage(`${hash.slice(0, hash.indexOf('?'))}`);
         }
       }
@@ -100,13 +99,13 @@ class App {
     window.addEventListener('hashchange', () => {
       if (window.location.hash.includes('?') && !this.previousPage[this.previousPage.length - 1].includes('catalog')) {
         this.renderNewPage('catalog-page');
-        console.log('hshchange cata');
       } else {
         loadPage();
-        console.log('hshchange');
       }
     });
-    window.addEventListener('load', loadPage);
+    window.addEventListener('load', () => {
+      loadPage();
+    });
   }
 
 
