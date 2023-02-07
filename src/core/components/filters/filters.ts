@@ -28,14 +28,14 @@ export default class Filters extends Component implements IFilters {
     this.price = INITIAL_STATE.price;
   }
 
-  
-  createFilterBlock(nameBlock: HTMLFormElement, name: string, container: HTMLElement) {
+
+  createFilterBlock(nameBlock: HTMLFormElement, name: string, container: HTMLElement): void {
     nameBlock.classList.add(`${name}__form`);
     nameBlock.setAttribute('name', `${name}__form`);
     container.append(nameBlock);
   }
 
-  createLegend(legend: HTMLElement, container: HTMLFormElement, innerText?: string) {
+  createLegend(legend: HTMLElement, container: HTMLFormElement, innerText?: string): void {
     legend.classList.add(`${container.name}__legend`);
     if (innerText)
       legend.innerText = innerText;
@@ -43,12 +43,11 @@ export default class Filters extends Component implements IFilters {
   }
 
   createCheckbox(checkbox: HTMLInputElement, name: string, container: HTMLFormElement): void {
-    checkbox.classList.add(`${name}_checkbox`);
-    checkbox.classList.add('checkbox');
+    checkbox.classList.add(`${name}_checkbox`, 'checkbox');
     checkbox.setAttribute('type', 'checkbox');
-    checkbox.setAttribute('id', `${name}`);
-    checkbox.setAttribute('value', `${name}`);
-    checkbox.setAttribute('name', `${name}`);
+    checkbox.setAttribute('id', name);
+    checkbox.setAttribute('value', name);
+    checkbox.setAttribute('name', name);
     container.append(checkbox);
   }
 
@@ -58,15 +57,14 @@ export default class Filters extends Component implements IFilters {
     container.append(label);
   }
 
-  createInputMin(input: HTMLInputElement, name: string, container: HTMLFormElement) {
-    input.classList.add(`${name}__input`);
-    input.classList.add('filter__input');
+  createInputMin(input: HTMLInputElement, name: string, container: HTMLFormElement): void {
+    input.classList.add(`${name}__input`, 'filter__input');
     input.setAttribute('type', 'text');
     container.append(input);
   }
 
   createSliderBlock(nameBlock: HTMLFormElement, nameLegend: HTMLLegendElement,
-    name: string, legendName: string, sliderMax: number) {
+    name: string, legendName: string, sliderMax: number): void {
     this.createFilterBlock(nameBlock, name, this.container);
     this.createLegend(nameLegend, nameBlock, legendName);
 
@@ -76,9 +74,8 @@ export default class Filters extends Component implements IFilters {
     minInput.classList.add('filter__input');
 
     const maxInput = document.createElement('input');
-    maxInput.classList.add(`${name}max__input`);
+    maxInput.classList.add(`${name}max__input`, 'filter__input');
     maxInput.setAttribute('type', 'text');
-    maxInput.classList.add('filter__input');
 
     const inputs = [minInput, maxInput];
 
@@ -89,11 +86,11 @@ export default class Filters extends Component implements IFilters {
     let min = 0;
     let max = sliderMax;
 
-    if (parameters.get(`${name}`)) {
-      const dashIndex: number = parameters.get(`${name}`)?.indexOf('-') as number;
+    if (parameters.get(name)) {
+      const dashIndex: number = parameters.get(name)?.indexOf('-') as number;
       if (dashIndex) {
-        min = Number(parameters.get(`${name}`)?.slice(0, dashIndex));
-        max = Number(parameters.get(`${name}`)?.slice(dashIndex + 1));
+        min = Number(parameters.get(name)?.slice(0, dashIndex));
+        max = Number(parameters.get(name)?.slice(dashIndex + 1));
       }
     }
 
@@ -107,7 +104,7 @@ export default class Filters extends Component implements IFilters {
     });
 
     inputs.forEach((input, handle) => {
-      input.addEventListener('change', () => {
+      input.addEventListener('change', (): void => {
         slider.noUiSlider?.setHandle(handle, input.value);
       });
     });
@@ -116,13 +113,13 @@ export default class Filters extends Component implements IFilters {
       slider.noUiSlider.on('update', function (values, handle) {
         inputs[handle].value = values[handle].toString();
         const sliderValues = slider.noUiSlider?.get() as string[];
-        parameters.set(`${name}`, `${sliderValues[0]}-${sliderValues[1]}`);
+        parameters.set(name, `${sliderValues[0]}-${sliderValues[1]}`);
         window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
         parametersObj();
         saveParameters();
       });
     }
-  
+
     nameBlock.append(nameLegend, minInput, maxInput, slider);
     this.container.append(nameBlock);
   }
@@ -134,25 +131,25 @@ export default class Filters extends Component implements IFilters {
   }
 
 
-  private priceFilters() {
+  private priceFilters(): void {
     const priceBlock = document.createElement('form') as HTMLFormElement;
     const priceLegend = document.createElement('legend');
     this.createSliderBlock(priceBlock, priceLegend, 'price', 'Cena, netto', 500);
   }
 
-  private widthFilters() {
+  private widthFilters(): void {
     const widthBlock = document.createElement('form') as HTMLFormElement;
     const widthLegend = document.createElement('legend');
     this.createSliderBlock(widthBlock, widthLegend, 'width', 'Szerokość, mm', 2000);
   }
 
-  private heightFilters() {
+  private heightFilters(): void {
     const heightBlock = document.createElement('form') as HTMLFormElement;
     const heightLegend = document.createElement('legend');
     this.createSliderBlock(heightBlock, heightLegend, 'height', 'Wysokość, mm', 1200);
   }
 
-  private loadFilters() {
+  private loadFilters(): void {
     const loadBlock = document.createElement('form') as HTMLFormElement;
     const loadLegend = document.createElement('legend');
     this.createSliderBlock(loadBlock, loadLegend, 'load', 'Udźwig', 5000);
@@ -213,11 +210,11 @@ export default class Filters extends Component implements IFilters {
       stockCheckFalse.checked = true;
     }
 
-    stockCheckTrue.addEventListener('change', () => {
+    stockCheckTrue.addEventListener('change', (): void => {
       checkTrue();
     });
 
-    stockCheckFalse.addEventListener('change', () => {
+    stockCheckFalse.addEventListener('change', (): void => {
       checkFalse();
     });
   }
@@ -237,19 +234,18 @@ export default class Filters extends Component implements IFilters {
       const categoryName = (categoriesJSON[i].short);
 
       const categoryCheck = document.createElement('input') as HTMLInputElement;
-      categoryCheck.classList.add('checkbox');
-      categoryCheck.classList.add('category__checkbox');
+      categoryCheck.classList.add('checkbox', 'category__checkbox');
       categoryCheck.setAttribute('type', 'checkbox');
-      categoryCheck.setAttribute('id', `${categoryName}`);
-      categoryCheck.setAttribute('value', `${categoryName}`);
-      categoryCheck.setAttribute('name', `${categoryName}`);
+      categoryCheck.setAttribute('id', categoryName);
+      categoryCheck.setAttribute('value', categoryName);
+      categoryCheck.setAttribute('name', categoryName);
 
       if (parametersObj().category.find(x => x === categoryCheck.value))
         categoryCheck.checked = true;
 
       const labelCategoryCheck = document.createElement('label');
-      labelCategoryCheck.setAttribute('for', `${categoryName}`);
-      labelCategoryCheck.textContent = `${categoriesJSON[i].name}`;
+      labelCategoryCheck.setAttribute('for', categoryName);
+      labelCategoryCheck.textContent = categoriesJSON[i].name;
 
       categoriesBlock.append(categoryCheck, labelCategoryCheck);
       this.container.append(categoriesBlock);
@@ -269,7 +265,7 @@ export default class Filters extends Component implements IFilters {
                 a.push(this.categoryCheckboxes[i].value);
             }
           this.category = a;
-          parameters.set('category', `${this.category.join(',')}`);
+          parameters.set('category', this.category.join(','));
           window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
           parametersObj();
           saveParameters();
@@ -374,7 +370,7 @@ export default class Filters extends Component implements IFilters {
               if (materialCheckboxes[i].checked)
                 a.push(materialCheckboxes[i].value);
             }
-          parameters.set('material', `${a.join(',')}`);
+          parameters.set('material', a.join(','));
           window.location.hash = parameters ? `catalog-page?${parameters.toString()}` : 'catalog-page';
           parametersObj();
           saveParameters();
@@ -391,8 +387,7 @@ export default class Filters extends Component implements IFilters {
     const resetButton = document.createElement('button');
     resetButton.setAttribute('type', 'reset');
     resetButton.setAttribute('name', 'resetButton');
-    resetButton.classList.add('reset__form__button');
-    resetButton.classList.add('button');
+    resetButton.classList.add('reset__form__button', 'button');
     resetButton.innerText = 'Reset';
 
     resetButton.addEventListener('click', () => {
@@ -404,8 +399,7 @@ export default class Filters extends Component implements IFilters {
     const copyButton = document.createElement('button');
     copyButton.setAttribute('type', 'button');
     copyButton.setAttribute('name', 'copyButton');
-    copyButton.classList.add('reset__form__button');
-    copyButton.classList.add('button');
+    copyButton.classList.add('reset__form__button', 'button');
     copyButton.innerText = 'Skopiuj';
     copyButton.addEventListener('click', () => {
       navigator.clipboard.writeText(document.location.href).then(() => {
@@ -433,7 +427,7 @@ export default class Filters extends Component implements IFilters {
     parametersObj();
     saveParameters();
     loadParameters();
-  
+
     return this.container;
   }
 }

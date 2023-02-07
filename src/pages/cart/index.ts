@@ -50,7 +50,7 @@ class CartPage extends Page {
     const price = document.createElement('h3');
     for (let i = 0; i < arr.length; i += 1) {
       const orderCard = document.createElement('div');
-      orderCard.className = `${arr[i].short}`;
+      orderCard.className = arr[i].short;
       const image = document.createElement('img');
 
       const info = document.createElement('div');

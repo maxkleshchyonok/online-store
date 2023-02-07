@@ -48,7 +48,7 @@ export const parametersObj = (clear?: string) => {
 
 
   const setSlider = (name: string) => {
-    const sliderStr = parameters.getAll(`${name}`).join('-').split('-');
+    const sliderStr = parameters.getAll(name).join('-').split('-');
     const slider = [parseInt(sliderStr[0]), parseInt(sliderStr[1])];
     return slider;
   };
@@ -102,7 +102,7 @@ export const parametersObj = (clear?: string) => {
     const product = productsArr.filter(x => x.short === clear);
 
     parameters.set('category', product[0].category);
-    parameters.set('price', `${product[0].price.toString()}-${product[0].price.toString()}`);
+    parameters.set('price', `${product[0].price}-${product[0].price}`);
     parameters.set('quantity', '0-100000');
     parameters.set('condition', product[0].condition);
     parameters.set('material', product[0].material);
@@ -123,7 +123,7 @@ export const parametersObj = (clear?: string) => {
     material = product[0].material.split('');
     sort = INITIAL_STATE.sort;
     short = [product[0].short];
-    
+
     loadParametersAfterPP();
 
     // saveParameters();

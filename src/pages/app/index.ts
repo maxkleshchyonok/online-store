@@ -54,7 +54,7 @@ class App {
     } else if (PageIds.ProductPageId.includes(idPage)) {
       const id = Number(idPage.replace(/[\D]+/g, ''));
       const product = products.find((el) => el.id === id);
-      if (product !== undefined) {
+      if (product) {
         parametersObj(product.short);
         // saveParameters();
         page = new ProductPage(idPage);
@@ -94,7 +94,7 @@ class App {
     window.addEventListener('hashchange', () => {
       if (window.location.hash.includes('?') && !this.previousPage[this.previousPage.length - 1].includes('catalog')) {
         this.renderNewPage('catalog-page');
-      } else 
+      } else
         loadPage();
     });
     window.addEventListener('load', () => {

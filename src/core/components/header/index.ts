@@ -1,5 +1,5 @@
 import Component from '../../templates/components';
-// import { PageIds } from '../../../pages/app';
+import { HeaderInfo, ImagesEnum } from '../consts/consts';
 import Product from '../product/product';
 import productsJSON from '../../../assets/json/products.json';
 import { parameters, parametersObj, saveParameters } from '../parameters';
@@ -20,28 +20,7 @@ const Buttons = [
   },
 ];
 
-const HeaderInfo = [
-  {
-    id: 'location',
-    text: 'MAZOWIECKIE',
-    img: '../../assets/img/elements/location.svg',
-  },
-  {
-    id: 'email',
-    text: 'info@palletport.pl',
-    img: '../../assets/img/elements/mail.svg',
-  },
-  {
-    id: 'phone',
-    text: '+48666666666',
-    img: '../../assets/img/elements/phone.svg',
-  },
-  {
-    id: 'konto',
-    text: 'Twoje konto',
-    img: '../../assets/img/elements/konto-arrow.svg',
-  },
-];
+
 
 class Header extends Component {
 
@@ -102,7 +81,7 @@ class Header extends Component {
 
     catalogBlock.href = `#${Buttons[1].id}`;
     catalogBlock.className = 'catalog-block';
-    catalogImg.src = '../../assets/img/elements/catalog.svg';
+    catalogImg.src = ImagesEnum.catalodSVG;
     catalogText.innerText = Buttons[1].text;
     catalogText.className = 'catalog-block-text';
     catalogBlock.append(catalogImg, catalogText);
@@ -131,7 +110,7 @@ class Header extends Component {
       this.searchFilter(searchInput.value);
     });
 
-    likeImg.src = '../../assets/img/elements/like.svg';
+    likeImg.src = ImagesEnum.likeSVG;
     likeImg.className = 'like-image';
     likeBlock.append(likeImg);
     likeBlock.className = 'like-block';
@@ -150,7 +129,7 @@ class Header extends Component {
       }
     }
     // cartBlock.innerText = Buttons[2].text;
-    cartImg.src = '../../assets/img/elements/cart.svg';
+    cartImg.src = ImagesEnum.cartSVG;
     cartPrice.innerText = `${this.priceNum} zl (${arr.length})`;
     cartPrice.className = 'cart-price';
     cartBlock.href = `#${Buttons[2].id}`;

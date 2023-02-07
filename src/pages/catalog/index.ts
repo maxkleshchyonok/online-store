@@ -305,17 +305,17 @@ class CatalogPage extends Page {
   searchFilter(arr: Product[]) {
     let temp = [];
     const searchString = parameters.get('search') as string;
-    temp = arr.filter(el => el.info.toLowerCase().match(searchString.toLowerCase())
-      || el.name.toLowerCase().match(searchString.toLowerCase())
-      || el.material.toLowerCase().match(searchString.toLowerCase())
-      || el.category.toLowerCase().match(searchString.toLowerCase())
-      || el.condition.toLowerCase().match(searchString.toLowerCase())
-      || el.price.toString().toLowerCase().match(searchString.toLowerCase())
-      || el.load.toString().toLowerCase().match(searchString.toLowerCase())
-      || el.quantity.toString().toLowerCase().match(searchString.toLowerCase())
-      || el.width.toString().toLowerCase().match(searchString.toLowerCase())
-      || el.height.toString().toLowerCase().match(searchString.toLowerCase())
-      || el.length.toString().toLowerCase().match(searchString.toLowerCase()));
+
+    temp = arr.filter(el => [el.info, el.name,
+      el.material, el.category, el.condition,
+      el.price, el.load, el.quantity,
+      el.width, el.height, el.length].find((field) => {
+      if (typeof field === 'string') {
+        field.toLowerCase().match(searchString.toLowerCase());
+      } else {
+        field.toString().toLowerCase().match(searchString.toLowerCase());
+      }
+    }));
     return temp;
   }
 

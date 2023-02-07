@@ -64,10 +64,7 @@ const createProductCard: (product: Product, container: HTMLElement, i?: number) 
   const widthTitle = document.createElement('h3');
   const loadTitle = document.createElement('h3');
   const quantityTitle = document.createElement('h3');
-  lengthTitle.className = 'title';
-  widthTitle.className = 'title';
-  loadTitle.className = 'title';
-  quantityTitle.className = 'title';
+  [lengthTitle, widthTitle, loadTitle, quantityTitle].forEach((title) => title.className = 'title');
   lengthTitle.innerText = 'Długość';
   widthTitle.innerText = 'Szerokość';
   loadTitle.innerText = 'Udźwig';
@@ -77,10 +74,7 @@ const createProductCard: (product: Product, container: HTMLElement, i?: number) 
   const widthNum = document.createElement('h3');
   const loadNum = document.createElement('h3');
   const quantityNum = document.createElement('h3');
-  lengthNum.className = 'numberOf';
-  widthNum.className = 'numberOf';
-  loadNum.className = 'numberOf';
-  quantityNum.className = 'numberOf';
+  [lengthNum, widthNum, loadNum, quantityNum].forEach((el) => el.className = 'numberOf');
   lengthNum.innerText = `${product.length} mm`;
   widthNum.innerText = `${product.width} mm`;
   loadNum.innerText = `${product.load} kg`;
@@ -104,12 +98,12 @@ const createProductCard: (product: Product, container: HTMLElement, i?: number) 
   buttonSplit.src = '../../../assets/img/elements/button-split.svg';
   const buttonPrice = document.createElement('h3');
   buttonPrice.innerText = `${product.price} zł.`;
-  
+
   if (localStorage.getItem(`${product.short}`)) {
     buyButton.innerText = 'W koszyku';
     buttonPrice.innerText = '';
   }
-  
+
   buyButton.addEventListener('click', () => {
     buyButton.innerText = 'W koszyku';
     localStorage.setItem(`${product.short}`, '1');
